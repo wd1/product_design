@@ -1,0 +1,233 @@
+        <ol class="breadcrumb" breadcrumb>
+            <ncy-breadcrumb></ncy-breadcrumb>
+
+            <!-- Breadcrumb Menu-->
+            <li class="breadcrumb-menu">
+                <div class="btn-group padding-custom" role="group" aria-label="Button group with nested dropdown">
+                    <div id="export-button" class="upload-button">Export Image</div>
+                    <div id="upload-button" class="upload-button" style="margin-left: 20px;">Upload Image</div>
+                    <input class="file-upload" type="file" accept="image/*"/>
+                </div>
+            </li>
+
+        </ol>
+<div class="animated fadeIn">
+    <div class="card-footer" ng-controller="trafficDemoCtrl">
+        <div class="card-block">
+            <div class="row" style="height:500px;">
+                <div class="mockup-image">
+                    <!--<img class="profile-pic" src="img/SUM.png"/>-->
+                    <canvas style="" width="1200" height="700" id="c" ></canvas>
+                    <!--<img id="mask-pic" style="display: block;
+                    margin-top:-300px;
+                    -webkit-mask-image: url(img/300Mask.png);
+                    mask-image: url(img/300Mask.png);
+                    -webkit-mask-position: center center;
+                    mask-position: center center;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    background-blend-mode: color-dodge;
+                    opacity: 1;
+                    mix-blend-mode: multiply;" class="profile-pic" src="http://tympanus.net/codrops-playground/assets/images/cssref/properties/mask-image/field.jpg" alt="">-->
+                </div>
+                <!--<div id="apDiv1" style="height:500px;width:85%;">
+                    <svg width="100%" height="100%" opacity="0.6">
+                        <g id="pos_panel" transform="translate(0,0)">
+                            <g id="image_panel" transform="translate(0,0)">
+                                <rect id="border_lefttop" x="0" y="0" width="5" height="5" fill="black"/>
+                                <rect id="border_righttop" x="10" y="0" width="5" height="5" fill="black"/>
+                                <rect id="border_rightbottom" x="10" y="10" width="5" height="5" fill="black"/>
+                                <rect id="border_leftbottom" x="0" y="10" width="5" height="5" fill="black"/>
+                                <circle id="rotate" cx="0" cy="0" r="5" fill-opacity="0" stroke="black"/>
+                                <image id="pattern-pic1" transform="translate(0,0)" x="5" y="5" width="100" class="image"  xlink:href=""  style="user-drag:none;user-select:none;-moz-user-select:none;-webkit-user-drag:none;-webkit-user-select:none;-ms-user-select:none;"/>
+                            </g> 
+                        </g>
+                    </svg>  
+                </div>-->
+                <!--/.col-->
+            </div>
+        </div>
+        <div class="card-footer">
+    
+        </div>
+        <!--<canvas id="canvas1" width=300 height=300></canvas><br>-->
+    </div>
+    <!--/.card-->
+    <script>
+      
+var mockup_img_width, mockup_img_height;
+var pattern_img_width, pattern_img_height;
+var canvas = new fabric.Canvas('c');
+f = fabric.Image.filters;
+var mockup_img, pattern_img, set_flag = true;
+fabric.Image.fromURL('img/SUM.png', function(img) {
+    console.log(img);
+    mockup_img_width = img.width * 0.2;
+    mockup_img_height = img.height * 0.2;
+    mockup_img = img.set({ left: 0, top: 0, angle: 0, selectable: false })
+    canvas.add(mockup_img);
+    canvas.item(0).scale(0.2);
+    canvas.renderAll();
+});
+
+canvas.on('mouse:down', function(e) { 
+    // e.target should be the circle
+    if((e.target == null) && (pattern_img) && (set_flag)) {
+        fabric.Image.fromURL('img/SUM.png', function(img) {
+            pattern_img_width = pattern_img.oCoords.tr.x - pattern_img.oCoords.bl.x;
+            pattern_img_height = pattern_img.oCoords.bl.y - pattern_img.oCoords.tr.y;
+            var left_diff = pattern_img.left - mockup_img.left;
+            var top_diff = pattern_img.top - mockup_img.top;
+            var sX = mockup_img_width / pattern_img_width;
+            var sY = mockup_img_height / pattern_img_height;
+            mockup_img1 = img.set({ left: -left_diff/0.2, top: -top_diff/0.2, angle: 0, style:'opacity: 1;', scaleX: sX, scaleY: sY, selectable: true });
+            applyFilter(20, new f.BlendImage({
+                    image: mockup_img1
+                }), pattern_img);
+            //var angle = pattern_img.angle;
+           // var width = mockup_img.getElement().width * 0.2;
+            //var height = mockup_img.getElement().height * 0.2;
+            /*var canvas1=document.getElementById("canvas1");
+            var ctx=canvas1.getContext("2d");
+
+            var angleInDegrees=0;
+
+            var image=document.createElement("img");
+            image.onload=function(){
+                console.log(canvas1.width);
+                ctx.clearRect(0,0,canvas1.width,canvas1.height);
+                ctx.save();
+                // ctx.translate(canvas1.width/2,canvas1.height/2);
+                ctx.rotate(angle*Math.PI/180);
+                ctx.drawImage(image,0,0, 300, 300);
+                ctx.restore();
+            }
+            image.src = mockup_img1.getElement().src;
+
+            console.log(image.src);*/
+
+
+            /*var x = width / 2;
+            var y = height / 2;
+            console.log(width);
+            
+            ctx.translate(x,y);
+            console.log(angle);
+            var rad = Math.PI / 180 * angle;
+            ctx.rotate(rad);
+            console.log(rad +"," +x+","+y+","+width+","+height);
+            ctx.drawImage(mockup_img.getElement(), -width /2, -height/2, width, height);
+            ctx.translate(-x, -y);
+            ctx.rotate(-rad);*/
+            //$('body').append(c);
+            /*fabric.Image.fromURL(c.toDataURL(), function(img) {
+                console.log(mockup_img_width+","+mockup_img_height);
+                
+                mockup_img_width = img.width;
+                mockup_img_height = img.height;
+                console.log(mockup_img_width+","+mockup_img_height);
+                
+                // mockup_img1 = img.set({ left: 0, top: 0, angle: 0, style:'opacity: 1;', scaleX: sX, scaleY: sY, selectable: true });
+                
+            });*/
+            
+            // pattern_img.selectable = false;
+            // set_flag = false;
+        });
+    }
+    
+});
+canvas.on('object:scaling', function(){
+    var obj = canvas.getActiveObject();
+});
+var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var file, img;
+            var _URL = window.URL || window.webkitURL;
+            if ((file = input.files[0])) {
+                fabric.Image.fromURL(_URL.createObjectURL(file), function(img) {
+                    canvas.remove(pattern_img);
+                    pattern_img_width = img.width;
+                    pattern_img_height = img.height;
+                    pattern_img = img.set({ left: 0, top: 0, angle: 0, opacity:0.7 })
+                    // pattern_img.clipTo = function (ctx) {
+                    //     ctx.rect(-150, -100, 300, 300);
+                    // };
+                     // pattern_img.left = 200;
+                    // pattern_img.top = 50;
+                    // pattern_img.height = 100;
+                    canvas.add(pattern_img);
+                    
+                    // fabric.Image.fromURL('img/SUM.png', function(img) {
+                    //     console.log(sX);
+                    //     console.log(sY);
+                    //     mockup_img1 = img.set({ left: 0, top: 0, angle: 0, style:'opacity: 1;', scaleX: sX, scaleY: sY, selectable: true });
+                        
+                    //     applyFilter(20, new f.BlendImage({
+                    //         image: mockup_img1
+                    //     }), pattern_img);
+                        
+                    // });
+                    
+                });
+                // img = new Image();
+                // img.onload = function () {
+                //     var img_width = this.width;
+                //     var img_height = this.height;
+                //     var reader = new FileReader();
+                //     reader.onload = function (e) {
+                //         document.getElementsByClassName('profile-pic')[0].src = e.target.result;
+                //         imgInstance = new fabric.Image(document.getElementsByClassName('profile-pic')[0], {
+                //                             left: 100,
+                //                             top: 100,
+                //                             angle: 0,
+                //                             opacity: 1
+                //                             });
+                //         canvas.add(imgInstance);
+                //         canvas.remove(imgInstance);
+                        
+                //     }
+                //     reader.readAsDataURL(input.files[0]);
+                // };
+                // img.src = _URL.createObjectURL(file);
+            }
+        }
+    }
+
+    $(".file-upload").on('change', function(){
+        
+        readURL(this);
+    });
+    
+    $("#upload-button").on('click', function() {
+    $(".file-upload").click();
+    });
+    $("#export-button").on('click', function() {
+
+        var dt = canvas.toDataURL('image/jpeg');
+        this.href = dt;
+
+    });
+    var imageElement = document.createElement('img');
+    imageElement.src = 'img/300Mask.png';
+    var fImage = new fabric.Image(imageElement);
+    fImage.scaleX = 1;
+    fImage.scaleY = 1;
+    fImage.top = 15;
+    fImage.left = 15;
+    
+    function applyFilter(index, filter, obj) {  
+        obj.filters.push(filter);
+        obj.applyFilters();
+        canvas.renderAll();
+    }
+    function applyFilterValue(index, prop, value, obj) {
+        if (obj.filters[index]) {
+            obj.filters[index][prop] = value;
+            obj.applyFilters();
+            canvas.renderAll();
+        }
+    }
+</script>
+
+</div>

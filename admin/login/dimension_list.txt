@@ -1,0 +1,7 @@
+name:Tapestry(H) width:5904 height:5040 x:54 y:135
+name:Pillow width:4000 height:4000 x:210 y:210
+name:Outdoor Pillow width:5000 height:5000 x:204 y:207
+name:OutdoorPillow width:5000 height:5000 x:204 y:207
+name:CoolPillow width:5000 height:5000 x:205 y:205
+name:Cmonman width:4000 height:4000 x:272 y:263
+name:ShowerCurtain width:5184 height:5472 x:213 y:117
