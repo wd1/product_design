@@ -366,8 +366,11 @@
                                             
                                             <a  id="question_mark" data-toggle="tooltip" title="Apparel Image pointer." class="icon-question" style="color:black;"></a>
                                         </div>
+                                        
                                         <div id="width_height" >
+                                            <label for="" style="margin-top:10px;">Print File Dimensions</label>
                                             <div class="row">
+                                                
                                                 <div class="col-md-6">
                                                     <label for="art-width">Width</label>
                                                     <input id="art-width" name="art-width" class="form-control" placeholder="Enter Width.." type="" value='0'>

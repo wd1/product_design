@@ -938,11 +938,11 @@ var readURL = function(input) {
             if(total_data[$("#product_list option:selected").text()].size_x=="")
                 size_x = 150/img.width;
             else
-                size_x = total_data[$("#product_list option:selected").text()].size_x
+                size_x = total_data[$("#product_list option:selected").text()].size_x / img.width
             if(total_data[$("#product_list option:selected").text()].size_y=="")
                 size_y = 150/img.height;
             else
-                size_y = total_data[$("#product_list option:selected").text()].size_y
+                size_y = total_data[$("#product_list option:selected").text()].size_y / img.height
             console.log(total_data[$("#product_list option:selected").text()]);
             console.log(position_x);
             console.log(mockup_img.left + parseFloat(position_x));      
@@ -963,7 +963,7 @@ var readURL = function(input) {
             pattern_img['cornerColor'] = '#f96736';
             pattern_img['borderColor'] = '#f96736';
             canvas1.add(pattern_img);
-            
+            getProductImage();
             set_flag = true;
             canvas1.on('mouse:down', function(e) { 
                 // e.target should be the circle

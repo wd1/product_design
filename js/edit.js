@@ -13,14 +13,7 @@ var startPosX, startPosY;
 var per_width,per_height;
 var per_scale;
 var origin_width, origin_height;
-var c = document.createElement('canvas');
-var ctx=c.getContext("2d");
-c.width = 400;//document.getElementById('mockup-image').clientWidth;
-c.height = window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75;
-c.style.position = "absolute";
-c.style.opacity = 0.5;
-// ctx.globalCompositeOperation = 'multiply';
-c.id = 'mycanvas';
+
 var fabriccanvas = document.createElement('canvas');
 var ctx=fabriccanvas.getContext("2d");
 fabriccanvas.width =document.getElementById('mockup-image').offsetWidth;//document.getElementById('mockup-image').clientWidth;
@@ -31,8 +24,7 @@ fabriccanvas.id = 'fabriccanvas';
 var fabric_canvas; 
 // alert(c.width);
 // console.log(document.getElementById('mockup-image').parentElement);
-c.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
-c.style.top = document.getElementById('mockup-image').offsetTop+"px";
+
 document.getElementById('mockup-image').style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 var loader1 = document.createElement('div');
@@ -51,16 +43,18 @@ var back_img = document.createElement("img");
 back_img.id ="back_img";
 back_img.src = product_file;
 back_img.style.position = "absolute";
-back_img.style.left = (parseInt(c.style.left)+50)+"px";
-back_img.style.top = (document.getElementById('mockup-image').offsetTop+ c.height / 2 - 150) +"px";
+back_img.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
+back_img.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
+back_img.style.display = "none";
 back_img.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
+
 
 var shadow_img = document.createElement("img");
 shadow_img.id ="shadow_img";
 shadow_img.src = "../img/temp/temp-shadow.png";
 shadow_img.style.position = "absolute";
-shadow_img.style.left = (parseInt(c.style.left)+50)+"px";
-shadow_img.style.top = (document.getElementById('mockup-image').offsetTop+ c.height / 2 - 150) +"px";
+shadow_img.style.left = back_img.style.left;
+shadow_img.style.top = back_img.style.top;
 shadow_img.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 shadow_img.style.display = "none";
 
@@ -68,8 +62,8 @@ var texture_dark_img = document.createElement("img");
 texture_dark_img.id ="texture_dark_img";
 texture_dark_img.src = "../img/temp/temp-texture-dark.png";
 texture_dark_img.style.position = "absolute";
-texture_dark_img.style.left = (parseInt(c.style.left)+50)+"px";
-texture_dark_img.style.top = (document.getElementById('mockup-image').offsetTop+ c.height / 2 - 150) +"px";
+texture_dark_img.style.left = back_img.style.left;
+texture_dark_img.style.top = back_img.style.top;
 texture_dark_img.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 texture_dark_img.style.display = "none";
 
@@ -77,8 +71,8 @@ var texture_white_img = document.createElement("img");
 texture_white_img.id ="texture_white_img";
 texture_white_img.src = "../img/temp/temp-texture-white.png";
 texture_white_img.style.position = "absolute";
-texture_white_img.style.left = (parseInt(c.style.left)+50)+"px";
-texture_white_img.style.top = (document.getElementById('mockup-image').offsetTop+ c.height / 2 - 150) +"px";
+texture_white_img.style.left = back_img.style.left;
+texture_white_img.style.top = back_img.style.top;
 texture_white_img.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 texture_white_img.style.display = "none";
 
@@ -89,7 +83,39 @@ texture_white_img.style.display = "none";
 // template_img.class = "demeo14";
 
 // document.getElementById('mockup-image').append(template_img);
+// document.getElementById('mockup-image').append(back_img);
+var c = document.createElement('canvas');
+var ctx=c.getContext("2d");
+c.width = 400;//document.getElementById('mockup-image').clientWidth;
+c.height = window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75;
+c.style.position = "absolute";
+c.style.opacity = 0.5;
+// ctx.globalCompositeOperation = 'multiply';
+c.id = 'mycanvas';
+c.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
+c.style.top = document.getElementById('mockup-image').offsetTop+"px";
+
+var back_img_canvas = document.createElement('canvas');
+var ctx2=back_img_canvas.getContext("2d");
+back_img_canvas.width = 300;//document.getElementById('mockup-image').clientWidth;
+back_img_canvas.height = 300;
+back_img_canvas.style.position = "absolute";
+// ctx.globalCompositeOperation = 'multiply';
+// back_img_canvas.id = 'back_img';
+back_img_canvas.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
+back_img_canvas.style.top = document.getElementById('mockup-image').offsetTop+"px";
+ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,300,300);
+
+var back_img1 = document.createElement("img");
+back_img1.id ="back_img1";
+back_img1.src = back_img_canvas.toDataURL();
+back_img1.style.position = "absolute";
+back_img1.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
+back_img1.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
+back_img1.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
+
 document.getElementById('mockup-image').append(back_img);
+document.getElementById('mockup-image').append(back_img1);
 document.getElementById('mockup-image').append(c);
 
 
@@ -405,8 +431,8 @@ function uploadFile() {
   fd.append("bottom_right_y", test.bottomRight.local.y);
   fd.append("position_x", pattern_img.left - mockup_img.left);
   fd.append("position_y", pattern_img.top - mockup_img.top);
-  fd.append("size_x", pattern_img.scaleX);
-  fd.append("size_y", pattern_img.scaleY);
+  fd.append("size_x", pattern_img.scaleX * pattern_img.width);
+  fd.append("size_y", pattern_img.scaleY * pattern_img.height);
   fd.append("cheight", cheight);
   xhr.send(fd);
 }
@@ -425,6 +451,7 @@ function init_this(url) {
         var crop_tool_image;
         var crop_tool_scale
         console.log(url);
+        $("#crop_dimension").text("("+art_width+"px x "+art_height+"px)");
         $("#do_modal_crop").click();
         image.src = url;
         image.onload = function() {
@@ -563,7 +590,8 @@ var readURL = function(input) {
 }
 
 $(".file-upload").on('change', function(){ 
-    readURL(this);
+    // console.log(this);
+    $("#modal_id_instruction").click();
 });
 
 function save_result() {
@@ -640,7 +668,7 @@ function confirm_ok() {
 }
 
 function getCropData1(e) {
-    e.innerHTML = "Saving...";
+    e.innerHTML = "Saving & Initializing...";
     status = 1;
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);
@@ -785,3 +813,9 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
         });
         
     }
+
+
+function instruction_ok() {
+    // console.log($(".file-upload")[0]);
+    readURL($(".file-upload")[0]);
+}

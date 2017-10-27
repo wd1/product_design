@@ -162,6 +162,28 @@ var mockup_list = "<?php echo $mockup_list ?>";
 
 </script>
     <!-- Modal -->
+    <button id="modal_id_instruction" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_instruction" style="display:none;">Open Modal</button>
+
+    <!-- Modal -->
+    <div id="myModal_instruction" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-primary modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Scale Upload</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Please select a hi-res JPG to scale and position the cropped upload. Allow some space for the bleed around the product.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="instruction_ok()">OK</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
     <button type="button" id="do_modal_crop" class="btn btn-primary" style="display:none;" data-target="#modal_crop" data-toggle="modal">
       Launch the Cropper
     </button>
@@ -422,7 +444,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
                                 <button id="instruction-button" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal_instruction" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-info"></i>&nbsp; Instructions</button>
                             </div>                          
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
-                                <button id="save-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-cloud-download"></i><span>&nbsp; Test Perspective</span></button>
+                                <button id="save-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-arrow-right"></i><span>&nbsp; Next Step</span></button>
                             </div>
                             <input class="file-upload" type="file" accept="image/*"/>
                         </div>
