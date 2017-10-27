@@ -514,11 +514,15 @@ function uploadDemoFile(file) {
     var mockup_img_width = 300, mockup_img_height = 300;
     $("#fabriccanvas").show();
     fabric_canvas = new fabric.Canvas('fabriccanvas');
+    
+    console.log(document.getElementById("fabriccanvas"));
+    document.getElementById("fabriccanvas").width = document.getElementById("fabriccanvas").width/window.devicePixelRatio; 
+    document.getElementById("fabriccanvas").height = document.getElementById("fabriccanvas").height/window.devicePixelRatio;
     $(".canvas-container").css("margin","auto");
     fabric.Image.fromURL('../img/temp/temp.png', function(img) {
         // mockup_img = img.set({ left: 0, top:0, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: true });
         mockup_img = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
-        console.log(mockup_img.globalCompositeOperation);
+        console.log(window.devicePixelRatio);
         fabric_canvas.add(mockup_img);
         // fabric.Image.fromURL(_URL.createObjectURL(file), function(img) {
         //     fabric_canvas.remove(pattern_img);

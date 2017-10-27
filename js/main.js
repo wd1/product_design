@@ -1043,7 +1043,10 @@ function getCropData(e) {
     image.src = temp_canvas.toDataURL();
     image.onload = function() {
         canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
-        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
+        if(total_data[$("#product_list option:selected").text()].cheight =="") 
+            canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/400;
+        else
+            canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
         var ctx_canvas = canvas_pattern.getContext("2d");
         var p = new Perspective(ctx_canvas, image);
         console.log((total_data[$("#product_list option:selected").text()]));

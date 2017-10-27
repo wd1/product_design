@@ -234,7 +234,7 @@
 <script src="js/libs/bootstrap.min.js"></script>
 
 <script>
-    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-5)+"px";
+    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight)+"px";
 </script>
 <script src="js/footerfunction.js"></script>
 </body>
