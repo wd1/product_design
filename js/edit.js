@@ -32,7 +32,7 @@ loader1.className="loader1";
 $("#loader_parent").append(loader1);
 $(".loader1").css("left",window.innerWidth/2-40);
 $(".loader1").css("top",window.innerHeight/2+5);
-$(".loader1").hide();
+$(".loader1").show();
 $(".loader1").css("zIndex", 1000);
 
 
@@ -104,19 +104,7 @@ back_img_canvas.style.position = "absolute";
 // back_img_canvas.id = 'back_img';
 back_img_canvas.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
 back_img_canvas.style.top = document.getElementById('mockup-image').offsetTop+"px";
-ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,300,300);
 
-var back_img1 = document.createElement("img");
-back_img1.id ="back_img1";
-back_img1.src = back_img_canvas.toDataURL();
-back_img1.style.position = "absolute";
-back_img1.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
-back_img1.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
-back_img1.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
-
-document.getElementById('mockup-image').append(back_img);
-document.getElementById('mockup-image').append(back_img1);
-document.getElementById('mockup-image').append(c);
 
 
 
@@ -125,9 +113,7 @@ var ctx1=c1.getContext("2d");
 c1.id = 'mycanvas1';
 c1.width = 1;//document.getElementById('mockup-image').clientWidth;
 c1.height = 1;
-document.getElementById('mockup-image').append(c1);
-document.getElementById('mockup-image').append(fabriccanvas);
-$("#fabriccanvas").hide();
+
 $("#mockup-image").click(function() {
     if(status == 0) {
         // console.log(test.topLeftPivot);
@@ -173,9 +159,6 @@ $("#mockup-image").click(function() {
         console.log(texture_dark_img.naturalWidth !=0);
         if(texture_dark_img.naturalWidth !=0)
             ctx1.drawImage(texture_dark_img,0, 0 ,origin_width,origin_height,c1.width/2-150,c1.height/2-150, 300,300);
-
-
-
         ctx1.globalCompositeOperation = 'multiply';
         if(texture_white_img.naturalWidth !=0)
             ctx1.drawImage(texture_white_img,0, 0 ,origin_width,origin_height,c1.width/2-150,c1.height/2-150, 300,300);
@@ -185,22 +168,7 @@ $("#mockup-image").click(function() {
 
 });
 
-$("#mycanvas").click(function(e) {
-    e.stopPropagation();
-    
-});
 
-$("#mycanvas1").click(function(e) {
-    if(status == 0) {
-        e.stopPropagation();
-        c.style.display = "inline-block";
-        back_img.style.display="inline-block";
-        c1.style.display="none";
-    }
-});
-$("#mycanvas1").mouseover(function(e) {
-    e.stopPropagation();
-})
 /*global require, requirejs, define */
 // http://requirejs.org/docs/api.html#config 
 $("#name").val(product_name);
@@ -591,13 +559,13 @@ var readURL = function(input) {
 
 $(".file-upload").on('change', function(){ 
     // console.log(this);
-    $("#modal_id_instruction").click();
+    readURL($(".file-upload")[0]);
 });
 
 function save_result() {
     if(status==0){
+        $("#modal_id_instruction").click();
         
-        $(".file-upload").click();
     }else {
         uploadFile();
     }
@@ -612,6 +580,42 @@ function save_result() {
     // });
 // $("#do_modal_crop").click();
 back_img.onload = function() {
+    ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,300,300);
+
+    var back_img1 = document.createElement("img");
+    back_img1.id ="back_img1";
+    back_img1.src = back_img_canvas.toDataURL();
+    back_img1.style.position = "absolute";
+    back_img1.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
+    back_img1.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
+    back_img1.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
+
+    document.getElementById('mockup-image').append(back_img);
+    document.getElementById('mockup-image').append(back_img1);
+    document.getElementById('mockup-image').append(c);
+    document.getElementById('mockup-image').append(c1);
+    document.getElementById('mockup-image').append(fabriccanvas);
+    $("#fabriccanvas").hide();
+    $("#mycanvas").click(function(e) {
+        e.stopPropagation();
+        console.log("mycanvas");
+    });
+
+    $("#mycanvas1").click(function(e) {
+        if(status == 0) {
+            console.log("mycanvas1");
+            e.stopPropagation();
+            c.style.display = "inline-block";
+            back_img.style.display="inline-block";
+            c1.style.display="none";
+        }
+    });
+    $("#mycanvas1").mouseover(function(e) {
+        e.stopPropagation();
+    })
+    back_img1.onload = function() {
+        $(".loader1").hide();
+    }
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);
     $("#crop_spinner").show();
@@ -663,7 +667,7 @@ back_img.onload = function() {
 
 function confirm_ok() {
     setTimeout(function() {
-        // window.location.href = "../home.php";
+        window.location.href = "../home.php";
     }, 2000);
 }
 
@@ -817,5 +821,5 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
 
 function instruction_ok() {
     // console.log($(".file-upload")[0]);
-    readURL($(".file-upload")[0]);
+    $(".file-upload").click();
 }

@@ -291,8 +291,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
-                        <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-screen-tablet" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
-                        <a class="dropdown-item" href="../../logout.php?logout" style="vertical-align:middle;"><i class="fa fa-lock" style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
+                        <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
+                        <a class="dropdown-item" href="../../logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
                     </div>
                 </li>
             </ul>
@@ -433,7 +433,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <label for="pr-mask">Product Image</label>
+                                    <label for="pr-mask">Product Image (Required)</label>
                                     <a id="question_mark" href="#" data-toggle="tooltip" title="The main image for product." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename" disabled="disabled">
@@ -450,7 +450,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Mask Image</label>
+                                    <label for="mask-name">Mask Image (Required)</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the mask image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview1" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename1" disabled="disabled">
@@ -467,7 +467,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Shadow / Extras Image</label>
+                                    <label for="mask-name">Shadow / Extras Image (Optional)</label>
                                     <a id="question_mark" data-toggle="tooltip" title="This image is the shadow image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview2" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename2" disabled="disabled">
@@ -484,7 +484,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture Black Image</label>
+                                    <label for="mask-name">Texture Black Image (Optional)</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(Black) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview3" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename3" disabled="disabled">
@@ -501,7 +501,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture White Image</label>
+                                    <label for="mask-name">Texture White Image (Optional)</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(white) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview4" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename4" disabled="disabled">

@@ -161,6 +161,7 @@ var admin = "<?php echo $admin ?>";
 var mockup_list = "<?php echo $mockup_list ?>";
 
 </script>
+    
     <!-- Modal -->
     <button id="modal_id_instruction" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_instruction" style="display:none;">Open Modal</button>
 
@@ -208,7 +209,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
         </div>
       </div>
     </div>
-    <div id="myModal_instruction" class="modal fade" role="dialog">
+    <div id="my_instruction" class="modal fade" role="dialog">
         <div class="modal-dialog modal-primary" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -416,8 +417,8 @@ var mockup_list = "<?php echo $mockup_list ?>";
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
-                    <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-screen-tablet" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
-                    <a class="dropdown-item" href="../logout.php?logout" style="vertical-align:middle;"><i class="fa fa-lock" style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
+                    <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
+                    <a class="dropdown-item" href="../logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
                 </div>
             </li>
         </ul>
@@ -441,7 +442,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
                                 <button id="perspective-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;"><i class="icon-cloud-upload"></i>&nbsp; Perspective</button>
                             </div>
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
-                                <button id="instruction-button" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal_instruction" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-info"></i>&nbsp; Instructions</button>
+                                <button id="instruction-button" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#my_instruction" style="margin-top:10px;width:100%;font-size: 12px;" onClick=""><i class="icon-info"></i>&nbsp; Instructions</button>
                             </div>                          
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
                                 <button id="save-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-arrow-right"></i><span>&nbsp; Next Step</span></button>
