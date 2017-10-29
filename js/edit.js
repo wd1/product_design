@@ -13,7 +13,7 @@ var startPosX, startPosY;
 var per_width,per_height;
 var per_scale;
 var origin_width, origin_height;
-
+var back_img1;
 var fabriccanvas = document.createElement('canvas');
 var ctx=fabriccanvas.getContext("2d");
 fabriccanvas.width =document.getElementById('mockup-image').offsetWidth;//document.getElementById('mockup-image').clientWidth;
@@ -26,7 +26,8 @@ var fabric_canvas;
 // console.log(document.getElementById('mockup-image').parentElement);
 
 document.getElementById('mockup-image').style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
-document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
+document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75)*1.1 +"px";
+
 var loader1 = document.createElement('div');
 loader1.className="loader1";
 $("#loader_parent").append(loader1);
@@ -134,6 +135,8 @@ $("#mockup-image").click(function() {
 
         c.style.display = "none";
         back_img.style.display="none";
+        console.log(back_img1);
+        back_img1.style.display="none";
         c1.style.display="inline-block";
 
         var clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
@@ -409,19 +412,19 @@ function init_this(url) {
         var image = document.getElementById('image');
         image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
         image = document.getElementById('image');
-        
         var cropper;
 
 
         var crop_width, crop_height;
         var img_ratio = document.getElementById("image").naturalWidth / document.getElementById("image").naturalHeight;
-        $(image).removeClass("cropper-hidden");
+        // $(image).removeClass("cropper-hidden");
         var crop_tool_image;
         var crop_tool_scale
         console.log(url);
         $("#crop_dimension").text("("+art_width+"px x "+art_height+"px)");
         $("#do_modal_crop").click();
         image.src = url;
+        console.log(image);
         image.onload = function() {
             setTimeout(function () {
               
@@ -559,6 +562,7 @@ var readURL = function(input) {
 
 $(".file-upload").on('change', function(){ 
     // console.log(this);
+    back_img1.style.display="none";
     readURL($(".file-upload")[0]);
 });
 
@@ -582,7 +586,7 @@ function save_result() {
 back_img.onload = function() {
     ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,300,300);
 
-    var back_img1 = document.createElement("img");
+    back_img1 = document.createElement("img");
     back_img1.id ="back_img1";
     back_img1.src = back_img_canvas.toDataURL();
     back_img1.style.position = "absolute";
@@ -606,7 +610,7 @@ back_img.onload = function() {
             console.log("mycanvas1");
             e.stopPropagation();
             c.style.display = "inline-block";
-            back_img.style.display="inline-block";
+            back_img1.style.display="inline-block";
             c1.style.display="none";
         }
     });

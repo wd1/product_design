@@ -176,7 +176,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please select a hi-res JPG to scale and position the cropped upload. Allow some space for the bleed around the product.</p>
+                    <p>Please select any hi-res JPG to upload, scale and position over the product. Position the image over the product with extra space for the bleed.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="instruction_ok()">OK</button>
@@ -199,7 +199,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
           </div>
           <div class="modal-body">
             <div class="loader1" id="crop_spinner" style="z-index: 1000;"></div>
-            <div class="img-container" style="height:500px;">
+            <div class="img-container" style="">
               <img id="image" src="../img/SampleUpload.jpg" alt="Picture" style="width:600px;">
             </div>
           </div>
@@ -243,7 +243,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
           </div>
           <div class="modal-body">
             <div class="loader1" id="crop_spinner"></div>
-            <div class="img-container" style="height:500px;">
+            <div class="img-container" style="">
               <img id="image" src="../img/SampleUpload.jpg" alt="Picture" style="width:600px;">
             </div>
           </div>

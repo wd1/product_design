@@ -45,6 +45,7 @@ $(".loader1").css("top",window.innerHeight/2+5);
 $(".loader1").hide();
 mockup_image_before_width = document.getElementById('mockup-image').offsetWidth;
 mockup_image_before_height = document.getElementById('mockup-image').offsetHeight;
+document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75)*1.1 +"px";
 var waitForFinalEvent = (function () {
   var timers = {};
   return function (callback, ms, uniqueId) {
@@ -810,15 +811,14 @@ var readURL = function(input) {
 // init_this();
     function init_this(url) {
         var image = document.getElementById('image');
-        image.parentNode.innerHTML = `<img id="image" src="img/SampleUpload.jpg" alt="Picture" style="width:600px;">`;
+        image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
         image = document.getElementById('image');
-        
         var cropper;
 
 
         var crop_width, crop_height;
         var img_ratio = document.getElementById("image").naturalWidth / document.getElementById("image").naturalHeight;
-        $(image).removeClass("cropper-hidden");
+        // $(image).removeClass("cropper-hidden");
         var crop_tool_image;
         var crop_tool_scale
         
@@ -827,6 +827,7 @@ var readURL = function(input) {
         $("#crop_dimension").text("("+total_data[$("#product_list option:selected").text()].width+"px x "+total_data[$("#product_list option:selected").text()].height+"px)");
         $("#do_modal_crop").click();
         image.src = url;
+        console.log(image);
         image.onload = function() {
             setTimeout(function () {
               
@@ -844,6 +845,7 @@ var readURL = function(input) {
                 ready: function() {
                     crop_tool_image = document.getElementsByClassName("cropper-canvas")[0];
                     crop_tool_scale = document.getElementById("image").naturalWidth / crop_tool_image.offsetWidth;
+                    
                     var crop_width, crop_height;
                     if(document.getElementById("image").naturalWidth > art_width && document.getElementById("image").naturalHeight > art_height){
                         crop_width = art_width / crop_tool_scale;

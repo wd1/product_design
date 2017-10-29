@@ -75,7 +75,7 @@
           </div>
           <div class="modal-body">
             <div class="loader1" id="crop_spinner" style="z-index: 1000;"></div>
-            <div class="img-container" style="height:500px;">
+            <div class="img-container" style="">
               <img id="image" src="img/SampleUpload.jpg" alt="Picture" style="width:600px;">
             </div>
           </div>
