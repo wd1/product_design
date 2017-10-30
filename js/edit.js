@@ -349,6 +349,7 @@ function init_canvas() {
         // window.addEventListener('load', function() {
         scrawl=scrawl.init();
         mycode();
+        $("#onload_modal").click();
         // }, false);
     },
     });

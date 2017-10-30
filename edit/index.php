@@ -254,6 +254,29 @@ var mockup_list = "<?php echo $mockup_list ?>";
       </div>
     </div>
 
+    <button id="onload_modal" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#onload_modal_content" style="display:none;">Open Modal</button>
+
+    <!-- Modal -->
+    <div id="onload_modal_content" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-primary modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Instructions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Drag each corner circle on the following image to the outside edges of the product image.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="">OK</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
     <button id="modal_id" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display:none;">Open Modal</button>
 
     <!-- Modal -->
