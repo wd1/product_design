@@ -1,5 +1,5 @@
 var product_file_path;
-
+var seperate_index=0;
 var body = document.body, 
     html = document.documentElement;
 var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -40,7 +40,14 @@ function init_selectbox() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
             console.log(text);
-            var lines = text.split("<br>");
+            text=text.split("ADMINSEPERPATE");
+            $("#multiple-select").append($('<option>', {
+                value: "",
+                text: "Nymbl Mockups",
+                disabled: true,
+                style:"font-size:16px;font-weight:bold;"
+            }));
+            var lines = text[0].split("<br>");
             console.log(lines);
             for(var j=0; j<lines.length-1; j++) {
                 var arrs = lines[j].split(" width:");
@@ -58,8 +65,43 @@ function init_selectbox() {
                 total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity};
                 $("#multiple-select").append($('<option>', {
                     value: name,
-                    text: name
+                    text: name,
+                    style:"padding-left:10px;"
                 }));
+            }
+            seperate_index = j+1;
+            
+            if(text.length>1) {
+                $("#multiple-select").append($('<option>', {
+                    value: "",
+                    text: "Custom Mockups",
+                    disabled: true,
+                    style:"font-size:16px;font-weight:bold;"
+                }));
+                lines = text[1].split("<br>");
+                console.log(lines);
+                for(var j=0; j<lines.length-1; j++) {
+                    var arrs = lines[j].split(" width:");
+                    var name = arrs[0].split("name:")[1];
+                    arrs = arrs[1].split(" ");
+                    var wid_val = arrs[0];
+                    var he_val = arrs[1].split("height:")[1];
+                    var rect_x_offset1 = arrs[2].split("x:")[1];
+                    var rect_y_offset1 = arrs[3].split("y:")[1];
+                    var blend_mode, opacity;
+                    if(arrs[4])
+                        blend_mode = arrs[4].split("blend_mode:")[1];
+                    if(arrs[5])
+                        opacity = arrs[5].split("opacity:")[1];
+                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity};
+                    $("#multiple-select").append($('<option>', {
+                        value: name,
+                        text: name,
+                        style:"padding-left:10px;"
+                    }));
+                }
+            } else {
+                seperate_index = 0;
             }
             $("#multiple-select").attr('size',$('#multiple-select option').length+2);
             console.log(total_data);
@@ -88,7 +130,8 @@ function uploadFile() {
         $("#viewproduct_btn").prop("disabled", false);
         $("#multiple-select").append($('<option>', {
             value: $("#pr-name").val(),
-            text: $("#pr-name").val()
+            text: $("#pr-name").val(),
+            style:"padding-left:10px;"
         }));
         total_data[$("#pr-name").val()]={width: $("#art-width").val(), height: $("#art-height").val(), x: $("#art-x").val(), y: $("#art-y").val(), blend_mode: $("#blend_mode").val().toLowerCase(), opacity: $("#opacity").val()};
         $("#multiple-select").attr('size',$('#multiple-select option').length+2);
@@ -105,6 +148,7 @@ function uploadFile() {
 //   console.log($("#shadow_file").val());
 //   console.log($("#shadow_file")[0].files[0]);
   fd.append("product_name",$("#pr-name").val());
+  fd.append("product_code",$("#pr-code").val());
   console.log(document.getElementById("pr-name"));
   fd.append("mask_name",$("#mask-name").val());
   fd.append("shadow_name",$("#shadow-name").val());
@@ -112,9 +156,14 @@ function uploadFile() {
   fd.append("texture-white_name",$("#texture-white-name").val());
   fd.append("width",$("#art-width").val());
   fd.append("height",$("#art-height").val());
+  fd.append("dpi",$("#art-dpi").val());
   fd.append("x",$("#art-x").val());
   fd.append("y",$("#art-y").val());
   fd.append("blend_mode",$("#blend_mode").val().toLowerCase());
+  fd.append("provider",$("#provider").val());
+  fd.append("print_location",$("#print_location").val());
+  fd.append("print_mode",$("#print_mode").val());
+  console.log($("#provider").val());
   fd.append("opacity",$("#opacity").val());
   fd.append("userid", userid);
   fd.append("adminid", adminid);
@@ -158,6 +207,8 @@ function deleteproductfromlist() {
             $("#viewproduct_btn").prop("disabled", false);
             $("#multiple-select").attr('size',$('#multiple-select option').length+2);
             $("#multiple-select option:selected").remove();
+            // $("#multiple-select").html("");
+            // init_selectbox();
         }
     }
     fd.append("userid", userid);
@@ -166,9 +217,18 @@ function deleteproductfromlist() {
     xhr.send(fd);
 }
 function deleteproduct() {
-    if($("#multiple-select option:selected").length>0)
-        $("#modal_id1").click();
+    if($("#multiple-select option:selected").index()>seperate_index) {
+        if($("#multiple-select option:selected").length>0)
+            $("#modal_id1").click();
+    }
 }
+$('#multiple-select').change(function() {
+    if($("#multiple-select option:selected").index()>seperate_index) {
+        $("#deleteproduct_btn").prop("disabled",false);
+    } else {
+        $("#deleteproduct_btn").prop("disabled",true);
+    }
+});
 function upload() {
   if(!$("#product_file")[0].files[0])
   {
@@ -206,6 +266,7 @@ function upload() {
   
 }
 function needupload() {
+    $("#uploadmodal").modal("hide");
     $(".loader").show();
     $(".btn").prop("disabled", true);
     $("#product_file").prop("disabled", true);

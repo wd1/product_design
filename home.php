@@ -226,6 +226,7 @@
                     <span class="d-md-down-none"  style="vertical-align:middle;">&nbsp;<?php echo $userRow['userName'];?> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-settings" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Settings</span></a>
                     <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
                     <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
                     <a class="dropdown-item" href="logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>

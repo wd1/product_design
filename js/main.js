@@ -4,6 +4,7 @@ var art_width =0, art_height=0;
 var mockup_img_width, mockup_img_height;
 var pattern_img_width, pattern_img_height;
 var initial_rate=1;
+var extension_type="";
 var c = document.createElement('canvas');
 var ctx=c.getContext("2d");
 c.width = document.getElementById('mockup-image').offsetWidth;
@@ -29,11 +30,9 @@ var mockup_image_before_width,mockup_image_before_height;
 var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
 var wheelGroup, test, stopE, getWheel, dropWheel,myEntity;
 var data;
-
+var alert_text;
 var canvas_pattern
 init_selectbox();
-
-
 
 
 var loader1 = document.createElement('div');
@@ -138,9 +137,24 @@ function init_selectbox() {
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
-            var lines = text.split("<br>");
+            console.log(text);
+            text = text.split("ADMINSEPERPATE");
+            $("#product_list").append($('<option>', {
+                value: "",
+                text: "--Select Mockup--",
+                disabled: true,
+                selected: true
+            }));
+            $("#product_list").append($('<option>', {
+                value: "",
+                text: "Nymbl Mockups",
+                disabled: true,
+                style:"font-size:16px;font-weight:bold;"
+            }));
+            var lines = text[0].split("<br>");
             var param_product = getURLParameter('product');
             var exist_flag = false;
+            
             for(var j=0; j<lines.length-1; j++) {
                 
                 var arrs = lines[j].split(" width:");
@@ -180,12 +194,68 @@ function init_selectbox() {
                 //     exist_flag = true;
                 $("#product_list").append($('<option>', {
                     value: name,
-                    text: name
+                    text: name,
+                    style:"padding-left:10px;"
                 }));
                 
             }
 
-    
+            $("#product_list").append($('<option>', {
+                value: "",
+                text: "Custom Mockups",
+                disabled: true,
+                style:"font-size:16px;font-weight:bold;"
+            }));
+
+            lines = text[1].split("<br>");
+            for(var j=0; j<lines.length-1; j++) {
+                
+                var arrs = lines[j].split(" width:");
+                var name = arrs[0].split("name:")[1];
+                arrs = arrs[1].split(" ");
+                var wid_val = arrs[0];
+                var he_val = arrs[1].split("height:")[1];
+                var rect_x_offset1 = arrs[2].split("x:")[1];
+                var rect_y_offset1 = arrs[3].split("y:")[1];
+                var blend_mode, opacity, url_path;
+                if(arrs[4])
+                    blend_mode = arrs[4].split("blend_mode:")[1];
+                if(arrs[5])
+                    opacity = arrs[5].split("opacity:")[1];
+                //name:AAA width:0 height:0 x:0 y:0 blend_mode:multiply opacity:100 
+                //admin: mockup_list:false top_left_x:50 top_left_y:181 top_right_x:273 
+                //top_right_y:264 bottom_left_x:50 bottom_left_y:481 bottom_right_x:350 
+                //bottom_right_y:481
+                // console.log(lines[j]);
+                var top_left_x = arrs[8].split("top_left_x:")[1];
+                var top_left_y = arrs[9].split("top_left_y:")[1];
+                var top_right_x = arrs[10].split("top_right_x:")[1];
+                var top_right_y = arrs[11].split("top_right_y:")[1];
+                var bottom_left_x = arrs[12].split("bottom_left_x:")[1];
+                var bottom_left_y = arrs[13].split("bottom_left_y:")[1];
+                var bottom_right_x = arrs[14].split("bottom_right_x:")[1];
+                var bottom_right_y = arrs[15].split("bottom_right_y:")[1];
+                var perspective = arrs[16].split("perspective:")[1];
+                var position_x = arrs[17].split("position_x:")[1];
+                var position_y = arrs[18].split("position_y:")[1];
+                var size_x = arrs[19].split("size_x:")[1];
+                var size_y = arrs[20].split("size_y:")[1];
+                var cheight = arrs[21].split("cheight:")[1]
+                console.log(position_x+","+position_y+","+size_x+","+size_y);
+                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight};
+                // if(name == param_product)
+                //     exist_flag = true;
+                $("#product_list").append($('<option>', {
+                    value: name,
+                    text: name,
+                    style:"padding-left:10px;"
+                }));
+                
+            }
+
+            alert_text = new fabric.Text('Select Mockup from Dropdown',{left:c.width/2-200, top:c.height/2,fill:"black", selectable:false});
+            canvas1.add(alert_text);
+            canvas1.renderAll();
             if(getURLParameter("url"))
                 url_flag = true;
             // if(exist_flag == false) {
@@ -201,9 +271,9 @@ function init_selectbox() {
        
             
             if($("#product_list option:selected").text()!='') {
-                $(".loader1").show();
-                $("#product_list").prop("disabled", true);
-                product_load();
+                // $(".loader1").show();
+                // $("#product_list").prop("disabled", true);
+                // product_load();
             }
         }
     }
@@ -215,6 +285,7 @@ function init_selectbox() {
 
 $('#product_list').change(function() {
     url_flag = false;
+    canvas1.remove(alert_text);
     product_load();
 });
 function product_load(fff = false, ggg=false) {
@@ -433,26 +504,29 @@ canvas1.on('mouse:down', function(e) {
     
     var xx= e.e.layerX;
     var yy = e.e.layerY;
-
-    if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
-        
-        if(pattern_img){
-            canvas1.remove(square1);
-            canvas1.remove(square);
-            canvas1.add(square1);
-            canvas1.add(square);
-            // document.getElementById("c").style.maskImage = "";
-            // document.getElementById("c").style.webkitMaskImage = "";
-            // document.getElementById("c").classList.remove("mask-class");
-            // canvas1.remove(pattern_img);
-            if(total_data[$("#product_list option:selected").text()].blend_mode)
-                pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
-            else
-                pattern_img.globalCompositeOperation = 'multiply';
-            // canvas1.add(pattern_img);
-            pattern_img.selectable = true;
-            canvas1.setActiveObject(pattern_img);
-            set_flag = true;
+    if($("#product_list option:selected").text() != "--Select Mockup--") {
+        if(total_data[$("#product_list option:selected").text()].perspective != 1) {
+            if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
+                
+                if(pattern_img){
+                    canvas1.remove(square1);
+                    canvas1.remove(square);
+                    canvas1.add(square1);
+                    canvas1.add(square);
+                    // document.getElementById("c").style.maskImage = "";
+                    // document.getElementById("c").style.webkitMaskImage = "";
+                    // document.getElementById("c").classList.remove("mask-class");
+                    // canvas1.remove(pattern_img);
+                    if(total_data[$("#product_list option:selected").text()].blend_mode)
+                        pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
+                    else
+                        pattern_img.globalCompositeOperation = 'multiply';
+                    // canvas1.add(pattern_img);
+                    pattern_img.selectable = true;
+                    canvas1.setActiveObject(pattern_img);
+                    set_flag = true;
+                }
+            }
         }
     }
 });
@@ -571,15 +645,27 @@ $('#export-art-button').on('click', function () {
             // }
         }     
     } else {
-        temp_canvas.toBlob(function(blob) {
-            var url = URL.createObjectURL(blob);
-            var download = document.createElement('a');
-            download.href = url;
-            download.download = 'product-art-file.png';
-            fireEvent(download, 'click')
-            // URL.revokeObjectURL(url);
-            
-        });
+        if(extension_type == "image/png") {
+            temp_canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var download = document.createElement('a');
+                download.href = url;
+                download.download = 'product-art-file.png';
+                fireEvent(download, 'click')
+                // URL.revokeObjectURL(url);
+                
+            });
+        } else {
+            temp_canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var download = document.createElement('a');
+                download.href = url;
+                download.download = 'product-art-file.jpg';
+                fireEvent(download, 'click')
+                // URL.revokeObjectURL(url);
+                
+            },"image/jpeg",1);
+        }
     }
 
 });
@@ -643,6 +729,7 @@ var readURL = function(input) {
     if (input.files && input.files[0]) {
         var file, img;
         if ((file = input.files[0])) {
+            extension_type = file.type;
             uploadFile(file);
         
         }
@@ -761,11 +848,11 @@ var readURL = function(input) {
                 var url = URL.createObjectURL(blob);
                 var download = document.createElement('a');
                 download.href = url;
-                download.download = 'product.png';
+                download.download = 'product.jpg';
                 fireEvent(download, 'click')
                 // URL.revokeObjectURL(url);
                 
-            });
+            },"image/jpeg");
             
             // document.getElementById("mockup-image").appendChild(img);
             
@@ -967,39 +1054,39 @@ var readURL = function(input) {
             canvas1.add(pattern_img);
             getProductImage();
             set_flag = true;
-            canvas1.on('mouse:down', function(e) { 
-                // e.target should be the circle
-                if((e.target == null) && (pattern_img) && (set_flag)) {
-                    getProductImage();
-                }
-                var xx= e.e.layerX;
-                var yy = e.e.layerY;
-                if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
+            // canvas1.on('mouse:down', function(e) { 
+            //     // e.target should be the circle
+            //     if((e.target == null) && (pattern_img) && (set_flag)) {
+            //         getProductImage();
+            //     }
+            //     var xx= e.e.layerX;
+            //     var yy = e.e.layerY;
+            //     if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
 
-                    if(pattern_img){
-                        canvas1.remove(square1);
-                        canvas1.remove(square);
-                        canvas1.add(square1);
-                        canvas1.add(square);
-                        // document.getElementById("c").style.maskImage = "";
-                        // document.getElementById("c").style.webkitMaskImage = "";
-                        // document.getElementById("c").classList.remove("mask-class");
-                        // canvas1.remove(pattern_img);
-                        if(total_data[$("#product_list option:selected").text()].blend_mode)
-                            pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
-                        else
-                            pattern_img.globalCompositeOperation = 'multiply';
-                        // canvas1.add(pattern_img);
-                        pattern_img.selectable = false;
-                        canvas1.setActiveObject(pattern_img);
-                        set_flag = true;
-                    }
-                }
-            });
+            //         if(pattern_img){
+            //             canvas1.remove(square1);
+            //             canvas1.remove(square);
+            //             canvas1.add(square1);
+            //             canvas1.add(square);
+            //             // document.getElementById("c").style.maskImage = "";
+            //             // document.getElementById("c").style.webkitMaskImage = "";
+            //             // document.getElementById("c").classList.remove("mask-class");
+            //             // canvas1.remove(pattern_img);
+            //             if(total_data[$("#product_list option:selected").text()].blend_mode)
+            //                 pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
+            //             else
+            //                 pattern_img.globalCompositeOperation = 'multiply';
+            //             // canvas1.add(pattern_img);
+            //             pattern_img.selectable = false;
+            //             canvas1.setActiveObject(pattern_img);
+            //             set_flag = true;
+            //         }
+            //     }
+            // });
 
-            canvas1.on('object:scaling', function(){
-                var obj = canvas1.getActiveObject();
-            });
+            // canvas1.on('object:scaling', function(){
+            //     var obj = canvas1.getActiveObject();
+            // });
         });
         
     }

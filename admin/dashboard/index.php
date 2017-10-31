@@ -290,6 +290,7 @@
                         <span class="d-md-down-none"  style="vertical-align:middle;"><?php echo $userRow['userName'];?> </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-settings" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Settings</span></a>
                         <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
                         <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
                         <a class="dropdown-item" href="../../logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
@@ -326,10 +327,18 @@
                             <div class="card-block">
                                 <form action="" method="post" class="ng-pristine ng-valid">
                                     <div class="form-group">
-                                        <label for="pr-name">Product Name</label>
-                                        <input id="pr-name" name="pr-name" class="form-control" placeholder="Enter Name.." type="text">
-                                        <span class="help-block">Please enter your product name</span>
-                                        <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;vertical-align: middle;"></a>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label style="vertical-align:middle;" for="pr-name">Product Name</label>
+                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                <input id="pr-name" name="pr-name" class="form-control" placeholder="Enter Name.." type="text">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label style="vertical-align:middle;" for="pr-code">Product Code / SKU</label>
+                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                <input id="pr-code" name="pr-code" class="form-control" placeholder="Enter Code.." type="text">
+                                            </div>
+                                        </div>     
                                     </div>
                                     
                                     <div class="form-group" style="display:none;">
@@ -367,21 +376,28 @@
                                             <a  id="question_mark" data-toggle="tooltip" title="Apparel Image pointer." class="icon-question" style="color:black;"></a>
                                         </div>
                                         
-                                        <div id="width_height" >
-                                            <label for="" style="margin-top:10px;">Print File Dimensions</label>
+                                        <div id="width_height" style="margin-top:10px;" >
+                                            <label for="" style="vertical-align:middle;">
+                                                Print File Dimensions & DPI
+                                            </label>
+                                            <a  id="question_mark" data-toggle="tooltip" title="These fields are real width and height of your mockup image." class="icon-question" style="color:black;"></a>
                                             <div class="row">
                                                 
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="art-width">Width</label>
                                                     <input id="art-width" name="art-width" class="form-control" placeholder="Enter Width.." type="" value='0'>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="art-height">Height</label>
                                                     <input id="art-height" name="art-height" class="form-control" placeholder="Enter Height.." type=""  value='0'>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <label for="art-height">DPI</label>
+                                                    <input id="art-dpi" name="art-dpi" class="form-control" placeholder="Enter DPI.." type=""  value='0'>
+                                                </div>
                                             </div>
-                                            <span class="help-block">Enter dimensions of production art file (pixels)</span>
-                                            <a  id="question_mark" data-toggle="tooltip" title="These fields are real width and height of your mockup image." class="icon-question" style="color:black;vertical-align: middle;"></a>
+                                            
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -411,6 +427,53 @@
                                                 <label for="opacity">Opacity:</label>
                                                 <input id="opacity" name="opacity" style="width: 90%;display: table-cell;" class="form-control" value="100" type="">
                                                 <span>%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="ccmonth">Provider</label>
+                                                <select class="form-control" id="provider" style="padding-top: 5px;">
+                                                    <option value="Colorad Timberline">Colorad Timberline</option>
+                                                    <option value="Dubow Textiles">Dubow Textiles</option>
+                                                    <option value="Artsy Couture">Artsy Couture</option>
+                                                    <option value="Printed Mint">Printed Mint</option>
+                                                    <option value="MWW">MWW</option>
+                                                    <option value="SSI">SSI</option>
+                                                    <option value="Canvus Print Lab">Canvus Print Lab</option>
+                                                    <option value="Printful">Printful</option>
+                                                    <option value="Bayphoto">Bayphoto</option>
+                                                    <option value="CGPrints">CGPrints</option>
+                                                    <option value="Catalyst">Catalyst</option>
+                                                    <option value="Jakprints">Jakprints</option>
+                                                    <option value="Jondo Global">Jondo Global</option>
+                                                    <option value="Jondo UK">Jondo UK</option>
+                                                    <option value="Revilo Group">Revilo Group</option>
+                                                    <option value="OneFlow">OneFlow</option>
+                                                    <option value="DTG2Go">DTG2Go</option>
+                                                    <option value="Two Fifteen">Two Fifteen</option>
+                                                    <option value="The Dream Junction">The Dream Junction</option>
+                                                    <option value="LatentLight">LatentLight</option>
+                                                    <option value="Progressive Solutions">Progressive Solutions</option>
+                                                    <option value="TShirt & Sons">TShirt & Sons</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="ccmonth">Print Location</label>
+                                                <select class="form-control" id="print_location" style="padding-top: 5px;">
+                                                    <option value="Front">Front</option>
+                                                    <option value="Back">Back</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="ccmonth">Print Mode</label>
+                                                <select class="form-control" id="print_mode" style="padding-top: 5px;">
+                                                    <option value="Sublimation">Sublimation</option>
+                                                    <option value="DTG with White">DTG with White</option>
+                                                    <option value="DTG no White">DTG no White</option>
+                                                    <option value="Embroidery">Embroidery</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

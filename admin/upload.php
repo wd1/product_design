@@ -66,8 +66,13 @@ if(isset($_FILES['product_file'])) {
     
     if( !$error ) {
 		$productname = $_POST['product_name'];
+        $productcode = $_POST['product_code'];
         $width = $_POST['width'];
         $height = $_POST['height'];
+        $dpi = $_POST['dpi'];
+        $provider = $_POST['provider'];
+        $print_location = $_POST['print_location'];
+        $print_mode = $_POST['print_mode'];
         if($width == '')
             $width = 0;
         if($height == '')
@@ -79,7 +84,7 @@ if(isset($_FILES['product_file'])) {
         $user = $_POST['userid'];
         $admin = $_POST['adminid'];
         $mockup_list = $_POST['mockup_list'];
-        $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list) VALUES('$productname','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list')";
+        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,dpi,x,y,user_id,blend_mode,opacity,admin,mockup_list,provider,print_location, print_mode) VALUES('$productname','$productcode','$width','$height','$dpi','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$provider','$print_location','$print_mode')";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         // echo $query;
         $res = mysql_query($query);
