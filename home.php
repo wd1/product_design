@@ -242,10 +242,19 @@
                 <div>
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="" style="width:100%;">
-                                <select class="form-control input-sm" id="product_list" style="float:left; font-size: 12px;">
-                                </select>
+                            <div class="stylish" style="width:100%; color:#607d8b;">
+                                <span>
+                                    <input id="product_name_label" style="border: 1px solid #cfd8dc;width:100%;padding-left:20px;color:#607d8b;" value="Select Mockup" readonly>
+                                    <button id="caret" style="color:#607d8b;">&#9660</button>
+                                    <br>
+                                    <select  id="product_list" style="border: 1px solid #cfd8dc;border-top:none;float:left; color:#607d8b; font-size: 12px;">
+                                    </select>
+                                </span>
                             </div>
+                            <!-- <div class="" style="width:100%;">
+                                <select class="form-control input-sm" >
+                                </select>
+                            </div> -->
                         </div>
                     </div>
                     <div class="card col-md-4" style="margin-top:10px;padding-left:20px;padding-right:25px; padding-bottom:10px;">

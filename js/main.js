@@ -126,6 +126,29 @@ function getURLParameter(name) {
 }
 
 
+$("#product_name_label").click(function(ev) {
+    ev.stopPropagation();
+    var obj =  $("#product_name_label").closest('div').find('select')['0'];
+    if(obj.style.display != "block") {
+        obj.style.display = "block";
+    } else {
+        obj.style.display = "none";
+    }
+});
+$("#caret").click(function(ev) {
+    ev.stopPropagation();
+    console.log($("#product_name_label").closest('div').find('select')['0']);
+    var obj =  $("#product_name_label").closest('div').find('select')['0'];
+    obj.style.display = "block";
+});
+$("#product_list").click(function(ev) {
+    ev.stopPropagation();
+    $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
+    url_flag = false;
+    canvas1.remove(alert_text);
+    product_load();
+})
+
 function resetpassword() {
     window.location.href="reset.php?userid=" + userid ;
 }
@@ -139,17 +162,14 @@ function init_selectbox() {
             var text= xhr.responseText;
             console.log(text);
             text = text.split("ADMINSEPERPATE");
-            $("#product_list").append($('<option>', {
-                value: "",
-                text: "--Select Mockup--",
-                disabled: true,
-                selected: true
-            }));
-            $("#product_list").append($('<option>', {
-                value: "",
-                text: "Nymbl Mockups",
-                disabled: true,
-                style:"font-size:16px;font-weight:bold;"
+            // $("#product_list").append($('<option>', {
+            //     value: "",
+            //     text: "--Select Mockup--",
+            //     disabled: true,
+            //     selected: true
+            // }));
+            $("#product_list").append($('<optgroup>', {
+                label: "Nymbl Mockups"
             }));
             var lines = text[0].split("<br>");
             var param_product = getURLParameter('product');
@@ -194,66 +214,64 @@ function init_selectbox() {
                 //     exist_flag = true;
                 $("#product_list").append($('<option>', {
                     value: name,
-                    text: name,
-                    style:"padding-left:10px;"
+                    text: name
                 }));
                 
             }
+            if(text.length>1) {
+                $("#product_list").append($('<optgroup>', {
 
-            $("#product_list").append($('<option>', {
-                value: "",
-                text: "Custom Mockups",
-                disabled: true,
-                style:"font-size:16px;font-weight:bold;"
-            }));
-
-            lines = text[1].split("<br>");
-            for(var j=0; j<lines.length-1; j++) {
-                
-                var arrs = lines[j].split(" width:");
-                var name = arrs[0].split("name:")[1];
-                arrs = arrs[1].split(" ");
-                var wid_val = arrs[0];
-                var he_val = arrs[1].split("height:")[1];
-                var rect_x_offset1 = arrs[2].split("x:")[1];
-                var rect_y_offset1 = arrs[3].split("y:")[1];
-                var blend_mode, opacity, url_path;
-                if(arrs[4])
-                    blend_mode = arrs[4].split("blend_mode:")[1];
-                if(arrs[5])
-                    opacity = arrs[5].split("opacity:")[1];
-                //name:AAA width:0 height:0 x:0 y:0 blend_mode:multiply opacity:100 
-                //admin: mockup_list:false top_left_x:50 top_left_y:181 top_right_x:273 
-                //top_right_y:264 bottom_left_x:50 bottom_left_y:481 bottom_right_x:350 
-                //bottom_right_y:481
-                // console.log(lines[j]);
-                var top_left_x = arrs[8].split("top_left_x:")[1];
-                var top_left_y = arrs[9].split("top_left_y:")[1];
-                var top_right_x = arrs[10].split("top_right_x:")[1];
-                var top_right_y = arrs[11].split("top_right_y:")[1];
-                var bottom_left_x = arrs[12].split("bottom_left_x:")[1];
-                var bottom_left_y = arrs[13].split("bottom_left_y:")[1];
-                var bottom_right_x = arrs[14].split("bottom_right_x:")[1];
-                var bottom_right_y = arrs[15].split("bottom_right_y:")[1];
-                var perspective = arrs[16].split("perspective:")[1];
-                var position_x = arrs[17].split("position_x:")[1];
-                var position_y = arrs[18].split("position_y:")[1];
-                var size_x = arrs[19].split("size_x:")[1];
-                var size_y = arrs[20].split("size_y:")[1];
-                var cheight = arrs[21].split("cheight:")[1]
-                console.log(position_x+","+position_y+","+size_x+","+size_y);
-                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight};
-                // if(name == param_product)
-                //     exist_flag = true;
-                $("#product_list").append($('<option>', {
-                    value: name,
-                    text: name,
-                    style:"padding-left:10px;"
+                    label: "Custom Mockups",
                 }));
-                
-            }
 
-            alert_text = new fabric.Text('Select Mockup from Dropdown',{left:c.width/2-200, top:c.height/2,fill:"black", selectable:false});
+                lines = text[1].split("<br>");
+                for(var j=0; j<lines.length-1; j++) {
+                    
+                    var arrs = lines[j].split(" width:");
+                    var name = arrs[0].split("name:")[1];
+                    arrs = arrs[1].split(" ");
+                    var wid_val = arrs[0];
+                    var he_val = arrs[1].split("height:")[1];
+                    var rect_x_offset1 = arrs[2].split("x:")[1];
+                    var rect_y_offset1 = arrs[3].split("y:")[1];
+                    var blend_mode, opacity, url_path;
+                    if(arrs[4])
+                        blend_mode = arrs[4].split("blend_mode:")[1];
+                    if(arrs[5])
+                        opacity = arrs[5].split("opacity:")[1];
+                    //name:AAA width:0 height:0 x:0 y:0 blend_mode:multiply opacity:100 
+                    //admin: mockup_list:false top_left_x:50 top_left_y:181 top_right_x:273 
+                    //top_right_y:264 bottom_left_x:50 bottom_left_y:481 bottom_right_x:350 
+                    //bottom_right_y:481
+                    // console.log(lines[j]);
+                    var top_left_x = arrs[8].split("top_left_x:")[1];
+                    var top_left_y = arrs[9].split("top_left_y:")[1];
+                    var top_right_x = arrs[10].split("top_right_x:")[1];
+                    var top_right_y = arrs[11].split("top_right_y:")[1];
+                    var bottom_left_x = arrs[12].split("bottom_left_x:")[1];
+                    var bottom_left_y = arrs[13].split("bottom_left_y:")[1];
+                    var bottom_right_x = arrs[14].split("bottom_right_x:")[1];
+                    var bottom_right_y = arrs[15].split("bottom_right_y:")[1];
+                    var perspective = arrs[16].split("perspective:")[1];
+                    var position_x = arrs[17].split("position_x:")[1];
+                    var position_y = arrs[18].split("position_y:")[1];
+                    var size_x = arrs[19].split("size_x:")[1];
+                    var size_y = arrs[20].split("size_y:")[1];
+                    var cheight = arrs[21].split("cheight:")[1]
+                    console.log(position_x+","+position_y+","+size_x+","+size_y);
+                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight};
+                    // if(name == param_product)
+                    //     exist_flag = true;
+                    $("#product_list").append($('<option>', {
+                        value: name,
+                        text: name
+                    }));
+                    
+                }
+            }
+            $("#product_list").attr('size',10);
+            $("#product_list").css('width',document.getElementById("product_list").parentNode.offsetWidth);
+            alert_text = new fabric.Text('Select Mockup from Dropdown',{left:parseFloat(c.style.width)/2-220, top:parseFloat(c.style.height)/2-50,fill:"black", selectable:false});
             canvas1.add(alert_text);
             canvas1.renderAll();
             if(getURLParameter("url"))
@@ -284,9 +302,7 @@ function init_selectbox() {
 
 
 $('#product_list').change(function() {
-    url_flag = false;
-    canvas1.remove(alert_text);
-    product_load();
+    
 });
 function product_load(fff = false, ggg=false) {
     $("#product_list").prop("disabled", true);
@@ -504,7 +520,8 @@ canvas1.on('mouse:down', function(e) {
     
     var xx= e.e.layerX;
     var yy = e.e.layerY;
-    if($("#product_list option:selected").text() != "--Select Mockup--") {
+    console.log($("#product_name_label").val());
+    if($("#product_name_label").val() != "Select Mockup") {
         if(total_data[$("#product_list option:selected").text()].perspective != 1) {
             if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
                 
@@ -673,6 +690,9 @@ $("#moal_close").on('click', function () {
 
 });
 
+$('body').on('click', function (e) {
+    $("#product_list").hide();
+})
 function uploadFile(file) {
   var url = 'upload.php';
   var _URL = window.URL || window.webkitURL;

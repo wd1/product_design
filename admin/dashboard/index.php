@@ -329,33 +329,33 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label style="vertical-align:middle;" for="pr-name">Product Name</label>
+                                                <label style="vertical-align:middle;" for="pr-name">Product Name:</label>
                                                 <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
-                                                <input id="pr-name" name="pr-name" class="form-control" placeholder="Enter Name.." type="text">
+                                                <input id="pr-name" name="pr-name" class="form-control" placeholder="Enter Name" type="text">
                                             </div>
                                             <div class="col-md-6">
-                                                <label style="vertical-align:middle;" for="pr-code">Product Code / SKU</label>
+                                                <label style="vertical-align:middle;" for="pr-code">Product Code / SKU:</label>
                                                 <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
-                                                <input id="pr-code" name="pr-code" class="form-control" placeholder="Enter Code.." type="text">
+                                                <input id="pr-code" name="pr-code" class="form-control" placeholder="Enter Code" type="text">
                                             </div>
                                         </div>     
                                     </div>
                                     
                                     <div class="form-group" style="display:none;">
                                         <label for="mask-name">Mask Name</label>
-                                        <input id="mask-name" name="mask-name" class="form-control" placeholder="Product Mask Name.." type="text" disabled>
+                                        <input id="mask-name" name="mask-name" class="form-control" placeholder="Product Mask Name" type="text" disabled>
                                     </div>
                                     <div class="form-group" style="display:none;">
                                         <label for="shadow-name">Shadow / Extras Name</label>
-                                        <input id="shadow-name" name="shadow-name" class="form-control" placeholder="Product Shadow / Extras Name.." type="text" disabled>
+                                        <input id="shadow-name" name="shadow-name" class="form-control" placeholder="Product Shadow / Extras Name" type="text" disabled>
                                     </div>
                                     <div class="form-group" style="display:none;">
                                         <label for="texture-dark-name">Texture Black Name</label>
-                                        <input id="texture-dark-name" name="texture-dark-name" class="form-control" placeholder="Product Texture Black Name.." type="text" disabled>
+                                        <input id="texture-dark-name" name="texture-dark-name" class="form-control" placeholder="Product Texture Black Name" type="text" disabled>
                                     </div>
                                     <div class="form-group" style="display:none;">
                                         <label for="texture-white-name">Texture White Name</label>
-                                        <input id="texture-white-name" name="texture-white-name" class="form-control" placeholder="Product Texture White Name.." type="text" disabled>
+                                        <input id="texture-white-name" name="texture-white-name" class="form-control" placeholder="Product Texture White Name" type="text" disabled>
                                     </div>
                                     <div class="form-group" style="">
                                         
@@ -378,22 +378,22 @@
                                         
                                         <div id="width_height" style="margin-top:10px;" >
                                             <label for="" style="vertical-align:middle;">
-                                                Print File Dimensions & DPI
+                                                Print File Dimensions (Pixels) & DPI:
                                             </label>
                                             <a  id="question_mark" data-toggle="tooltip" title="These fields are real width and height of your mockup image." class="icon-question" style="color:black;"></a>
                                             <div class="row">
                                                 
                                                 <div class="col-md-4">
-                                                    <label for="art-width">Width</label>
-                                                    <input id="art-width" name="art-width" class="form-control" placeholder="Enter Width.." type="" value='0'>
+                                                    <label for="art-width">Width:</label>
+                                                    <input id="art-width" name="art-width" class="form-control" placeholder="Enter Width" type="" value='0'>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="art-height">Height</label>
-                                                    <input id="art-height" name="art-height" class="form-control" placeholder="Enter Height.." type=""  value='0'>
+                                                    <label for="art-height">Height:</label>
+                                                    <input id="art-height" name="art-height" class="form-control" placeholder="Enter Height" type=""  value='0'>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="art-height">DPI</label>
-                                                    <input id="art-dpi" name="art-dpi" class="form-control" placeholder="Enter DPI.." type=""  value='0'>
+                                                    <label for="art-height">DPI:</label>
+                                                    <input id="art-dpi" name="art-dpi" class="form-control" placeholder="Enter DPI" type=""  value='0'>
                                                 </div>
                                             </div>
                                             
@@ -404,11 +404,11 @@
                                         <div class="row">
                                         <div class="col-md-6">
                                             <label for="art-x">X:</label>
-                                            <input id="art-x" name="art-x" class="form-control" placeholder="Enter X position.." type="" value="0">
+                                            <input id="art-x" name="art-x" class="form-control" placeholder="Enter X position" type="" value="0">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="art-y">Y:</label>
-                                            <input id="art-y" name="art-y" class="form-control" placeholder="Enter Y position.." type="" value="0">
+                                            <input id="art-y" name="art-y" class="form-control" placeholder="Enter Y position" type="" value="0">
                                         </div>
                                         </div>
                                         <span class="help-block">Please enter offset position of rectangle</span>
@@ -417,7 +417,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="ccmonth">Art Blend Mode & Opacity</label>
+                                                <label for="ccmonth">Art Blend Mode & Opacity:</label>
                                                 <select class="form-control" id="blend_mode" style="padding-top: 5px;">
                                                     <option value="Multiply">Multiply</option>
                                                     <option value="Normal">Normal</option>
@@ -433,8 +433,9 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="ccmonth">Provider</label>
+                                                <label for="ccmonth">Provider:</label>
                                                 <select class="form-control" id="provider" style="padding-top: 5px;">
+                                                    <option value="" disabled selected>Select</option>
                                                     <option value="Colorad Timberline">Colorad Timberline</option>
                                                     <option value="Dubow Textiles">Dubow Textiles</option>
                                                     <option value="Artsy Couture">Artsy Couture</option>
@@ -460,15 +461,17 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="ccmonth">Print Location</label>
+                                                <label for="ccmonth">Print Location:</label>
                                                 <select class="form-control" id="print_location" style="padding-top: 5px;">
+                                                    
                                                     <option value="Front">Front</option>
                                                     <option value="Back">Back</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="ccmonth">Print Mode</label>
+                                                <label for="ccmonth">Print Mode:</label>
                                                 <select class="form-control" id="print_mode" style="padding-top: 5px;">
+                                                    <option value="" disabled selected>Select</option>
                                                     <option value="Sublimation">Sublimation</option>
                                                     <option value="DTG with White">DTG with White</option>
                                                     <option value="DTG no White">DTG no White</option>
@@ -496,7 +499,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <label for="pr-mask">Product Image (Required)</label>
+                                    <label for="pr-mask">Product Image (Required):</label>
                                     <a id="question_mark" href="#" data-toggle="tooltip" title="The main image for product." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename" disabled="disabled">
@@ -513,7 +516,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Mask Image (Required)</label>
+                                    <label for="mask-name">Mask Image (Required):</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the mask image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview1" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename1" disabled="disabled">
@@ -530,7 +533,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Shadow / Extras Image (Optional)</label>
+                                    <label for="mask-name">Shadow / Extras Image (Optional):</label>
                                     <a id="question_mark" data-toggle="tooltip" title="This image is the shadow image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview2" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename2" disabled="disabled">
@@ -547,7 +550,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture Black Image (Optional)</label>
+                                    <label for="mask-name">Texture Black Image (Optional):</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(Black) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview3" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename3" disabled="disabled">
@@ -564,7 +567,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture White Image (Optional)</label>
+                                    <label for="mask-name">Texture White Image (Optional):</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(white) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview4" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename4" disabled="disabled">
