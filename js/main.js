@@ -44,6 +44,8 @@ $(".loader1").css("top",window.innerHeight/2+5);
 $(".loader1").hide();
 mockup_image_before_width = document.getElementById('mockup-image').offsetWidth;
 mockup_image_before_height = document.getElementById('mockup-image').offsetHeight;
+document.getElementById("mockup_moto").style.left = (document.getElementById('mockup-image').offsetLeft+ document.getElementById('mockup-image').offsetWidth / 2-100)+"px";
+document.getElementById("mockup_moto").style.top = (document.getElementById('mockup-image').offsetTop+document.getElementById('mockup-image').offsetHeight / 2-100)+"px";
 document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75)*1.1 +"px";
 var waitForFinalEvent = (function () {
   var timers = {};
@@ -60,6 +62,7 @@ var waitForFinalEvent = (function () {
 
 $(window).resize(function() {
   waitForFinalEvent(function(){
+        document.getElementById("product_list").style.width = document.getElementById("product_list").parentNode.parentNode.offsetWidth+"px";
         var offset_xxx1 = (mockup_image_before_width - document.getElementById('mockup-image').offsetWidth)/2;
         mockup_image_before_width = document.getElementById('mockup-image').offsetWidth
         var offset_yyy1 = (mockup_image_before_height - (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-35-65))/2;
@@ -139,13 +142,18 @@ $("#caret").click(function(ev) {
     ev.stopPropagation();
     console.log($("#product_name_label").closest('div').find('select')['0']);
     var obj =  $("#product_name_label").closest('div').find('select')['0'];
-    obj.style.display = "block";
+    if(obj.style.display != "block") {
+        obj.style.display = "block";
+    } else {
+        obj.style.display = "none";
+    }
 });
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
     $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
     url_flag = false;
-    canvas1.remove(alert_text);
+    // canvas1.remove(alert_text);
+    document.getElementById("mockup_moto").style.display = "none";
     product_load();
 })
 
@@ -269,10 +277,18 @@ function init_selectbox() {
                     
                 }
             }
-            $("#product_list").attr('size',10);
+            $("#product_list").attr('size',15);
             $("#product_list").css('width',document.getElementById("product_list").parentNode.offsetWidth);
-            alert_text = new fabric.Text('Select Mockup from Dropdown',{left:parseFloat(c.style.width)/2-220, top:parseFloat(c.style.height)/2-50,fill:"black", selectable:false});
-            canvas1.add(alert_text);
+            // alert_text = new fabric.Text('Select Mockup',{left:parseFloat(c.style.width)/2-120, top:parseFloat(c.style.height)/2-50,fill:"black", selectable:false});
+            // alert_text = new fabric.IText('Select Mockup', {
+            //     left:parseFloat(c.style.width)/2-100, 
+            //     top:parseFloat(c.style.height)/2-50,
+            //     fill:"black", 
+            //     fontFamily: 'sans-serif',
+            //     fontSize: 30,
+            //     selectable:false
+            // });
+            // canvas1.add(alert_text);
             canvas1.renderAll();
             if(getURLParameter("url"))
                 url_flag = true;
@@ -283,15 +299,18 @@ function init_selectbox() {
             //         text: param_product
             //     }));
             // }
+
             if(param_product){
                 document.getElementById("product_list").value = getURLParameter('product');
             }
        
             
-            if($("#product_list option:selected").text()!='') {
-                // $(".loader1").show();
-                // $("#product_list").prop("disabled", true);
-                // product_load();
+            if($("#product_list option:selected").text()!='Select Mockup') {
+                $("#mockup_moto").hide();
+                $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
+                $(".loader1").show();
+                $("#product_list").prop("disabled", true);
+                product_load();
             }
         }
     }

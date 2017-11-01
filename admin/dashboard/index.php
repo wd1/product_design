@@ -340,7 +340,20 @@
                                             </div>
                                         </div>     
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label style="vertical-align:middle;" for="pr-cost">Product Cost:</label>
+                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="text">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label style="vertical-align:middle;" for="pr-price">Product Price:</label>
+                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="text">
+                                            </div>
+                                        </div>     
+                                    </div>
                                     <div class="form-group" style="display:none;">
                                         <label for="mask-name">Mask Name</label>
                                         <input id="mask-name" name="mask-name" class="form-control" placeholder="Product Mask Name" type="text" disabled>
@@ -620,6 +633,7 @@
             </ul>
             
         </footer>
+       
 <!-- App Scripts and Plugins -->
     
 <script src="../../js/libs/jquery.min.js"></script>

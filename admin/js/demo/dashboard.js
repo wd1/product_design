@@ -45,7 +45,7 @@ function init_selectbox() {
                 value: "",
                 text: "Nymbl Mockups",
                 disabled: true,
-                style:"font-size:16px;font-weight:bold;"
+                style:"font-size:16px;font-weight:bold;color:#607d8b;"
             }));
             var lines = text[0].split("<br>");
             console.log(lines);
@@ -76,7 +76,7 @@ function init_selectbox() {
                     value: "",
                     text: "Custom Mockups",
                     disabled: true,
-                    style:"font-size:16px;font-weight:bold;"
+                    style:"font-size:16px;font-weight:bold;color:#607d8b;"
                 }));
                 lines = text[1].split("<br>");
                 console.log(lines);
@@ -149,6 +149,8 @@ function uploadFile() {
 //   console.log($("#shadow_file")[0].files[0]);
   fd.append("product_name",$("#pr-name").val());
   fd.append("product_code",$("#pr-code").val());
+  fd.append("product_cost",$("#pr-cost").val());
+  fd.append("product_price",$("#pr-price").val());
   console.log(document.getElementById("pr-name"));
   fd.append("mask_name",$("#mask-name").val());
   fd.append("shadow_name",$("#shadow-name").val());

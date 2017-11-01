@@ -244,10 +244,10 @@
                         <div class="row">
                             <div class="stylish" style="width:100%; color:#607d8b;">
                                 <span>
-                                    <input id="product_name_label" style="border: 1px solid #cfd8dc;width:100%;padding-left:20px;color:#607d8b;" value="Select Mockup" readonly>
-                                    <button id="caret" style="color:#607d8b;">&#9660</button>
+                                    <input id="product_name_label" style="border: 1px solid #cfd8dc;width:100%;padding-left:18px;color:#607d8b;" value="Select Mockup" readonly>
+                                    <button id="caret" style="color:#ccc;-webkit-margin-before:-4px;">&#9660</button>
                                     <br>
-                                    <select  id="product_list" style="border: 1px solid #cfd8dc;border-top:none;float:left; color:#607d8b; font-size: 12px;">
+                                    <select  id="product_list" style="border: 1px solid #cfd8dc;border-top:none;float:left; color:#607d8b; font-size: 12px;width:100%;">
                                     </select>
                                 </span>
                             </div>
@@ -319,7 +319,9 @@
             
         </footer>
     
-   
+    <div id="mockup_moto" style="font-family:sans-serif; font-size:30px;position: absolute;display: inline;">Select Mockup
+        <i class="icon-list" style="vertical-align:middle;" aria-hidden="true"></i>
+    </div>
 
     <!-- Bootstrap and necessary plugins -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
