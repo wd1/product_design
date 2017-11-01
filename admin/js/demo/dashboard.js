@@ -312,7 +312,27 @@ function needwarp() {
     console.log(pr_name);
     form.appendChild(pr_name);
 
-    console.log(pr_name);
+    temp = document.getElementById("pr-code");
+    var pr_code = document.createElement('input');
+    pr_code.type = "text";
+    pr_code.name = temp.name;
+    pr_code.value = temp.value;
+    console.log(pr_code);
+    form.appendChild(pr_code);
+
+    temp = document.getElementById("pr-cost");
+    var pr_cost = document.createElement('input');
+    pr_cost.type = "text";
+    pr_cost.name = temp.name;
+    pr_cost.value = temp.value;
+    form.appendChild(pr_cost);
+
+    temp = document.getElementById("pr-price");
+    var pr_price = document.createElement('input');
+    pr_price.type = "text";
+    pr_price.name = temp.name;
+    pr_price.value = temp.value;
+    form.appendChild(pr_price);
     // form.appendChild("mask_name",$("#mask-name").val());
     // form.appendChild("shadow_name",$("#shadow-name").val());
     // form.appendChild("texture-dark_name",$("#texture-dark-name").val());
@@ -333,6 +353,12 @@ function needwarp() {
     art_height.value = temp.value;
     form.appendChild(art_height);
 
+    temp = document.getElementById("art-dpi");
+    var art_dpi = document.createElement('input');
+    art_dpi.type = "text";
+    art_dpi.name = temp.name;
+    art_dpi.value = temp.value;
+    form.appendChild(art_dpi);
     // form.appendChild(document.getElementById("art-height"));
 
     temp = document.getElementById("art-x");
@@ -359,6 +385,26 @@ function needwarp() {
     blend_mode.value = $("#blend_mode").val().toLowerCase();
     form.appendChild(blend_mode);
 
+    temp = document.getElementById("provider");
+    var provider = document.createElement('input');
+    provider.type = "text";
+    provider.name = "provider";
+    provider.value = $("#provider").val();
+    form.appendChild(provider);
+
+    temp = document.getElementById("print_location");
+    var print_location = document.createElement('input');
+    print_location.type = "text";
+    print_location.name = "print_location";
+    print_location.value = $("#print_location").val();
+    form.appendChild(print_location);
+
+    temp = document.getElementById("print_mode");
+    var print_mode = document.createElement('input');
+    print_mode.type = "text";
+    print_mode.name = "print_mode";
+    print_mode.value = $("#print_mode").val();
+    form.appendChild(print_mode);
     // form.appendChild(document.getElementById("blend_mode"));
 
     temp = document.getElementById("opacity");
@@ -388,6 +434,7 @@ function needwarp() {
     form.appendChild(mockup_list_input);
     // form.appendChild("mockup_list",$("#checkbox1").is(":checked"));
     $("body").append(form);
+    console.log(form);
     form.submit();
 }
 // $("#question_mark").on('click', function() {

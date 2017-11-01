@@ -70,15 +70,23 @@
             }
         }
         $productname = $_POST['pr-name'];
+        $productcode = $_POST['pr-code'];
+        $productcost = $_POST['pr-cost'];
+        $productprice = $_POST['pr-price'];
         $width = $_POST['art-width'];
         $height = $_POST['art-height'];
         if($width == '')
             $width = 0;
         if($height == '')
             $height = 0;
+        $dpi = $_POST['art-dpi'];
+        
         $x = $_POST['art-x'];
         $y = $_POST['art-y'];
         $blend_mode = $_POST['blend_mode'];
+        $provider = $_POST['provider'];
+        $print_location = $_POST['print_location'];
+        $print_mode = $_POST['print_mode'];
         $opacity = $_POST['opacity'];
         $user = $_POST['userid'];
         $admin = $_POST['adminid'];
@@ -150,11 +158,18 @@ $productname = $_POST['product_name'];
         $mockup_list = $_POST['mockup_list']; 
 */
 var product_name = "<?php echo $productname ?>";
+var product_code = "<?php echo $productcode ?>";
+var product_cost = "<?php echo $productcost ?>";
+var product_price = "<?php echo $productprice ?>";
+var dpi = "<?php echo $dpi ?>";
 var art_width = "<?php echo $width ?>";
 var art_height = "<?php echo $height ?>";
 var upload_x = "<?php echo $x ?>";
 var upload_y = "<?php echo $y ?>";
 var blend_mode = "<?php echo $blend_mode ?>";
+var provider = "<?php echo $provider ?>";
+var print_location = "<?php echo $print_location ?>";
+var print_mode = "<?php echo $print_mode ?>";
 var user = "<?php echo $user ?>";
 var opacity = "<?php echo $opacity ?>";
 var admin = "<?php echo $admin ?>";

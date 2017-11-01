@@ -875,12 +875,13 @@ var readURL = function(input) {
 
             var texture_white = texture_white_img.getElement();
             if(texture_white != null) {
-          
-                
                 imagecontext.globalCompositeOperation = 'multiply';
                 imagecontext.drawImage(texture_white, 0, 0 ,original_width,original_height);
             }
             
+            imagecontext.globalCompositeOperation = 'destination-atop';
+            imagecontext.fillStyle ="white";
+            imagecontext.fillRect(0,0,original_width,original_height);
             
             $(".loader1").hide();
             imagecanvas.toBlob(function(blob) {

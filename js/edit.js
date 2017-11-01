@@ -378,6 +378,9 @@ function uploadFile() {
 //   console.log($("#shadow_file").val());
 //   console.log($("#shadow_file")[0].files[0]);
   fd.append("product_name",product_name);
+  fd.append("product_code",product_code);
+  fd.append("product_cost",product_cost);
+  fd.append("product_price",product_price);
 //   console.log(document.getElementById("pr-name"));
 //   fd.append("mask_name",$("#mask-name").val());
 //   fd.append("shadow_name",$("#shadow-name").val());
@@ -385,9 +388,13 @@ function uploadFile() {
 //   fd.append("texture-white_name",$("#texture-white-name").val());
   fd.append("width",art_width);
   fd.append("height",art_height);
+  fd.append("dpi",dpi);
   fd.append("x",upload_x);
   fd.append("y",upload_y);
   fd.append("blend_mode",blend_mode);
+  fd.append("provider",provider);
+  fd.append("print_location",print_location);
+  fd.append("print_mode",print_mode);
   fd.append("opacity",opacity);
   fd.append("userid", user);
   fd.append("adminid", admin);
