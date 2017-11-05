@@ -82,6 +82,9 @@ $productname = trim($_POST['product_name']);
     
     if( !$error ) {
 		$productname = $_POST['product_name'];
+        $productcode = $_POST['product_code'];
+        $productcost = $_POST['product_cost'];
+        $productprice = $_POST['product_price'];
         $width = $_POST['width'];
         $height = $_POST['height'];
         if($width == '')
@@ -90,6 +93,9 @@ $productname = trim($_POST['product_name']);
             $height = 0;
         $x = $_POST['x'];
         $y = $_POST['y'];
+        $provider = $_POST['provider'];
+        $print_location = $_POST['print_location'];
+        $print_mode = $_POST['print_mode'];
         $blend_mode = $_POST['blend_mode'];
         $opacity = $_POST['opacity'];
         $user = $_POST['userid'];
@@ -103,13 +109,13 @@ $productname = trim($_POST['product_name']);
         $bottom_left_y = $_POST['bottom_left_y'];
         $bottom_right_x = $_POST['bottom_right_x'];
         $bottom_right_y = $_POST['bottom_right_y'];
-        
+        $dpi = $_POST['dpi'];
         $position_x = $_POST["position_x"];
         $position_y = $_POST["position_y"];
         $size_x = $_POST["size_x"];
         $size_y = $_POST["size_y"];
         $cheight = $_POST["cheight"];
-        $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list,top_left_x,top_left_y,top_right_x,top_right_y,bottom_left_x,bottom_left_y,bottom_right_x,bottom_right_y,perspective, position_x, position_y, size_x, size_y, cheight) VALUES('$productname','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$top_left_x','$top_left_y','$top_right_x','$top_right_y','$bottom_left_x','$bottom_left_y','$bottom_right_x','$bottom_right_y','1','$position_x','$position_y','$size_x','$size_y','$cheight')";
+        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list,top_left_x,top_left_y,top_right_x,top_right_y,bottom_left_x,bottom_left_y,bottom_right_x,bottom_right_y,perspective, position_x, position_y, size_x, size_y, cheight, dpi,provider,print_location, print_mode, product_cost, product_price) VALUES('$productname','$productcode','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$top_left_x','$top_left_y','$top_right_x','$top_right_y','$bottom_left_x','$bottom_left_y','$bottom_right_x','$bottom_right_y','1','$position_x','$position_y','$size_x','$size_y','$cheight','$dpi','$provider','$print_location','$print_mode','$productcost','$productprice')";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         echo $query;
         $res = mysql_query($query);

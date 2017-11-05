@@ -59,7 +59,10 @@ var waitForFinalEvent = (function () {
     timers[uniqueId] = setTimeout(callback, ms);
   };
 })();
-
+$("#do_modal_instruction").click();
+function oninsruction() {
+    alert("SS");
+}
 $(window).resize(function() {
   waitForFinalEvent(function(){
         document.getElementById("product_list").style.width = document.getElementById("product_list").parentNode.parentNode.offsetWidth+"px";
@@ -150,6 +153,8 @@ $("#caret").click(function(ev) {
 });
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
+    $("#export-button").prop("disabled", false);
+    $("#export-art-button").prop("disabled", false);
     $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
     url_flag = false;
     // canvas1.remove(alert_text);
@@ -169,7 +174,7 @@ function init_selectbox() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
             console.log(text);
-            text = text.split("ADMINSEPERPATE");
+            text = text.split("ADMINSEPERATE");
             // $("#product_list").append($('<option>', {
             //     value: "",
             //     text: "--Select Mockup--",
@@ -228,7 +233,6 @@ function init_selectbox() {
             }
             if(text.length>1) {
                 $("#product_list").append($('<optgroup>', {
-
                     label: "Custom Mockups",
                 }));
 
@@ -302,10 +306,11 @@ function init_selectbox() {
 
             if(param_product){
                 document.getElementById("product_list").value = getURLParameter('product');
+                $("#product_list").hide().closest('div').find('input').val(getURLParameter('product'));
             }
        
             
-            if($("#product_list option:selected").text()!='Select Mockup') {
+            if(($("#product_list option:selected").text()!='Select Mockup') && ($("#product_list").hide().closest('div').find('input').val() !='Select Mockup')) {
                 $("#mockup_moto").hide();
                 $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
                 $(".loader1").show();
@@ -429,8 +434,8 @@ function product_load(fff = false, ggg=false) {
                                     document.getElementById("c").classList.remove("mask-class");
                                     pattern_img_width = img.width;
                                     pattern_img_height = img.height;
-                                    var offset_x = parseInt(getURLParameter("x"));
-                                    var offset_y = parseInt(getURLParameter("y"));
+                                    var offset_x = -20;//parseInt(getURLParameter("x"));
+                                    var offset_y = -50;//parseInt(getURLParameter("y"));
           
                                     var scale1 = parseInt(getURLParameter("w"))/img.width;
                                     var scale2 = parseInt(getURLParameter("h"))/img.height;
@@ -527,7 +532,7 @@ function getProductImage() {
     
     set_flag = false;
     if(url_flag) {
-        $("#export-button").click();
+        // $("#export-button").click();
     }
 }
 
@@ -574,7 +579,9 @@ canvas1.on('object:scaling', function(){
 
 
 $('#export-art-button').on('click', function () {
+    $("#export-art-button").prop("disabled", true);
     if(total_data[$("#product_list option:selected").text()].perspective !=1 ) {
+        
         var canvas1 = document.createElement('canvas');
         var this_canvas = canvas1.getContext('2d');
         
@@ -681,6 +688,7 @@ $('#export-art-button').on('click', function () {
             // }
         }     
     } else {
+        
         if(extension_type == "image/png") {
             temp_canvas.toBlob(function(blob) {
                 var url = URL.createObjectURL(blob);
@@ -786,6 +794,7 @@ var readURL = function(input) {
         // var canvas1 = document.getElementById('c'),
         // dataUrl = canvas1.toDataURL(),
         $(".loader1").show();
+        $("#export-button").prop("disabled", true);
         var canvas1 = document.createElement('canvas');
         var this_canvas = canvas1.getContext('2d');
         
@@ -858,8 +867,11 @@ var readURL = function(input) {
             imagecontext.drawImage(mask, 0,0, original_width,original_height); //(mockup_img.left-pattern_img.left) * original_rate_x,  (mockup_img.top-pattern_img.top) *original_rate_y
             // imagecontext.drawImage(img, width/2-150, height/2-150,300,300,0,0,1500,1500);
             //img.src = imagecanvas.toDataURL('image/jpg');
-            imagecontext.globalCompositeOperation = 'destination-over';
-            imagecontext.drawImage(shadow1, 0, 0 ,original_width,original_height);
+            if(shadow1 != null) {
+                imagecontext.globalCompositeOperation = 'destination-over';
+                imagecontext.drawImage(shadow1, 0, 0 ,original_width,original_height);
+            }
+            
 
             var texture_dark = texture_dark_img.getElement();
             if(texture_dark != null) 
@@ -892,7 +904,7 @@ var readURL = function(input) {
                 fireEvent(download, 'click')
                 // URL.revokeObjectURL(url);
                 
-            },"image/jpeg");
+            },"image/jpeg",1);
             
             // document.getElementById("mockup-image").appendChild(img);
             

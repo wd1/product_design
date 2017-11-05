@@ -21,7 +21,7 @@
         <meta name="description" content="Nymbl.io Designer">
         <meta name="author" content="Łukasz Holeczek">
         <meta name="keyword" content="bootstrap, template, admin, angular, jquery">
-        <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+        <link rel="shortcut icon" href="../../img/nymbl-favicon.png">
 
         <title>Creator | Nymbl Instant Mockups</title>
 
@@ -42,7 +42,33 @@
 
     <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
 
-    
+    <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
+      Launch the Cropper
+    </button>
+
+    <!-- Modal -->
+    <div id="modal_instruction" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Instructions</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>1. Enter data in fields as requested<br>
+                       2. For Product Images use PNG layers exported from a PSD mockup.<br>
+                    </p>
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="oninsruction()">OK</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
     <button id="uploadconfirm_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#uploadmodal" style="display:none;">
     	Launch large modal
 	</button>
@@ -340,20 +366,28 @@
                                             </div>
                                         </div>     
                                     </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label style="vertical-align:middle;" for="pr-cost">Product Cost:</label>
-                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
-                                                <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="text">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label style="vertical-align:middle;" for="pr-price">Product Price:</label>
-                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
-                                                <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="text">
-                                            </div>
-                                        </div>     
-                                    </div>
+                                    <?php
+                                    if ( isset($_SESSION['adminid']) ) {
+                                        
+                                        ?>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label style="vertical-align:middle;" for="pr-cost">Product Cost:</label>
+                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                    <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="text">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label style="vertical-align:middle;" for="pr-price">Product Price:</label>
+                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                    <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="text">
+                                                </div>
+                                            </div>     
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    
                                     <div class="form-group" style="display:none;">
                                         <label for="mask-name">Mask Name</label>
                                         <input id="mask-name" name="mask-name" class="form-control" placeholder="Product Mask Name" type="text" disabled>
@@ -383,7 +417,7 @@
                                                 <span class="switch-handle"></span>
                                             </label>
                                             <label for="apparel_check" style="vertical-align: middle;">
-                                               Product is apparel (non all-over) print? 
+                                               Product is DTG printed apparel (not all-over print)?
                                             </label>
                                             
                                             <a  id="question_mark" data-toggle="tooltip" title="Apparel Image pointer." class="icon-question" style="color:black;"></a>
@@ -443,7 +477,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                     <?php
+                                    if ( isset($_SESSION['adminid']) ) {
+                                        
+                                        ?>
+                                        <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label for="ccmonth">Provider:</label>
@@ -493,6 +531,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    
                                     <div class="form-group">
                                         
                                             <div class="checkbox">
@@ -546,7 +588,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Shadow / Extras Image (Optional):</label>
+                                    <label for="mask-name">Shadow / Extras Image (Required):</label>
                                     <a id="question_mark" data-toggle="tooltip" title="This image is the shadow image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview2" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename2" disabled="disabled">

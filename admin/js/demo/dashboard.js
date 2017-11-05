@@ -40,7 +40,7 @@ function init_selectbox() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
             console.log(text);
-            text=text.split("ADMINSEPERPATE");
+            text=text.split("ADMINSEPERATE");
             $("#multiple-select").append($('<option>', {
                 value: "",
                 text: "Nymbl Mockups",
@@ -219,16 +219,23 @@ function deleteproductfromlist() {
     xhr.send(fd);
 }
 function deleteproduct() {
-    if($("#multiple-select option:selected").index()>seperate_index) {
+    if(adminid != "admin") {
+        if($("#multiple-select option:selected").index()>seperate_index) {
+            if($("#multiple-select option:selected").length>0)
+                $("#modal_id1").click();
+        }
+    } else {
         if($("#multiple-select option:selected").length>0)
-            $("#modal_id1").click();
+                $("#modal_id1").click();
     }
 }
 $('#multiple-select').change(function() {
-    if($("#multiple-select option:selected").index()>seperate_index) {
-        $("#deleteproduct_btn").prop("disabled",false);
-    } else {
-        $("#deleteproduct_btn").prop("disabled",true);
+    if(adminid != "admin") {
+        if($("#multiple-select option:selected").index()>seperate_index) {
+            $("#deleteproduct_btn").prop("disabled",false);
+        } else {
+            $("#deleteproduct_btn").prop("disabled",true);
+        }
     }
 });
 function upload() {
@@ -240,6 +247,11 @@ function upload() {
   if(!$("#mask_file")[0].files[0])
   {
     alert('Please add the mask file');
+    return;
+  }
+  if(!$("#shadow_file")[0].files[0])
+  {
+    alert('Please add the shadow file');
     return;
   }
   if(!$("#pr-name").val())

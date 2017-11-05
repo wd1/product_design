@@ -187,13 +187,15 @@
 									<span class="input-group-addon">@</span>
 									<input type="email" name="email" class="form-control" placeholder="Enter Your Email" maxlength="40" value="<?php echo $email ?>" />
 								</div>
-								<span class="text-danger"><?php echo $emailError; ?></span>
+								
 
 								<div class="input-group mb-3">
 									<span class="input-group-addon"><i class="icon-lock"></i>
 									</span>
 									<input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
 								</div>
+								<span class="text-danger"><?php echo $emailError; ?></span>
+
 								<span class="text-danger"><?php echo $passError; ?></span>
 								<button type="submit" class="btn btn-block btn-success" name="btn-signup">Create Account</button>
 								<div class="form-group"> <br>
@@ -235,6 +237,7 @@
 
 <script>
     document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight)+"px";
+	document.getElementsByTagName("form")[0].style.marginTop = (document.getElementById("appbody").offsetHeight -document.getElementsByTagName("form")[0].offsetHeight)/2 + "px";  
 </script>
 <script src="js/footerfunction.js"></script>
 </body>

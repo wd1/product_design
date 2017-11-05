@@ -32,6 +32,9 @@ body {
     /*width:250px;*/
     padding:5px;
 }
+
+#caret:focus {outline:0;}
+
 .stylish select {
     min-width:260px;
     margin-top:1px;

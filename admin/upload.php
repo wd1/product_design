@@ -88,7 +88,7 @@ if(isset($_FILES['product_file'])) {
         $mockup_list = $_POST['mockup_list'];
         $query = "INSERT INTO products(mockup_name,mockup_code,width,height,dpi,x,y,user_id,blend_mode,opacity,admin,mockup_list,provider,print_location, print_mode, product_cost, product_price) VALUES('$productname','$productcode','$width','$height','$dpi','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$provider','$print_location','$print_mode','$productcost','$productprice')";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
-        // echo $query;
+        echo $query;
         $res = mysql_query($query);
             
         if ($res) {

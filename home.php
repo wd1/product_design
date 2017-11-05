@@ -61,6 +61,34 @@
 	-->
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
+    <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
+      Launch the Cropper
+    </button>
+
+    <!-- Modal -->
+    <div id="modal_instruction" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Instructions</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>1. Click ‘Upload’, select a hi-res JPG or PNG design.<br>
+                        2. Crop / Position the uploaded design.<br>
+                        3. Click ‘Mockup’ to download mockup. Click ‘Print File’ to download print file.<br>
+                    </p>
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="oninsruction()">OK</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
     <button type="button" id="do_modal_crop" class="btn btn-primary" style="display:none;" data-target="#modal_crop" data-toggle="modal">
       Launch the Cropper
     </button>
@@ -245,7 +273,7 @@
                             <div class="stylish" style="width:100%; color:#607d8b;">
                                 <span>
                                     <input id="product_name_label" style="border: 1px solid #cfd8dc;width:100%;padding-left:18px;color:#607d8b;" value="Select Mockup" readonly>
-                                    <button id="caret" style="color:#ccc;-webkit-margin-before:-4px;">&#9660</button>
+                                    <button id="caret" style="color:#ccc;width: 12px;height: 12px; background: red;background: url(img/down-arrow.png); background-size: auto auto;background-size: 100% 100%;margin-right: 5px;margin-top:3px;display:inline-block;"></button>                                    
                                     <br>
                                     <select  id="product_list" style="border: 1px solid #cfd8dc;border-top:none;float:left; color:#607d8b; font-size: 12px;width:100%;">
                                     </select>
@@ -319,8 +347,8 @@
             
         </footer>
     
-    <div id="mockup_moto" style="font-family:sans-serif; font-size:30px;position: absolute;display: inline;">Select Mockup
-        <i class="icon-list" style="vertical-align:middle;" aria-hidden="true"></i>
+    <div id="mockup_moto" style="font-family:sans-serif; color:#94a6af;font-size:30px;position: absolute;display: inline;">
+        <i class="icon-list" style="vertical-align:middle;padding-bottom: 3px;" aria-hidden="true"></i> &nbsp;Select Mockup
     </div>
 
     <!-- Bootstrap and necessary plugins -->

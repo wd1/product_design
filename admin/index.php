@@ -148,7 +148,7 @@
                     <div class="card-group">
                         <div class="card p-a-2">
                             <div class="card-block">
-                                <h1>Login</h1>
+                                <h1>Admin Login</h1>
                                 <?php
                                 if ( isset($errMSG) ) {
                                     
