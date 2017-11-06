@@ -10,8 +10,11 @@
 	}
 	// select loggedin users detail
 	$res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
+    
 	$userRow=mysql_fetch_array($res);
     $_COOKIE['userName'] = $userRow['userName'];
+    $downloads1 = $userRow['downloads_1'];
+    $downloads2 = $userRow['downloads_2'];
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
@@ -61,6 +64,33 @@
 	-->
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
+    <button type="button" id="download_modal_btn" class="btn btn-primary" style="display:none;" data-target="#download_modal" data-toggle="modal">
+      
+    </button>
+
+    <!-- Modal -->
+    <div id="download_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Free-Tier Warning</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+                    You have 1 more mockup remaining after this one at the Free-Tier usage level, fter which you will be charged for 1 month of usage.
+                    </p>
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">OK</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
     <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
       Launch the Cropper
     </button>
@@ -162,10 +192,10 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- User Interface -->
-    <script> var userid =
-    <?php echo $_SESSION['user'];?> ;
-      </script>
-    <script>
+    <script> 
+        var userid =
+         <?php echo $_SESSION['user'];?> ;
+
         var adminid = "";
         adminid = '<?php 
             if(isset($_SESSION["adminid"]))
@@ -173,6 +203,9 @@
             else
                 echo "";
         ?>' ;
+        var downloads1 = '<?php echo  $downloads1;?>';
+
+        var downloads2 ='<?php echo $downloads2;?>';
     </script>
     
     <button id="viewPrivacy_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#largeModal" style="display:none;">
