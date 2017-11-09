@@ -68,7 +68,7 @@
         <meta name="description" content="CoreUI - Free Bootstrap 4 Admin Template">
         <meta name="author" content="Łukasz Holeczek">
         <meta name="keyword" content="bootstrap, template, admin, angular, jquery">
-        <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+        <link rel="shortcut icon" href="../img/nymbl-favicon.png">
 
         <title>Nymbl Instant Mockups</title>
 
@@ -251,7 +251,8 @@
 <script src="../js/footerfunction.js"></script>
 <!--<script src="../js/routes.js"></script>-->
 <script>
-    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-5)+"px";
+    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight)+"px";
+    // document.getElementsByTagName("form")[0].style.marginTop = (document.getElementById("appbody").offsetHeight -document.getElementsByTagName("form")[0].offsetHeight)/2 + "px";
 </script>
 <!--<script src="../js/demo/routes.js"></script>
 

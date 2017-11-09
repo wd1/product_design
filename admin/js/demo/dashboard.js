@@ -288,7 +288,6 @@ function needupload() {
     uploadFile();
 }
 
-
 function needwarp() {
     var form = document.createElement('form');
     form.style.display = "none";
@@ -335,16 +334,25 @@ function needwarp() {
     temp = document.getElementById("pr-cost");
     var pr_cost = document.createElement('input');
     pr_cost.type = "text";
-    pr_cost.name = temp.name;
-    pr_cost.value = temp.value;
+    pr_cost.name = "pr-cost";
+    if(temp != null) {
+        pr_cost.value = temp.value;
+    } else {
+        pr_cost.value = 0;
+    }
     form.appendChild(pr_cost);
 
     temp = document.getElementById("pr-price");
     var pr_price = document.createElement('input');
     pr_price.type = "text";
-    pr_price.name = temp.name;
-    pr_price.value = temp.value;
+    pr_price.name = "pr-price";
+    if(temp != null) {
+        pr_price.value = temp.value;
+    } else {
+        pr_price.value = 0;
+    }
     form.appendChild(pr_price);
+    
     // form.appendChild("mask_name",$("#mask-name").val());
     // form.appendChild("shadow_name",$("#shadow-name").val());
     // form.appendChild("texture-dark_name",$("#texture-dark-name").val());
@@ -408,7 +416,7 @@ function needwarp() {
     var print_location = document.createElement('input');
     print_location.type = "text";
     print_location.name = "print_location";
-    print_location.value = $("#print_location").val();
+    print_location.value = $("input[name=radios]:checked").val();
     form.appendChild(print_location);
 
     temp = document.getElementById("print_mode");

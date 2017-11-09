@@ -68,13 +68,14 @@
         <meta name="description" content="CoreUI - Free Bootstrap 4 Admin Template">
         <meta name="author" content="Łukasz Holeczek">
         <meta name="keyword" content="bootstrap, template, admin, angular, jquery">
-        <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+        <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
         <title>Nymbl Instant Mockups</title>
 
         <!-- Main styles for this application -->
         <link href="css/style.css" rel="stylesheet">
         <link href="css/cropper.css" rel="stylesheet">
+        <link href="css/simple-line-icons.css" rel="stylesheet">
         <!--<script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

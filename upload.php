@@ -17,6 +17,15 @@ if(isset($_FILES['design_file'])) {
     } else {
         echo "Error updating record: ";
     }
+} else if(isset($_POST['showflag'])) {
+    require_once 'dbconnect.php';
+    $showflag = $_POST['showflag'];
+    $userid = $_POST['userid'];
+    if (mysql_query("UPDATE users SET showflag=$showflag WHERE userId=$userid")) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: ";
+    }
 } else {
     echo "No files uploaded ...";
 }

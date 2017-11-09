@@ -8,7 +8,7 @@
         <meta name="description" content="CoreUI - Free Bootstrap 4 Admin Template">
         <meta name="author" content="Łukasz Holeczek">
         <meta name="keyword" content="bootstrap, template, admin, angular, jquery">
-        <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+        <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
         <title>Change Password</title>
 

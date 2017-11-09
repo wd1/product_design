@@ -34,10 +34,10 @@
 			$nameError = "Please enter your full name.";
 		} else if (strlen($name) < 3) {
 			$error = true;
-			$nameError = "Name must have atleat 3 characters.";
+			$nameError = "Name must be at least 3 characters.";
 		} else if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
 			$error = true;
-			$nameError = "Name must contain alphabets and space.";
+			$nameError = "Name can’t contain numbers or special characters";
 		}
 		
 		//basic email validation
@@ -68,14 +68,18 @@
 		
 		// if there's no error, continue to signup
 		if( !$error ) {
-			
+			$_SESSION['userName'] = $name;
+	 		$_SESSION['UserEmail'] = $email;
+	 		$_SESSION['userPass'] = $password;
+			header("refresh:1;url=billing.php");
+			/*
 			$query = "INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')";
 			$res = mysql_query($query);
 				
 			if ($res) {
 				$errTyp = "success";
-				$errMSG = "Successfully Registered! Redirecting to Login.";
-                header("refresh:3;url=index.php");
+				$errMSG = "Successfully Registered! Redirecting to Billing.";
+                
 				unset($name);
 				unset($email);
 				unset($pass);
@@ -83,7 +87,7 @@
 				$errTyp = "danger";
 				$errMSG = "Something went wrong, try again later...";	
 			}	
-				
+				*/
 		}
 		
 		
@@ -96,7 +100,7 @@
     <title>Nymbl Instant Mockups | Register</title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/cropper.css" rel="stylesheet">
-    <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+    <link rel="shortcut icon" href="img/nymbl-favicon.png">
     <link href="css/simple-line-icons.css" rel="stylesheet">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
@@ -177,26 +181,29 @@
 								}
 								?>
 								<p class="text-muted">Create your account</p>
+								<span class="text-danger"><?php echo $nameError; ?></span>
 								<div class="input-group mb-3">
 									<span class="input-group-addon"><i class="icon-user"></i>
 									</span>
 									<input name="name" class="form-control" placeholder="Enter Name" type="text" maxlength="50" value="<?php echo $name ?>">
 								</div>
-								<span class="text-danger"><?php echo $nameError; ?></span>
+								
+								
+								<span class="text-danger"><?php echo $emailError; ?></span>
 								<div class="input-group mb-3">
 									<span class="input-group-addon">@</span>
 									<input type="email" name="email" class="form-control" placeholder="Enter Your Email" maxlength="40" value="<?php echo $email ?>" />
 								</div>
 								
-
+								<span class="text-danger"><?php echo $passError; ?></span>
 								<div class="input-group mb-3">
 									<span class="input-group-addon"><i class="icon-lock"></i>
 									</span>
 									<input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
 								</div>
-								<span class="text-danger"><?php echo $emailError; ?></span>
+								
 
-								<span class="text-danger"><?php echo $passError; ?></span>
+								
 								<button type="submit" class="btn btn-block btn-success" name="btn-signup">Create Account</button>
 								<div class="form-group"> <br>
 									<a href="index.php">Sign in Here...</a>

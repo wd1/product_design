@@ -511,13 +511,22 @@
                                                     <option value="TShirt & Sons">TShirt & Sons</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="text-align: center;" >
                                                 <label for="ccmonth">Print Location:</label>
-                                                <select class="form-control" id="print_location" style="padding-top: 5px;">
-                                                    
+                                                <div class="radio">
+                                                    <label for="radio1">
+                                                        <input id="radio1" name="radios" value="Front" type="radio"> Front
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2">
+                                                        <input id="radio2" name="radios" value="Back" type="radio"> Back&nbsp;
+                                                    </label>
+                                                </div>
+                                                <!-- <select class="form-control" id="print_location" style="padding-top: 5px;">
                                                     <option value="Front">Front</option>
                                                     <option value="Back">Back</option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="ccmonth">Print Mode:</label>
