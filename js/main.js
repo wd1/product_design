@@ -198,8 +198,10 @@ $("#caret").click(function(ev) {
 });
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
-    $("#export-button").prop("disabled", false);
-    $("#export-art-button").prop("disabled", false);
+    if(downloads1>=0)
+        $("#export-button").prop("disabled", false);
+    if(downloads2>=0)
+        $("#export-art-button").prop("disabled", false);
     $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
     url_flag = false;
     // canvas1.remove(alert_text);
@@ -266,8 +268,9 @@ function init_selectbox() {
                 var size_x = arrs[19].split("size_x:")[1];
                 var size_y = arrs[20].split("size_y:")[1];
                 var cheight = arrs[21].split("cheight:")[1]
+                var dpi = arrs[22].split("dpi:")[1]
                 // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight};
+                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi};
                 // if(name == param_product)
                 //     exist_flag = true;
                 $("#product_list").append($('<option>', {
@@ -314,9 +317,10 @@ function init_selectbox() {
                     var position_y = arrs[18].split("position_y:")[1];
                     var size_x = arrs[19].split("size_x:")[1];
                     var size_y = arrs[20].split("size_y:")[1];
-                    var cheight = arrs[21].split("cheight:")[1]
+                    var cheight = arrs[21].split("cheight:")[1];
+                    var dpi = arrs[22].split("dpi:")[1];
                     // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight};
+                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi};
                     // if(name == param_product)
                     //     exist_flag = true;
                     $("#product_list").append($('<option>', {
@@ -631,134 +635,121 @@ $('#export-art-button').on('click', function () {
         $("#export-art-button").prop("disabled", true);
         if(total_data[$("#product_list option:selected").text()].perspective !=1 ) {
             
-            var canvas1 = document.createElement('canvas');
-            var this_canvas = canvas1.getContext('2d');
-            
-            dataUrl = canvas1.toDataURL();
-            
-            imageFoo.src = dataUrl;
+
             $(".loader1").show();
             var original_width = art_width;//pattern_img.width;
             var original_height = art_height;//pattern_img.height;
-            console.log(original_height+","+original_width);
-            // var original_width = 1000;//pattern_img.width;
-            // var original_height = 1000/(pattern_img.width*pattern_img.scaleX/pattern_img.height/pattern_img.scaleY);//pattern_img.height;
-            imageFoo.style.width = original_width+"px";
-            imageFoo.style.height = original_height+"px";
-            imageFoo.dataset.mask = 'img/mask-rect.png';
 
 
-            var imagecanvas = document.createElement('canvas');
-            var imagecontext = imagecanvas.getContext('2d');
+            // var imagecanvas = document.createElement('canvas');
+            // var imagecontext = imagecanvas.getContext('2d');
 
-            var img = imageFoo;
-            
-            
-            newImg.src = img.src;
-            newImg.onload = function() {
-                // var width  = newImg.width;
-                // var height = newImg.height;
-                // console.log("width"+width);
-                // var mask = document.createElement('img');
-                // mask.src = img.getAttribute('data-mask');
-                // mask.width = 1500;
-                // mask.height = 1500;
-                // console.log(mask.src);
-                // mask.onload = function() {
-                    
-                    var mock_origin_width = mockup_img.width;
-                    var mock_origin_height = mockup_img.height;
-                    // var original_rate_x = original_width / (mockup_img.width*mockup_img.scaleX+red_x_offset*2);
-                    // var original_rate_y = original_height / (mockup_img.height*mockup_img.scaleY+red_y_offset*2);
-                    // imagecanvas.width  = pattern_img.width*pattern_img.scaleX*(1200/(mockup_img.width*mockup_img.scaleX));//width;
-                    // imagecanvas.height = pattern_img.height*pattern_img.scaleY*(1200/initial_rate/(mockup_img.height*mockup_img.scaleY));//height;
-                    // console.log(pattern_img.width * pattern_img.scaleX);
-                    
-                    var mock1 = mockup_img.getElement();
-                    var pattern1 = pattern_img.getElement();
-            /*
-                    imagecontext.drawImage(mock1,10*original_rate_y,  10*original_rate_y  ,mockup_img.width*mockup_img.scaleX*original_rate_x,mockup_img.height*mockup_img.scaleY*original_rate_y);
-                    imagecontext.save();
-                    imagecontext.beginPath();
-                    imagecontext.setLineDash([5, 15]);
-                    imagecontext.strokeStyle = '#ff0000';
-                    // imagecontext.rect(0, 0 ,mockup_img.width*mockup_img.scaleX*original_rate_x+20*original_rate_x,mockup_img.height*mockup_img.scaleY*original_rate_y+20*original_rate_y);//(10*1200/300, 10*1200/300 ,1200,1200/initial_rate);
+            // var mock_origin_width = mockup_img.width;
+            // var mock_origin_height = mockup_img.height;
 
-                    imagecontext.rect(-10*original_rate_x+(mockup_img.left-pattern_img.left) * original_rate_x,  -10*original_rate_y+(mockup_img.top-pattern_img.top) * original_rate_y ,mockup_img.width*mockup_img.scaleX*original_rate_x+20*original_rate_x,mockup_img.height*mockup_img.scaleY*original_rate_y+20*original_rate_y);
-                    imagecontext.stroke();
-                    imagecontext.beginPath();
-                    imagecontext.setLineDash([]);
-                    imagecontext.strokeStyle = 'black';
-                    imagecontext.rect((mockup_img.left-pattern_img.left) * original_rate_x,  (mockup_img.top-pattern_img.top) *original_rate_y ,mockup_img.width*mockup_img.scaleX*original_rate_x,mockup_img.height*mockup_img.scaleY*original_rate_y);
-                    imagecontext.stroke();
-                    imagecontext.restore();
-                    imagecontext.globalCompositeOperation = 'multiply';*/
-                    // console.log(pattern_img.width*pattern_img.scaleX*(1200/(mockup_img.width*mockup_img.scaleX)));
-                    // console.log(1200+20*1200/300);
-                    
-                    // imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height, 10*1200/300-(mockup_img.left-pattern_img.left) * (1200/(mockup_img.width*mockup_img.scaleX)),  10*1200/300-(mockup_img.top-pattern_img.top) *(1200/initial_rate/(mockup_img.height*mockup_img.scaleY)) 
-                    // ,pattern_img.width*pattern_img.scaleX*(1200/(mockup_img.width*mockup_img.scaleX)),pattern_img.height*pattern_img.scaleY*(1200/initial_rate/(mockup_img.height*mockup_img.scaleY)));
-                    // imagecontext.globalCompositeOperation = 'destination-atop';
-                    
-                    // imagecontext.drawImage(mask, 0, 0, 1200+20*1200/300, 1200/initial_rate+20*1200/300);
-                    
-                    //main  
+            // var mock1 = mockup_img.getElement();
+            var pattern1 = pattern_img.getElement();
 
-                    /*
-                    width: mockup_img_width+20, 
-                height: (mockup_img_width+20) /square_rate, 
-                left:  canvas.width/2-(mockup_img_width+20)/2, 
-                top:  canvas.height/2-(mockup_img_width+20) /square_rate/2, */
-
-                    //imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height, 0,0,original_width, original_height);
-                    
-                    if(original_height == 0 ) {
-                        imagecanvas.width  = pattern_img.width;
-                        imagecanvas.height = pattern_img.height;
-                        imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height,0,0,pattern_img.width, pattern_img.height);
-                    } else {
-                        imagecanvas.width  = original_width;
-                        imagecanvas.height = original_height;
-                        imagecontext.drawImage(pattern1,(square.left-pattern_img.left) /pattern_img.scaleX , (square.top-pattern_img.top)/pattern_img.scaleY,square.width/pattern_img.scaleX, square.height/pattern_img.scaleY, 0,0,original_width, original_height);
-                    }
-
-                
-                        $(".loader1").hide();
-                        imagecanvas.toBlob(function(blob) {
-                            var url = URL.createObjectURL(blob);
-                            var download = document.createElement('a');
-                            download.href = url;
-                            download.download = 'product-art-file.png';
-                            fireEvent(download, 'click')
-                            // URL.revokeObjectURL(url);
-                            
-                        });
-                    // }
-                // }
-            }     
-        } else {
-            
-            if(extension_type == "image/png") {
-                temp_canvas.toBlob(function(blob) {
-                    var url = URL.createObjectURL(blob);
-                    var download = document.createElement('a');
-                    download.href = url;
-                    download.download = 'product-art-file.png';
-                    fireEvent(download, 'click')
-                    // URL.revokeObjectURL(url);
-                    
-                });
+            var send_x,send_y, send_width, send_height;
+            if(original_height == 0 ) {
+                // imagecanvas.width  = pattern_img.width;
+                // imagecanvas.height = pattern_img.height;
+                // imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height,0,0,pattern_img.width, pattern_img.height);
+                send_x = 0;
+                send_y = 0;
+                send_width = pattern_img.width;
+                send_height = pattern_img.height;
             } else {
-                temp_canvas.toBlob(function(blob) {
-                    var url = URL.createObjectURL(blob);
+                // imagecanvas.width  = original_width;
+                // imagecanvas.height = original_height;
+                // imagecontext.drawImage(pattern1,(square.left-pattern_img.left) /pattern_img.scaleX , (square.top-pattern_img.top)/pattern_img.scaleY,square.width/pattern_img.scaleX, square.height/pattern_img.scaleY, 0,0,original_width, original_height);
+                send_x = (square.left-pattern_img.left) /pattern_img.scaleX;
+                send_y = (square.top-pattern_img.top)/pattern_img.scaleY;
+                send_width = square.width/pattern_img.scaleX;
+                send_height =  square.height/pattern_img.scaleY;
+            }
+            console.log(send_x);
+            // imagecanvas.toBlob(function(blob) {
+                // $(".loader1").hide();
+                // var _URL = window.URL || window.webkitURL;
+                // var url = URL.createObjectURL(blob);
+                // var download = document.createElement('a');
+                // download.href = url;
+                // download.download = 'product-art-file.png';
+                // fireEvent(download, 'click')
+                // URL.revokeObjectURL(url);
+                
+                var url = 'convert_resolution.php';
+                var _URL = window.URL || window.webkitURL;
+                var xhr = new XMLHttpRequest();
+                var fd = new FormData();
+                url_flag = false;
+                xhr.open("POST", url, true);
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(xhr.responseText);
+                        $(".loader1").hide();
+                        var url = xhr.responseText;
+                        var download = document.createElement('a');
+                        download.href = xhr.responseText;
+                        download.download = 'product-art-file.png';
+                        fireEvent(download, 'click')
+                    }
+                }
+                // fd.append("design_file", blob);
+                fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
+                fd.append("send_x", send_x);
+                fd.append("send_y", send_y);
+                fd.append("send_width", send_width);
+                fd.append("send_height", send_height);
+                fd.append("src",(pattern1.src).split("img/")[1]);
+                fd.append("art_width", total_data[$("#product_list option:selected").text()].width);
+                fd.append("art_height", total_data[$("#product_list option:selected").text()].height);
+                xhr.send(fd);
+                
+            // });
+                    
+            
+        } else {
+            $(".loader1").show();
+            var url = 'convert_resolution.php';
+            var _URL = window.URL || window.webkitURL;
+            var xhr = new XMLHttpRequest();
+            var fd = new FormData();
+            url_flag = false;
+            xhr.open("POST", url, true);
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    $(".loader1").hide();
+                    var url = xhr.responseText;
                     var download = document.createElement('a');
                     download.href = url;
-                    download.download = 'product-art-file.jpg';
-                    fireEvent(download, 'click')
-                    // URL.revokeObjectURL(url);
-                    
-                },"image/jpeg",1);
+                    if(extension_type == "image/png") {
+                        
+                        download.download = 'product-art-file.png';
+                        fireEvent(download, 'click')
+                        // URL.revokeObjectURL(url);                   
+            
+                    } else {
+
+                        download.download = 'product-art-file.jpg';
+                        fireEvent(download, 'click')
+                        // URL.revokeObjectURL(url);
+                    }
+                }
             }
+            // fd.append("design_file", blob);
+            fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
+            fd.append("send_x", data.x);
+            fd.append("send_y", data.y);
+            fd.append("send_width", data.width);
+            fd.append("send_height", data.height);
+            fd.append("src",(document.getElementById("image").src).split("img/")[1]);
+            fd.append("art_width", total_data[$("#product_list option:selected").text()].width);
+            fd.append("art_height", total_data[$("#product_list option:selected").text()].height);
+            xhr.send(fd);
+            
         }
         if(downloads2 == 1) 
             $("#download_modal_btn").click();
@@ -786,19 +777,18 @@ function uploadFile(file) {
         console.log(xhr.responseText);
         $(".loader1").hide();
         $("#product_list").prop("disabled", false);
-        fabric.Image.fromURL(_URL.createObjectURL(file), function(img) {
+        fabric.Image.fromURL(xhr.responseText, function(img) {
             canvas1.remove(pattern_img);
             document.getElementById("c").style.maskImage = "";
             document.getElementById("c").style.webkitMaskImage = "";
             document.getElementById("c").classList.remove("mask-class");
            
             if(total_data[$("#product_list option:selected").text()].perspective == "1") {
-                init_this(_URL.createObjectURL(file));
+                init_this(xhr.responseText);
             } else {
                 pattern_img_width = img.width;
                 pattern_img_height = img.height;
-                
-                               
+     
                 if(total_data[$("#product_list option:selected").text()].opacity)
                     pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
                 else
@@ -821,6 +811,7 @@ function uploadFile(file) {
     }
   }
   fd.append("design_file", file);
+  fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
   xhr.send(fd);
 }
 
@@ -973,6 +964,7 @@ $("#export-button").on('click', function() {
             $("#download_modal_btn").click();
     } else {
         downloads1--;
+        $("#download_error_modal_btn").click();
     }
     download_update();
 });

@@ -92,6 +92,33 @@
 			<!-- /.modal-content -->
 		</div>
 	</div>
+    <button type="button" id="download_error_modal_btn" class="btn btn-primary" style="display:none;" data-target="#download_error_modal" data-toggle="modal">
+      
+    </button>
+
+    <!-- Modal -->
+    <div id="download_error_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Free-Tier Limit Reached</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+                    You’ve reached the free-tier limit of 5 mockups/mo. Please add a billing method for unlimited mockup & print files/mo at just $10/mo + ¢7/mockup download.
+                    </p>
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<a href="billing.php" type="button" class="btn btn-primary">Add Billing Method</a>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
     <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
       Launch the Cropper
     </button>

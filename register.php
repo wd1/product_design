@@ -71,7 +71,8 @@
 			$_SESSION['userName'] = $name;
 	 		$_SESSION['UserEmail'] = $email;
 	 		$_SESSION['userPass'] = $password;
-			header("refresh:1;url=billing.php");
+			// header("refresh:1;url=billing.php");
+			header("refresh:1;url=index.php");
 			/*
 			$query = "INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')";
 			$res = mysql_query($query);
