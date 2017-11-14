@@ -26,7 +26,7 @@ var basic_image_width = 300;
 var image_size_scale = 0.4;
 var total_data={}, url_flag = false;
 var mockup_image_before_width,mockup_image_before_height;
-
+var mockup_image_before_left, mockup_image_before_top;
 var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
 var wheelGroup, test, stopE, getWheel, dropWheel,myEntity;
 var data;
@@ -43,7 +43,7 @@ $(".loader1").css("left",window.innerWidth/2-40);
 $(".loader1").css("top",window.innerHeight/2+5);
 $(".loader1").hide();
 mockup_image_before_width = document.getElementById('mockup-image').offsetWidth;
-mockup_image_before_height = document.getElementById('mockup-image').offsetHeight;
+mockup_image_before_height = window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-35-65;
 document.getElementById("mockup_moto").style.left = (document.getElementById('mockup-image').offsetLeft+ document.getElementById('mockup-image').offsetWidth / 2-100)+"px";
 document.getElementById("mockup_moto").style.top = (document.getElementById('mockup-image').offsetTop+document.getElementById('mockup-image').offsetHeight / 2-100)+"px";
 document.getElementsByClassName('img-container')[0].style.height = (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75)*1.1 +"px";
@@ -104,7 +104,7 @@ $(window).resize(function() {
   waitForFinalEvent(function(){
         document.getElementById("product_list").style.width = document.getElementById("product_list").parentNode.parentNode.offsetWidth+"px";
         var offset_xxx1 = (mockup_image_before_width - document.getElementById('mockup-image').offsetWidth)/2;
-        mockup_image_before_width = document.getElementById('mockup-image').offsetWidth
+        mockup_image_before_width = document.getElementById('mockup-image').offsetWidth;
         var offset_yyy1 = (mockup_image_before_height - (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-35-65))/2;
         mockup_image_before_height =  window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-35-65;
       
@@ -118,11 +118,13 @@ $(window).resize(function() {
         // canvas.width = c.width;
         // canvas.height = c.height;
         canvas1 = new fabric.Canvas('c');
-        
+        console.log(mockup_image_before_width+","+mockup_img.top);
         if(pattern_img) {
             pattern_img.left = pattern_img.left - offset_xxx1;
             pattern_img.top = pattern_img.top - offset_yyy1;
+            // pattern_img.left = pattern_img.left - (mockup_img.left-mockup_image_before_left);
         }
+        // mockup_image_before_left = mockup_img.left;
         canvas1.on('mouse:down', function(e) { 
             // e.target should be the circle
             if((e.target == null) && (pattern_img) && (set_flag)) {
@@ -281,10 +283,17 @@ function init_selectbox() {
             }
             if(text.length>1) {
                 $("#product_list").append($('<optgroup>', {
-                    label: "Custom Mockups",
+                    label: "My Custom Mockups",
                 }));
 
                 lines = text[1].split("<br>");
+                console.log(lines.length);
+                if(lines.length == 1) {
+                     $("#product_list").append($('<optgroup>', {
+                        label: "Click Creator Tool Above To Add",
+                        style: "font-size:16px;padding-left:25px;padding-top:20px;",
+                    }));
+                }
                 for(var j=0; j<lines.length-1; j++) {
                     
                     var arrs = lines[j].split(" width:");
@@ -443,6 +452,8 @@ function product_load(fff = false, ggg=false) {
                 selectable: false
             });
             mockup_img = img.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false })
+            mockup_image_before_left = mockup_img.left;
+            mockup_image_before_top = mockup_img.top;
             // console.log(image_size_scale);
             // mockup_img.setShadow({color:'grey', blur:70, offsetX:45, offsetY:45, opacity:1});
             black_y_offset = mockup_img.left - square.left;
@@ -775,7 +786,7 @@ function uploadFile(file) {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         console.log(xhr.responseText);
-        $(".loader1").hide();
+        
         $("#product_list").prop("disabled", false);
         fabric.Image.fromURL(xhr.responseText, function(img) {
             canvas1.remove(pattern_img);
@@ -806,6 +817,7 @@ function uploadFile(file) {
                 canvas1.add(pattern_img);
                
                 set_flag = true;
+                $(".loader1").hide();
             }
         });
     }
@@ -1005,6 +1017,7 @@ $("#export-button").on('click', function() {
     }
 // init_this();
     function init_this(url) {
+        $(".loader1").hide();
         var image = document.getElementById('image');
         image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
         image = document.getElementById('image');
@@ -1213,7 +1226,7 @@ function process_crop_data(e) {
     
 }
 function getCropData(e) {
-    e.innerHTML = "Saving...";
+    e.innerHTML = "Uploading & Saving…";
   
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);

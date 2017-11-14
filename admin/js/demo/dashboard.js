@@ -416,7 +416,8 @@ function needwarp() {
     var print_location = document.createElement('input');
     print_location.type = "text";
     print_location.name = "print_location";
-    print_location.value = $("input[name=radios]:checked").val();
+    // print_location.value = $("input[name=radios]:checked").val();
+    print_location.value =$("#print_location").val();
     form.appendChild(print_location);
 
     temp = document.getElementById("print_mode");

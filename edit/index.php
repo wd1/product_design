@@ -183,7 +183,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
     <!-- Modal -->
     <div id="myModal_instruction" class="modal fade" role="dialog">
         <div class="modal-dialog modal-primary modal-sm" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="background:#f1f1f1;">
                 <div class="modal-header">
                     <h4 class="modal-title">Scale Upload</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -191,7 +191,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please select any hi-res JPG to upload, scale and position over the product. Position the image over the product with extra space for the bleed.</p>
+                    <p>Please select any hi-res JPG to upload, scale and position over the product. Position the image over the product with extra space for the bleed if an all-over print.Click outside product area when complete, click ‘Save’.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="instruction_ok()">OK</button>

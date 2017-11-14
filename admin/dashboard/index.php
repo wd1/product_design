@@ -361,7 +361,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label style="vertical-align:middle;" for="pr-code">Product Code / SKU:</label>
-                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                <a  id="question_mark" data-toggle="tooltip" title="This field presents the code/SKU of your product." class="icon-question" style="color:black;"></a>
                                                 <input id="pr-code" name="pr-code" class="form-control" placeholder="Enter Code" type="text">
                                             </div>
                                         </div>     
@@ -374,12 +374,12 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label style="vertical-align:middle;" for="pr-cost">Product Cost:</label>
-                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the cost of your product." class="icon-question" style="color:black;"></a>
                                                     <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="text">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label style="vertical-align:middle;" for="pr-price">Product Price:</label>
-                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the name of your product." class="icon-question" style="color:black;"></a>
+                                                    <a  id="question_mark" data-toggle="tooltip" title="This field presents the price of your product." class="icon-question" style="color:black;"></a>
                                                     <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="text">
                                                 </div>
                                             </div>     
@@ -511,9 +511,9 @@
                                                     <option value="TShirt & Sons">TShirt & Sons</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4" style="text-align: center;" >
+                                            <div class="col-md-4" style="text-align: left;" >
                                                 <label for="ccmonth">Print Location:</label>
-                                                <div class="radio">
+                                                <!-- <div class="radio">
                                                     <label for="radio1">
                                                         <input id="radio1" name="radios" value="Front" type="radio"> Front
                                                     </label>
@@ -522,11 +522,12 @@
                                                     <label for="radio2">
                                                         <input id="radio2" name="radios" value="Back" type="radio"> Back&nbsp;
                                                     </label>
-                                                </div>
-                                                <!-- <select class="form-control" id="print_location" style="padding-top: 5px;">
+                                                </div> -->
+                                                <select class="form-control" id="print_location" style="padding-top: 5px;">
                                                     <option value="Front">Front</option>
                                                     <option value="Back">Back</option>
-                                                </select> -->
+                                                    <option value="Front & Back">Front & Back</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="ccmonth">Print Mode:</label>

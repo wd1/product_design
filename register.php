@@ -10,6 +10,7 @@
 	$nameError = '';
 	$emailError = '';
 	$passError = '';
+	$confirmError = '';
 	$name = '';
 	$email = '';
 	$pass = '';
@@ -28,6 +29,10 @@
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
 		
+		$confirm_pass = trim($_POST['confirm_pass']);
+		$confirm_pass = strip_tags($confirm_pass);
+		$confirm_pass = htmlspecialchars($confirm_pass);
+
 		// basic name validation
 		if (empty($name)) {
 			$error = true;
@@ -63,6 +68,11 @@
 			$passError = "Password must have atleast 6 characters.";
 		}
 		
+		if ($confirm_pass != $pass) {
+			$error = true;
+			$confirmError = "Not matched password.";
+		}
+
 		// password encrypt using SHA256();
 		$password = hash('sha256', $pass);
 		
@@ -72,23 +82,39 @@
 	 		$_SESSION['UserEmail'] = $email;
 	 		$_SESSION['userPass'] = $password;
 			// header("refresh:1;url=billing.php");
-			header("refresh:1;url=index.php");
-			/*
+			
+			
 			$query = "INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')";
 			$res = mysql_query($query);
 				
 			if ($res) {
 				$errTyp = "success";
-				$errMSG = "Successfully Registered! Redirecting to Billing.";
+				$errMSG = "Successfully Registered! Redirecting...";
                 
-				unset($name);
-				unset($email);
-				unset($pass);
+				
+				$res_login=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+				$row=mysql_fetch_array($res_login);
+				$count = mysql_num_rows($res_login); // if uname/pass correct it returns must be 1 row
+	
+				if( $count == 1 ) {
+
+					$_SESSION['user'] = $row['userId'];
+
+					$_COOKIE['user'] = $row['userId'];
+
+						//header("Location: home.php");
+					// unset($name);
+					// unset($email);
+					// unset($pass);
+					header("refresh:1;url=home.php");
+				}
 			} else {
 				$errTyp = "danger";
 				$errMSG = "Something went wrong, try again later...";	
 			}	
-				*/
+			
+			
+		
 		}
 		
 		
@@ -202,7 +228,12 @@
 									</span>
 									<input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
 								</div>
-								
+
+								<span class="text-danger"><?php echo $confirmError; ?></span>
+								<div class="input-group mb-3">
+									<span class="input-group-addon"><i class="icon-lock"></i></span>
+									<input class="form-control" name="confirm_pass" placeholder="Confirm password" type="password">
+								</div>
 
 								
 								<button type="submit" class="btn btn-block btn-success" name="btn-signup">Create Account</button>

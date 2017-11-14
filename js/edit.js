@@ -684,7 +684,7 @@ function confirm_ok() {
 }
 
 function getCropData1(e) {
-    e.innerHTML = "Saving & Initializing...";
+    e.innerHTML = "Uploading & Saving";
     status = 1;
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);

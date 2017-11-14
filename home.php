@@ -71,7 +71,7 @@
 
     <!-- Modal -->
     <div id="download_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-lg modal-primary" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">Free-Tier Warning</h4>
@@ -81,7 +81,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-                    You have 1 more mockup remaining after this one at the Free-Tier usage level, fter which you will be charged for 1 month of usage.
+                    You have 1 more mockup remaining after this one at the Free-Tier usage level this month. Please click Signup below to add a billing method to enjoy unlimited mockups per month at just $9 / mo. + ¢5 / mockup.
                     </p>
 				</div>
 				<div class="modal-footer">
@@ -108,7 +108,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-                    You’ve reached the free-tier limit of 5 mockups/mo. Please add a billing method for unlimited mockup & print files/mo at just $10/mo + ¢7/mockup download.
+                    You’ve reached the free-tier limit of 7 mockups/mo. Please add a billing method for unlimited mockup & print files/mo at just $10/mo + ¢7/mockup download.
                     </p>
 				</div>
 				<div class="modal-footer">
@@ -136,11 +136,12 @@
 				<div class="modal-body">
 					<p>1. Click ‘Upload’, select a hi-res JPG or PNG design.<br>
                         2. Crop / Position the uploaded design.<br>
-                        3. Click ‘Mockup’ to download mockup. Click ‘Print File’ to download print file.<br>
+                        3. Click outside mockup area.<br>
+                        4. Click ‘Mockup’ to download mockup. Click ‘Print File’ to download print file.
                     </p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="oninsruction()">Don't Show again</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="oninsruction()">Don't Show Again</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
 				</div>
 			</div>
