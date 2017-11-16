@@ -81,12 +81,13 @@
 				</div>
 				<div class="modal-body">
 					<p>
-                    You have 1 more mockup remaining after this one at the Free-Tier usage level this month. Please click Signup below to add a billing method to enjoy unlimited mockups per month at just $9 / mo. + ¢5 / mockup.
+                    You have 1 more mockup remaining after this for the Free-Tier monthly offering. Click ‘Signup Now’ below to add a billing method to continue using the service at special introductory rates. Or, click ‘Signup Later’ and you will be reminded again.
                     </p>
 				</div>
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">OK</button>
+                    <a href="billing.php" type="button" class="btn btn-primary">Signup Now</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">Signup Later</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -98,7 +99,7 @@
 
     <!-- Modal -->
     <div id="download_error_modal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-lg modal-primary" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title">Free-Tier Limit Reached</h4>
@@ -108,7 +109,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-                    You’ve reached the free-tier limit of 7 mockups/mo. Please add a billing method for unlimited mockup & print files/mo at just $10/mo + ¢7/mockup download.
+                    You’ve reached the free-tier limit of 7 mockups/mo. Please add a billing method for continued usage at our introductory rates. Click ‘Sign Up Now’ below to review plan details and add card info. Thanks!
                     </p>
 				</div>
 				<div class="modal-footer">
@@ -417,7 +418,7 @@ For more detail, please review our Returns Policy.</p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-settings" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Settings</span></a>
-                    <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
+                    <a class="dropdown-item" href="billing.php" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
                     <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
                     <a class="dropdown-item" href="logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
                 </div>

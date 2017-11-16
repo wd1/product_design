@@ -289,9 +289,10 @@ function init_selectbox() {
                 lines = text[1].split("<br>");
                 console.log(lines.length);
                 if(lines.length == 1) {
-                     $("#product_list").append($('<optgroup>', {
-                        label: "Click Creator Tool Above To Add",
-                        style: "font-size:16px;padding-left:25px;padding-top:20px;",
+                     $("#product_list").append($('<option>', {
+                        text: "Click Creator Tool Above To Add",
+                        style: "",
+                        disabled: true
                     }));
                 }
                 for(var j=0; j<lines.length-1; j++) {

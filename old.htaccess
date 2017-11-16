@@ -1,0 +1,79 @@
+#
+# $Id: .htaccess,v 1.15 2009/02/09 20:25:06 sudaraka Exp $
+# Created: 03/10/2008
+# $Name: CT_0_0_26_BETA $
+#
+
+DirectoryIndex index.php index.html
+
+<FilesMatch "^.*\.(tpl|conf|sample)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<IfModule rewrite_module>
+
+	RewriteEngine On
+	
+	#Framework security
+	RewriteRule ^lib/ - [F,L]
+	RewriteRule ^etc/ - [F,L]
+	RewriteRule ^var/photo/ - [L]
+	RewriteRule ^var/ - [F,L]
+	RewriteRule ^tmp/ - [F,L]
+	
+	RewriteCond %{HTTP_HOST} ^commonthreadz.org$ [OR]
+	RewriteCond %{HTTP_HOST} ^www.commonthreadz.org$
+	RewriteRule ^trips/?$ "http\:\/\/www\.commonthreadz\.org\/volunteertrips" [R=301,L]
+	
+	#Ignore redirections for physical files and directories
+	#directory
+	RewriteCond %{SCRIPT_FILENAME} -d [OR]
+	#file
+	RewriteCond %{SCRIPT_FILENAME} -f [OR]
+	#symbolic link
+	RewriteCond %{SCRIPT_FILENAME} -l
+	RewriteRule .* - [L]
+	
+	#Special command
+	RewriteRule ^activate/(.*) /members/activation.php?member=$1 [PT,L]
+	RewriteRule ^cancel/(.*) /members/cancel.php?member=$1 [PT,L]
+	RewriteRule ^logout /logout.php [PT,QSA,L]
+	RewriteRule ^login /myaccount/login.backend.php [PT,QSA,L]
+	
+	#Member page redirections
+	RewriteRule ^.+/.+ - [S=3]
+	RewriteRule ^.+;.* - [S=1]
+	RewriteRule ^(.+) /members/index.php?member_name=$1 [PT,QSA,L]
+	RewriteRule ^(.+);(.*) /members/index.php?member_name=$1&command=$2 [PT,QSA,L]
+	
+	RewriteRule ^.+/join.* - [S=3]
+	RewriteRule ^.+/.+;.* - [S=1]
+	RewriteRule ^(.+)/(.*) /members/$2.php?member_name=$1 [PT,QSA,L]
+	RewriteRule ^(.+)/(.*);(.*) /members/$2.php?member_name=$1&command=$3 [PT,QSA,L]
+	
+	RewriteRule ^(.+)/(join)(.*) /teams/join.php?team_name=$1 [PT,QSA,L]
+
+
+RewriteCond %{HTTP_HOST} ^commonthreadz.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www.commonthreadz.org$
+RewriteRule ^getinvolved/?$ "http\:\/\/www\.commonthreadz\.org\/teams" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^commonthreadz.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www.commonthreadz.org$
+RewriteRule ^shop/the_oc/index.html$ "http\:\/\/www\.commonthreadz\.org\/shop\/theoc\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^commonthreadz.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www.commonthreadz.org$
+RewriteRule ^shop/indexcooltees.html$ "http\:\/\/commonthreadz\.org\/shop\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^10for10.commonthreadz.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www.10for10.commonthreadz.org$
+RewriteRule ^.*$ "http\:\/\/www\.commonthreadz\.org\/teams" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^commonthreadz.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www.commonthreadz.org$
+RewriteRule ^blog\/shop\/?$ "http\:\/\/commonthreadz\.org\/shop\/" [R=301,L]
+
+</IfModule>
+

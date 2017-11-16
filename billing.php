@@ -43,7 +43,7 @@
         $_SESSION['userName']='';
         $_SESSION['UserEmail']='';
         $_SESSION['userPass']='';
-				//header("Location: home.php");
+				header("Location: home.php");
  			}
 		
 		$subject = "Welcome to Nymbl Instant Mockups";
@@ -145,13 +145,13 @@
         <div class="modal-dialog modal-primary" role="document" style="width: 60%;">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Free 1 Month Trial</h4>
+                <h4 class="modal-title">Plan Overview & Signup</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p>You will have 30 days of unlimited free usage. You can cancel at any time before then. After 30 days, you will be set on your chosen pricing plan. You can change plans at any time.</p>
+                <p>Introductory Offer: $10/mo + ¢10/mockup download (print file included). Cancel at any time. 100% satisfaction guaranteed or your money back with no questions asked.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>

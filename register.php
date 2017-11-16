@@ -70,7 +70,7 @@
 		
 		if ($confirm_pass != $pass) {
 			$error = true;
-			$confirmError = "Not matched password.";
+			$confirmError = "Passwords do not match.";
 		}
 
 		// password encrypt using SHA256();
