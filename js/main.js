@@ -87,9 +87,11 @@ function download_update() {
   fd.append("downloads2", downloads2);
   xhr.send(fd);
 }
-if(showflag != "1") {
+
+if((showflag != "1") || (getURLParameter('product')!=null)) {
     $("#do_modal_instruction").click();
 }
+
 function oninsruction() {
     $.ajax({
         url: "upload.php",
@@ -643,7 +645,8 @@ var newImg = document.createElement('img');
 $('#export-art-button').on('click', function () {
     downloads2--;
     if(downloads2 > 0) {
-        
+        console.log((pattern_img.getElement().src).split("img/")[1]);
+        console.log((document.getElementById("image").src).split("img/")[1]);
         $("#export-art-button").prop("disabled", true);
         if(total_data[$("#product_list option:selected").text()].perspective !=1 ) {
             
@@ -704,8 +707,20 @@ $('#export-art-button').on('click', function () {
                         var url = xhr.responseText;
                         var download = document.createElement('a');
                         download.href = xhr.responseText;
-                        download.download = 'product-art-file.png';
-                        fireEvent(download, 'click')
+                        // download.download = 'product-art-file.png';
+                        // fireEvent(download, 'click');
+                        if(extension_type == "image/png") {
+                        
+                            download.download = 'product-art-file.png';
+                            fireEvent(download, 'click')
+                            // URL.revokeObjectURL(url);                   
+                
+                        } else {
+
+                            download.download = 'product-art-file.jpg';
+                            fireEvent(download, 'click')
+                            // URL.revokeObjectURL(url);
+                        }
                     }
                 }
                 // fd.append("design_file", blob);
@@ -1223,12 +1238,36 @@ function init_crop_canvas() {
 }
 var temp_canvas= document.createElement('canvas');;
 
-function process_crop_data(e) {
-    
+function process_crop_data() {  
+    image_crop.src = temp_canvas.toDataURL();
 }
-function getCropData(e) {
-    e.innerHTML = "Uploading & Saving…";
-  
+var crop_mouseflag = 0;
+function modal_mousedown() {
+    crop_mouseflag = 0;
+    // $("#crop_label").prop('value',"Crop (Click Once)");
+}
+
+function modal_mouseup() {
+    crop_mouseflag = 0;
+    $("#crop_label").prop('value',"Crop (Click Once)");
+}
+function crop_mousedown(){
+    $("#crop_label").prop('value',"Uploading & Saving...");
+    // this.stopPropagation();
+    crop_mouseflag = 1;
+}
+function crop_mouseup(){
+    // this.stopPropagation();
+    if(crop_mouseflag ==1 ) {
+        $("#crop_label").prop('value',"Uploading & Saving...");
+        crop_mouseflag = 0;
+    } else {
+        $("#crop_label").prop('value',"Crop (Click Once)");
+    }
+}
+function getCropData() {
+    // e.innerHTML = "Uploading & Saving…";
+    $("#crop_label").prop('value',"Uploading & Saving...");
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);
     $("#crop_spinner").show();
@@ -1248,29 +1287,8 @@ function getCropData(e) {
     
     canvas_pattern.id = "SSSS";
     // document.body.append(temp_canvas);
-    var image = new Image();
-    image.src = temp_canvas.toDataURL();
-    image.onload = function() {
-        canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
-        if(total_data[$("#product_list option:selected").text()].cheight =="") 
-            canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/400;
-        else
-            canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
-        var ctx_canvas = canvas_pattern.getContext("2d");
-        var p = new Perspective(ctx_canvas, image);
-        // console.log((total_data[$("#product_list option:selected").text()]));
-        p.draw([
-                [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-                [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-                [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-                [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]
-        ]);
-        e.innerHTML = "Crop";
-        // document.body.append(canvas_pattern);
-        init_crop_canvas(canvas_pattern);
-        $("#crop_spinner").hide();
-        $("#modal_crop").modal("hide");
-    }
+    process_crop_data();
+    
     // document.getElementById('mockup-image').append(canvas_pattern);
     // clip_left_x = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
     // clip_left_y = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
@@ -1289,4 +1307,26 @@ function getCropData(e) {
             
     //     }
     
+}
+var image_crop = new Image();
+image_crop.onload = function() {
+    canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
+    if(total_data[$("#product_list option:selected").text()].cheight =="") 
+        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/400;
+    else
+        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
+    var ctx_canvas = canvas_pattern.getContext("2d");
+    var p = new Perspective(ctx_canvas, image_crop);
+    // console.log((total_data[$("#product_list option:selected").text()]));
+    p.draw([
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]
+    ]);
+    $("#crop_label").prop('value',"Crop (Click Once)");
+    // document.body.append(canvas_pattern);
+    init_crop_canvas(canvas_pattern);
+    $("#crop_spinner").hide();
+    $("#modal_crop").modal("hide");
 }

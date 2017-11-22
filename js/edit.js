@@ -36,7 +36,9 @@ $(".loader1").css("top",window.innerHeight/2+5);
 $(".loader1").show();
 $(".loader1").css("zIndex", 1000);
 
-
+$("body").on("contextmenu",function(e){
+    return false;
+});
 
 var product_file = "../img/temp/temp.png";
 
@@ -684,7 +686,7 @@ function confirm_ok() {
 }
 
 function getCropData1(e) {
-    e.innerHTML = "Uploading & Saving";
+    e.innerHTML = "Uploading & Saving...";
     status = 1;
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);

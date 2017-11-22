@@ -5,7 +5,10 @@ var body = document.body,
 var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 
 document.getElementById("dashboard_panel").style.marginTop =50;
-document.getElementById("product_list").style.marginTop =50;
+document.getElementById("product_list").style.marginTop = 50;
+$("body").on("contextmenu",function(e){
+    return false;
+});
 // $("#modal_id").click();
 init_selectbox();
 var total_data = {};
@@ -104,6 +107,7 @@ function init_selectbox() {
                 seperate_index = 0;
             }
             $("#multiple-select").attr('size',$('#multiple-select option').length+2);
+            document.getElementById("dashboard_panel").parentNode.style.height = document.getElementById("product_list").offsetHeight+"px";
             console.log(total_data);
         }
     }

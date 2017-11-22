@@ -168,7 +168,7 @@
             <ui-view class="ng-scope"><div class="container ng-scope">
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
                     <div class="row">
-                        <div vamiddle="" id="login_panel" class="col-md-8 m-x-auto pull-xs-none" style="margin-top: 160.65px;">
+                        <div vamiddle="" id="login_panel" class="col-md-8 m-x-auto pull-xs-none" style="">
                             <div class="card-group">
                                 <div class="card p-a-2">
                                     <div class="card-block">
@@ -264,7 +264,11 @@
 
 <script src="js/app.js"></script>
 <script>
-    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-5)+"px";
+    document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight)+"px";
+    document.getElementsByTagName("form")[0].style.marginTop = (document.getElementById("appbody").offsetHeight -document.getElementsByTagName("form")[0].offsetHeight)/2 + "px";
+    $("body").on("contextmenu",function(e){
+        return false;
+    });
 </script>
 <script src="js/footerfunction.js"></script>
 </body>

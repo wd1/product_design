@@ -38,7 +38,7 @@
 if (!extension_loaded('imagick')){
     echo 'imagick not installed';
 }
-// echo ($_POST['src']." ".$_POST['send_x']);
+// echo ($_POST['src']);
 
 $inFile = __DIR__ . DIRECTORY_SEPARATOR ."img/". $_POST['src'];
 // echo $inFile;

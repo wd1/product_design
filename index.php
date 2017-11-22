@@ -1,3 +1,8 @@
+<script>
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
+</script>
 <?php
 	ob_start();
 	session_start();
@@ -253,6 +258,9 @@
 <script>
     document.getElementById("appbody").style.height = (window.innerHeight- document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight)+"px";
     document.getElementsByTagName("form")[0].style.marginTop = (document.getElementById("appbody").offsetHeight -document.getElementsByTagName("form")[0].offsetHeight)/2 + "px";
+    $("body").on("contextmenu",function(e){
+        return false;
+    });
 </script>
 <script src="js/footerfunction.js"></script>
 <!--<script src="../js/routes.js"></script>-->

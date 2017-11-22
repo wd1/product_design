@@ -294,7 +294,7 @@
                             Export Art Image
                         </button>-->
                 <li class="nav-item px-3">
-                    <a class="nav-link" href="../../"><i class="icon-direction" aria-hidden="true"></i> Go to Instant Mockups</a>
+                    <a class="nav-link" style="color: #6bacc1;"  href="https://nymbl.io/designer/home.php"><i class="icon-direction" aria-hidden="true"></i> Go to Instant Mockups</a>
                 </li>
             <!--    <li class="nav-item px-3">
                     <a  id="export-art-button" class="nav-link"  download="Product.jpg"  href="#"><i class="icon-action-redo" aria-hidden="true"></i> Export Print File</a>
@@ -317,7 +317,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#" style="vertical-align:middle;"><i class="icon-settings" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Settings</span></a>
-                        <a class="dropdown-item" href="billing.php" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
+                        <a class="dropdown-item" href="../../billing.php" style="vertical-align:middle;"><i class="icon-credit-card" style="vertical-align:middle;" ></i><span style="vertical-align:middle;font-size: 13px;"> Billing</span></a>
                         <a class="dropdown-item" onClick="resetpassword()" style="vertical-align:middle;"><i class="icon-lock" style="vertical-align:middle;"></i><span style="vertical-align:middle;font-size: 13px;"> Password</span></a>
                         <a class="dropdown-item" href="../../logout.php?logout" style="vertical-align:middle;"><i class="icon-arrow-right-circle " style="vertical-align:middle;"></i><span style="vertical-align: middle;font-size: 13px;"> Logout</span></a>
                     </div>
@@ -329,7 +329,7 @@
         <div class="app-body" style="margin-top: 30px;">
             <div class="container" style="">
                 <div class="row">
-                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="margin-left:auto;margin-right:auto;">  
+                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="margin-left:auto;margin-right:auto;margin-bottom: 30px;">  
                         <div id="product_list" class="card" style="margin-bottom:0.5rem;margin-top: 0.5rem;">
                                 <div class="card-header col-md-12 form-control-label" for="multiple-select" style="font-weight: bold;">Product Catalog</div>
                                 <div class="">
@@ -343,7 +343,7 @@
                             
                         
                     </div>
-                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="margin: auto;">  
+                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="">  
                         <!-- image-preview-filename input [CUT FROM HERE]-->
                     
                         <div class="card" id="dashboard_panel" style="margin-bottom:3.5rem;">
@@ -615,7 +615,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture Black Image (Optional):</label>
+                                    <label for="mask-name">Texture Black/Dark Image (Optional):</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(Black) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview3" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename3" disabled="disabled">
@@ -632,7 +632,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Texture White Image (Optional):</label>
+                                    <label for="mask-name">Texture White/Light Image (Optional):</label>
                                     <a  id="question_mark" data-toggle="tooltip" title="This image is the Texture(white) image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview4" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename4" disabled="disabled">

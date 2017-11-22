@@ -191,7 +191,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please select any hi-res JPG to upload, scale and position over the product. Position the image over the product with extra space for the bleed if an all-over print.Click outside product area when complete, click ‘Save’.</p>
+                    <p>Please select any hi-res JPG or PNG to upload, scale & position on/over the product. Position the image over the product with extra space for the bleed if an all-over print. Click outside product area when complete & then click ‘Save’.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="instruction_ok()">OK</button>
@@ -219,7 +219,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="" onClick="getCropData1(this)">Crop</button>
+            <button type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="" onClick="getCropData1(this)">Crop (Click Once)</button>
           </div>
         </div>
       </div>
@@ -263,7 +263,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" onClick="getCropData(this)">Crop</button>
+            <button type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="modal" onClick="getCropData(this)">Crop (Click Once)</button>
           </div>
         </div>
       </div>

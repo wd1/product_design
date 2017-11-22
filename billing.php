@@ -1,3 +1,8 @@
+<script>
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+</script>
  <?php
 
  session_start();
@@ -92,7 +97,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	  <script src="js/libs/jquery.min.js" type="text/javascript"></script>
 		<script src="https://js.stripe.com/v3/"></script>
       <script src="js/index.js?c=1233211"></script>
     <title>Billing | Nymbl Instant Mockup</title>

@@ -1,3 +1,8 @@
+<script>
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
+</script>
 <?php
 	ob_start();
 	session_start();
@@ -39,7 +44,7 @@
     
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/cropper.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="js/libs/jquery.min.js"></script>
 </head>
 
 <!-- BODY options, add following classes to body to change options
@@ -86,8 +91,9 @@
 				</div>
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Signup Later</button>
                     <a href="billing.php" type="button" class="btn btn-primary">Signup Now</a>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">Signup Later</button>
+                    
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -154,7 +160,7 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="modal_crop" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal fade" id="modal_crop" role="dialog" onmousedown="modal_mousedown()" onmouseup="modal_mouseup()" aria-labelledby="modalLabel" tabindex="-1">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -168,7 +174,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="" onClick="getCropData(this)">Crop</button>
+            <input id="crop_label" type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="" value="Crop (Click Once)" onmousedown="crop_mousedown()" onmouseup="crop_mouseup()" onClick="getCropData()">
           </div>
         </div>
       </div>
@@ -177,7 +183,7 @@
     <button id="viewPrivacy_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#largeModal1" style="display:none;">
 		Launch large modal
 	</button>
-	<div id="largeModal1" class="modal fade" role="dialog">
+	<div id="largeModal1" class="modal fade" role="dialog" >
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -388,7 +394,7 @@ For more detail, please review our Returns Policy.</p>
     <header id="theader" class="app-header navbar">
         <button class="navbar-toggler d-lg-none mr-auto" type="button" style="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">☰</button>
         <div class="dropdown-menu dropdown-menu-left">
-            <a class="dropdown-item" href="admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
+            <a class="dropdown-item" style="color: #6bacc1;"  href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
         </div>
         <a class="navbar-brand" href="#"></a>
         
@@ -398,7 +404,7 @@ For more detail, please review our Returns Policy.</p>
                         Export Art Image
                     </button>-->
             <li class="nav-item px-3">
-                <a class="nav-link" href="admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
+                <a class="nav-link" style="color: #6bacc1;" href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
             </li>
        <!--     <li class="nav-item px-3">
                 <a  class="nav-link" href="#"><i class="icon-cloud-download" aria-hidden="true"></i> Print File</a>
