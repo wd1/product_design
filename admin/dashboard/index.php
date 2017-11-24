@@ -6,7 +6,7 @@
 	
 	// if session is not set this will redirect to login page
 	if( !isset($_SESSION['user']) ) {
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit;
 	}
 	// select loggedin users detail
@@ -86,7 +86,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="needupload()">No</button>
-					<button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="needwarp()">Yes</button>
+					<button type="button" class="btn btn-secondary"  data-dismiss="modal" onclick="needwarp()">Yes</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -254,6 +254,7 @@
                     <p>Uploaded Successfully</p>
                 </div>
                 <div class="modal-footer">
+                    <button id="viewlistproduct_btn" data-dismiss="modal" onclick="viewlistproduct(true)" type="view" class="btn btn-secondary" style="float:left;">View Selected Product</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
                 </div>
             </div>
@@ -338,7 +339,7 @@
                                 </div>
                             </div>
                             
-                            <button id="viewlistproduct_btn" onclick="viewlistproduct()" type="view" class="btn btn-sm btn-primary" style="float:left; margin-top: 10px;">View Selected Product</button>   
+                            <button id="viewlistproduct_btn" onclick="viewlistproduct(false)" type="view" class="btn btn-sm btn-primary" style="float:left; margin-top: 10px;">View Selected Product</button>   
                             <button id="deleteproduct_btn" onclick="deleteproduct()" type="view" class="btn btn-sm btn-primary" style="margin-left:20px;margin-top: 10px;">Delete Selected</button>
                             
                         
@@ -375,12 +376,12 @@
                                                 <div class="col-md-6">
                                                     <label style="vertical-align:middle;" for="pr-cost">Product Cost:</label>
                                                     <a  id="question_mark" data-toggle="tooltip" title="This field presents the cost of your product." class="icon-question" style="color:black;"></a>
-                                                    <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="text">
+                                                    <input id="pr-cost" name="pr-cost" class="form-control" placeholder="Enter Cost" type="number"  step="0.01">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label style="vertical-align:middle;" for="pr-price">Product Price:</label>
                                                     <a  id="question_mark" data-toggle="tooltip" title="This field presents the price of your product." class="icon-question" style="color:black;"></a>
-                                                    <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="text">
+                                                    <input id="pr-price" name="pr-price" class="form-control" placeholder="Enter Price" type="number" step="0.01">
                                                 </div>
                                             </div>     
                                         </div>

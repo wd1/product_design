@@ -1,8 +1,3 @@
-<script>
-    // if(location.protocol != "https:") {
-    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    // }
-</script>
 <?php
 	ob_start();
 	session_start();
@@ -10,7 +5,7 @@
 	
 	// if session is not set this will redirect to login page
 	if( !isset($_SESSION['user']) ) {
-		header("Location: index.php");
+		header("Location: https://nymbl.io/designer/index.php");
 		exit;
 	}
 	// select loggedin users detail
@@ -21,17 +16,16 @@
     $downloads1 = $userRow['downloads_1'];
     $downloads2 = $userRow['downloads_2'];
 ?>
+<script>
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 
 <head>
-    
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
+   
     <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
     <title>Nymbl Instant Mockups</title>
@@ -120,7 +114,7 @@
 				</div>
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-					<a href="billing.php" type="button" class="btn btn-primary">Add Billing Method</a>
+					<a href="billing.php" class="btn btn-primary">Add Billing Method</a>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -405,6 +399,9 @@ For more detail, please review our Returns Policy.</p>
                     </button>-->
             <li class="nav-item px-3">
                 <a class="nav-link" style="color: #6bacc1;" href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
+            </li>
+            <li class="nav-item px-3">
+                <a class="nav-link" style="color: #6bacc1;"  href=""><i class="icon-refresh " aria-hidden="true"></i> Refresh</a>
             </li>
        <!--     <li class="nav-item px-3">
                 <a  class="nav-link" href="#"><i class="icon-cloud-download" aria-hidden="true"></i> Print File</a>

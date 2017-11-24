@@ -1,8 +1,3 @@
-<script>
-    if(location.protocol != "https:") {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    }
-</script>
  <?php
 
  session_start();
@@ -91,7 +86,11 @@
  }
  ?>
 <!DOCTYPE html>
-
+<script>
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+</script>
 <html>
 
 <head>

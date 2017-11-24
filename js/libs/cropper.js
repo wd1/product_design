@@ -3429,7 +3429,7 @@ var Cropper = function () {
 
       var template = createElement('div');
       template.innerHTML = TEMPLATE;
-      console.log(element.parentNode);
+      // console.log(element.parentNode);
       // Create cropper elements
       self.container = container = element.parentNode;
       self.cropper = cropper = getByClass(template, 'cropper-container')[0];

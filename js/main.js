@@ -79,7 +79,7 @@ function download_update() {
   xhr.open("POST", url, true);
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText);
+        // console.log(xhr.responseText);
     }
   }
   fd.append("userid", userid);
@@ -98,7 +98,7 @@ function oninsruction() {
         method: "POST",
         data: { showflag: 1, userid: userid},
         success: function(resp){  
-            console.log(resp);
+            // console.log(resp);
         }
     });
 }
@@ -120,7 +120,7 @@ $(window).resize(function() {
         // canvas.width = c.width;
         // canvas.height = c.height;
         canvas1 = new fabric.Canvas('c');
-        console.log(mockup_image_before_width+","+mockup_img.top);
+        // console.log(mockup_image_before_width+","+mockup_img.top);
         if(pattern_img) {
             pattern_img.left = pattern_img.left - offset_xxx1;
             pattern_img.top = pattern_img.top - offset_yyy1;
@@ -192,7 +192,7 @@ $("#product_name_label").click(function(ev) {
 });
 $("#caret").click(function(ev) {
     ev.stopPropagation();
-    console.log($("#product_name_label").closest('div').find('select')['0']);
+    // console.log($("#product_name_label").closest('div').find('select')['0']);
     var obj =  $("#product_name_label").closest('div').find('select')['0'];
     if(obj.style.display != "block") {
         obj.style.display = "block";
@@ -289,7 +289,7 @@ function init_selectbox() {
                 }));
 
                 lines = text[1].split("<br>");
-                console.log(lines.length);
+                // console.log(lines.length);
                 if(lines.length == 1) {
                      $("#product_list").append($('<option>', {
                         text: "Click Creator Tool Above To Add",
@@ -380,6 +380,7 @@ function init_selectbox() {
             }
         }
     }
+    // console.log(adminid);
     fd.append("userid", userid);
     fd.append("adminid", adminid);
     xhr.send(fd);
@@ -645,8 +646,8 @@ var newImg = document.createElement('img');
 $('#export-art-button').on('click', function () {
     downloads2--;
     if(downloads2 > 0) {
-        console.log((pattern_img.getElement().src).split("img/")[1]);
-        console.log((document.getElementById("image").src).split("img/")[1]);
+        // console.log((pattern_img.getElement().src).split("img/")[1]);
+        // console.log((document.getElementById("image").src).split("img/")[1]);
         $("#export-art-button").prop("disabled", true);
         if(total_data[$("#product_list option:selected").text()].perspective !=1 ) {
             
@@ -683,7 +684,7 @@ $('#export-art-button').on('click', function () {
                 send_width = square.width/pattern_img.scaleX;
                 send_height =  square.height/pattern_img.scaleY;
             }
-            console.log(send_x);
+            // console.log(send_x);
             // imagecanvas.toBlob(function(blob) {
                 // $(".loader1").hide();
                 // var _URL = window.URL || window.webkitURL;
@@ -702,7 +703,7 @@ $('#export-art-button').on('click', function () {
                 xhr.open("POST", url, true);
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == 4 && xhr.status == 200) {
-                        console.log(xhr.responseText);
+                        // console.log(xhr.responseText);
                         $(".loader1").hide();
                         var url = xhr.responseText;
                         var download = document.createElement('a');
@@ -724,14 +725,16 @@ $('#export-art-button').on('click', function () {
                     }
                 }
                 // fd.append("design_file", blob);
+                console.log("send_x:"+send_x+",send_y:"+send_y+",send_width:"+send_width+",send_height"+send_height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
+                console.log((pattern1.src).split("img/")[1]);
                 fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
                 fd.append("send_x", send_x);
                 fd.append("send_y", send_y);
                 fd.append("send_width", send_width);
                 fd.append("send_height", send_height);
                 fd.append("src",(pattern1.src).split("img/")[1]);
-                fd.append("art_width", total_data[$("#product_list option:selected").text()].width);
-                fd.append("art_height", total_data[$("#product_list option:selected").text()].height);
+                fd.append("art_width", 0);
+                fd.append("art_height", 0);
                 xhr.send(fd);
                 
             // });
@@ -767,6 +770,8 @@ $('#export-art-button').on('click', function () {
                 }
             }
             // fd.append("design_file", blob);
+            console.log("send_x:"+data.x+",send_y:"+data.y+",send_width:"+data.width+",send_height"+data.height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
+            console.log((document.getElementById("image").src).split("img/")[1]);
             fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
             fd.append("send_x", data.x);
             fd.append("send_y", data.y);
@@ -801,7 +806,7 @@ function uploadFile(file) {
   xhr.open("POST", url, true);
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText);
+        // console.log(xhr.responseText);
         
         $("#product_list").prop("disabled", false);
         fabric.Image.fromURL(xhr.responseText, function(img) {
@@ -1047,7 +1052,7 @@ $("#export-button").on('click', function() {
         var crop_tool_scale
         
         
-        console.log(url);
+        // console.log(url);
         $("#crop_dimension").text("("+total_data[$("#product_list option:selected").text()].width+"px x "+total_data[$("#product_list option:selected").text()].height+"px)");
         $("#do_modal_crop").click();
         image.src = url;
@@ -1084,7 +1089,7 @@ $("#export-button").on('click', function() {
                             crop_height = crop_width / art_width * art_height;
                         }
                     }
-                    console.log(crop_width+","+crop_height);
+                    console.log("crop_width:"+crop_width+",crop_height:"+crop_height);
                     cropper.setCropBoxData({left:document.getElementsByClassName("cropper-wrap-box")[0].offsetWidth/2- crop_width/2, top:document.getElementsByClassName("cropper-wrap-box")[0].offsetHeight/2- crop_height/2, width: crop_width, height:crop_height});
                     
                     // var transform = crop_tool_image.style.transform;
@@ -1103,6 +1108,7 @@ $("#export-button").on('click', function() {
                 },
                 crop: function (e) {
                     data = e.detail;
+                    console.log(data);
                     // var cropper = this.cropper;
                     // var imageData = cropper.getImageData();
                     // var previewAspectRatio = data.width / data.height;
@@ -1151,7 +1157,7 @@ $("#export-button").on('click', function() {
             pattern_img_width = img.width;
             pattern_img_height = img.height;
             
-            console.log(img.width);
+            // console.log(img.width);
             var position_x,position_y, size_x, size_y;
             if(total_data[$("#product_list option:selected").text()].position_x=="")
                 position_x = 20;
@@ -1180,7 +1186,7 @@ $("#export-button").on('click', function() {
                 pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
             else
                 pattern_img.globalCompositeOperation = 'multiply';
-            console.log(pattern_img);
+            // console.log(pattern_img);
             pattern_img.selectable = false;
             pattern_img['cornerStyle'] = 'circle';
             pattern_img['hasRotatingPoint'] = false;

@@ -21,19 +21,19 @@ if(isset($_FILES['design_file'])) {
         unlink("img/designs/".$_FILES['design_file']['name']);
     }
     $ext = pathinfo($_FILES['design_file']['name'], PATHINFO_EXTENSION);
-    if(($resolution != "") && ($resolution !='0')) {
-        if(move_uploaded_file($_FILES['design_file']['tmp_name'],"img/designs/1.".$ext)) {
-            $im = new Imagick();
-            $im->readImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/1.".$ext);
-            $im->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
-            $im->setResolution($resolution,$resolution);
+    // if(($resolution != "") && ($resolution !='0')) {
+    //     if(move_uploaded_file($_FILES['design_file']['tmp_name'],"img/designs/1.".$ext)) {
+    //         $im = new Imagick();
+    //         $im->readImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/1.".$ext);
+    //         $im->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+    //         $im->setResolution($resolution,$resolution);
             
 
-            $im->resampleImage($resolution,$resolution, \Imagick::FILTER_LANCZOS,1);
-            $im->writeImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/".$_FILES['design_file']['name']);
-            unlink("img/designs/1.".$ext);
-            echo "img/designs/".$_FILES['design_file']['name'];
-        }
+    //         $im->resampleImage($resolution,$resolution, \Imagick::FILTER_LANCZOS,1);
+    //         $im->writeImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/".$_FILES['design_file']['name']);
+    //         unlink("img/designs/1.".$ext);
+    //         echo "img/designs/".$_FILES['design_file']['name'];
+    //     }
         // $ext = pathinfo($_FILES['design_file']['name'],PATHINFO_EXTENSION);
         // if(move_uploaded_file($_FILES['design_file']['tmp_name'],"img/designs/__temp.".$ext)) { 
 
@@ -59,7 +59,8 @@ if(isset($_FILES['design_file'])) {
         // } else {
         //     // echo $_FILES['design_file']['name']. " Failure";
         // }
-    } else {
+    // } else
+     {
         if(move_uploaded_file($_FILES['design_file']['tmp_name'],"img/designs/".$_FILES['design_file']['name'])) { 
             //Code bellow will show the result 
             echo "img/designs/".$_FILES['design_file']['name'];

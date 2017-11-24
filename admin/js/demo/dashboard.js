@@ -109,6 +109,7 @@ function init_selectbox() {
             $("#multiple-select").attr('size',$('#multiple-select option').length+2);
             document.getElementById("dashboard_panel").parentNode.style.height = document.getElementById("product_list").offsetHeight+"px";
             console.log(total_data);
+            
         }
     }
     
@@ -186,13 +187,21 @@ function viewproduct() {
     win.focus();
 }
 
-function viewlistproduct() {
+function viewlistproduct(flag) {
+    if(flag == false) {
     // console.log($("#multiple-select").find(":selected").text());
-    console.log('../../?product='+$("#multiple-select").find(":selected").text());
-    var index=$("#multiple-select").find(":selected").text();
-    var win = window.open('../../home.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
-    // var win = window.open('../../admin/dashboard/index.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
-    win.focus();
+        console.log('../../?product='+$("#multiple-select").find(":selected").text());
+        var index=$("#multiple-select").find(":selected").text();
+        var win = window.open('../../home.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
+        // var win = window.open('../../admin/dashboard/index.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
+        win.focus();
+    } else {
+        var index=$("#multiple-select option:last-child").val();
+        // console.log($("#multiple-select option:last-child").val());
+        var win = window.open('../../home.php?product='+index+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
+        // var win = window.open('../../admin/dashboard/index.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
+        win.focus();
+    }
     //window.location.href = '../../?product='+$("#multiple-select").find(":selected").text();
 }
 

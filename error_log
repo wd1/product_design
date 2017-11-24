@@ -1,0 +1,18 @@
+[23-Nov-2017 03:56:52 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 03:56:52 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:6) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 8
+[23-Nov-2017 03:56:52 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/bloomcol/public_html/nymbl.io/designer/dbconnect.php on line 16
+[23-Nov-2017 03:56:52 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:6) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 18
+[23-Nov-2017 04:00:14 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 04:00:15 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:2) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 4
+[23-Nov-2017 04:00:15 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/bloomcol/public_html/nymbl.io/designer/dbconnect.php on line 16
+[23-Nov-2017 04:00:15 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:2) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 14
+[23-Nov-2017 04:00:19 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 04:00:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/bloomcol/public_html/nymbl.io/designer/dbconnect.php on line 16
+[23-Nov-2017 04:01:02 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 04:01:02 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 04:01:02 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:2) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 4
+[23-Nov-2017 04:01:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/bloomcol/public_html/nymbl.io/designer/dbconnect.php on line 16
+[23-Nov-2017 04:01:05 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[23-Nov-2017 04:01:05 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:2) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 4
+[23-Nov-2017 04:01:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/bloomcol/public_html/nymbl.io/designer/dbconnect.php on line 16
+[23-Nov-2017 04:01:05 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/bloomcol/public_html/nymbl.io/designer/index.php:2) in /home/bloomcol/public_html/nymbl.io/designer/index.php on line 69

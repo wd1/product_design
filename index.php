@@ -1,16 +1,16 @@
-<script>
-    // if(location.protocol != "https:") {
-    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    // }
-</script>
 <?php
 	ob_start();
 	session_start();
 	require_once 'dbconnect.php';
-	
 	// it will never let you open index(login) page if session is set
 	if ( isset($_SESSION['user'])!="" ) {
-		header("Location: home.php");
+        $protocol = 'http';
+        if(isset($_SERVER['HTTPS'])) {
+            if (strtoupper($_SERVER['HTTPS']) == 'ON'){
+                $protocol = 'https';
+            }
+        }
+		header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
 		exit;
 	}
 	
@@ -49,14 +49,24 @@
 			
 			$password = hash('sha256', $pass); // password hashing using SHA256
 		
-			$res=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+			$res=mysql_query("SELECT userId, userName, userPass, userType FROM users WHERE userEmail='$email'");
 			$row=mysql_fetch_array($res);
 			$count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
 			
 			if( $count == 1 && $row['userPass']==$password ) {
 				$_SESSION['user'] = $row['userId'];
                 $_COOKIE['user'] = $row['userId'];
-				header("Location: home.php");
+                $_SESSION['adminid'] = $row['userType'];
+				// header("Location: //nymbl.io/designer/home.php");
+                $protocol = 'http';
+                if(isset($_SERVER['HTTPS'])) {
+                    if (strtoupper($_SERVER['HTTPS']) == 'ON'){
+                        $protocol = 'https';
+                    }
+                }
+                $str = "Location: $protocol://".$_SERVER['HTTP_HOST']."/designer/home.php";
+                header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
+                exit;
 			} else {
 				$errMSG = "Incorrect Credentials, Try again...";
 			}
@@ -65,14 +75,15 @@
 		
 	}
 ?>
-
-<html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="CoreUI - Free Bootstrap 4 Admin Template">
-        <meta name="author" content="Łukasz Holeczek">
-        <meta name="keyword" content="bootstrap, template, admin, angular, jquery">
+<script>
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+</script>
+<html ng-app="app" class="ng-scope" lang="en">
+<head>
+<style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+        
         <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
         <title>Nymbl Instant Mockups</title>
@@ -90,7 +101,10 @@
             ga('send', 'pageview');
         </script>-->
     </head>
-
+<script> 
+         var str = '<?php echo  $str;?>';
+        console.log(str);
+    </script>
     <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
         <button id="viewPrivacy_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#largeModal1" style="display:none;">
 		Launch large modal

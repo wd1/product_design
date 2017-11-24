@@ -44,11 +44,19 @@ $inFile = __DIR__ . DIRECTORY_SEPARATOR ."img/". $_POST['src'];
 // echo $inFile;
 $ext = pathinfo($inFile, PATHINFO_EXTENSION);
 $outFile =__DIR__ . DIRECTORY_SEPARATOR . "img/designs/product-art-file.".$ext;
+if(file_exists("img/designs/product-art-file.".$ext)) {
+    unlink("img/designs/product-art-file.".$ext);
+}
 $width = $_POST['art_width'];
 $height = $_POST['art_height'];
 $image1 = new Imagick($inFile);
 $image1->cropImage($_POST['send_width'],$_POST['send_height'],$_POST['send_x'],$_POST['send_y']);
-$image1->resizeImage($width,$height, Imagick::FILTER_LANCZOS,1);
+if(($width == 0) || ($height ==0) ) {
+    $image1->resizeImage($_POST['send_width'],$_POST['send_height'], Imagick::FILTER_CATROM,1);
+} else {
+    $image1->resizeImage($width,$height, Imagick::FILTER_CATROM,1);
+}
 $image1->writeImage($outFile);
+// echo $width.",".$height.",".$_POST['send_width'].",".$_POST['send_height'].",".$_POST['send_x'].",".$_POST['send_y'];
 echo "img/designs/product-art-file.".$ext;
 ?>
