@@ -39,7 +39,7 @@ if (!extension_loaded('imagick')){
     echo 'imagick not installed';
 }
 // echo ($_POST['src']);
-
+$resolution = $_POST['dpi'];
 $inFile = __DIR__ . DIRECTORY_SEPARATOR ."img/". $_POST['src'];
 // echo $inFile;
 $ext = pathinfo($inFile, PATHINFO_EXTENSION);
@@ -51,6 +51,20 @@ $width = $_POST['art_width'];
 $height = $_POST['art_height'];
 $image1 = new Imagick($inFile);
 $image1->cropImage($_POST['send_width'],$_POST['send_height'],$_POST['send_x'],$_POST['send_y']);
+if(($resolution != "") && ($resolution !='0')) {
+$image1->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+$image1->setResolution($resolution,$resolution);
+$image1->resampleImage($resolution,$resolution, \Imagick::FILTER_LANCZOS,1);
+}
+    //         $im->readImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/1.".$ext);
+    //         $im->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+    //         $im->setResolution($resolution,$resolution);
+            
+
+    //         $im->resampleImage($resolution,$resolution, \Imagick::FILTER_LANCZOS,1);
+    //         $im->writeImage(__DIR__ . DIRECTORY_SEPARATOR ."img/designs/".$_FILES['design_file']['name']);
+    //         unlink("img/designs/1.".$ext);
+    //         echo "img/designs/".$_FILES['design_file']['name'];
 if(($width == 0) || ($height ==0) ) {
     $image1->resizeImage($_POST['send_width'],$_POST['send_height'], Imagick::FILTER_CATROM,1);
 } else {

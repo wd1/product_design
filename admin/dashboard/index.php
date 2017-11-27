@@ -40,7 +40,7 @@
         </script>-->
     </head>
 
-    <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
+    <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done" style="background:#f5f5f5;">
 
     <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
       Launch the Cropper
@@ -433,15 +433,15 @@
                                                 
                                                 <div class="col-md-4">
                                                     <label for="art-width">Width:</label>
-                                                    <input id="art-width" name="art-width" class="form-control" placeholder="Enter Width" type="" value='0'>
+                                                    <input id="art-width" name="art-width" class="form-control" placeholder="0" type="" value=''>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="art-height">Height:</label>
-                                                    <input id="art-height" name="art-height" class="form-control" placeholder="Enter Height" type=""  value='0'>
+                                                    <input id="art-height" name="art-height" class="form-control" placeholder="0" type=""  value=''>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="art-height">DPI:</label>
-                                                    <input id="art-dpi" name="art-dpi" class="form-control" placeholder="Enter DPI" type=""  value='0'>
+                                                    <input id="art-dpi" name="art-dpi" class="form-control" placeholder="0" type=""  value=''>
                                                 </div>
                                             </div>
                                             
@@ -452,11 +452,11 @@
                                         <div class="row">
                                         <div class="col-md-6">
                                             <label for="art-x">X:</label>
-                                            <input id="art-x" name="art-x" class="form-control" placeholder="Enter X position" type="" value="0">
+                                            <input id="art-x" name="art-x" class="form-control" placeholder="0" type="" value="">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="art-y">Y:</label>
-                                            <input id="art-y" name="art-y" class="form-control" placeholder="Enter Y position" type="" value="0">
+                                            <input id="art-y" name="art-y" class="form-control" placeholder="0" type="" value="">
                                         </div>
                                         </div>
                                         <span class="help-block">Please enter offset position of rectangle</span>

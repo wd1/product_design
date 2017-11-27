@@ -63,7 +63,9 @@ shadow_img.style.display = "none";
 
 var texture_dark_img = document.createElement("img");
 texture_dark_img.id ="texture_dark_img";
-texture_dark_img.src = "../img/temp/temp-texture-dark.png";
+console.log(texture_dark_flag);
+if(texture_dark_flag == 1)
+    texture_dark_img.src = "../img/temp/temp-texture-dark.png";
 texture_dark_img.style.position = "absolute";
 texture_dark_img.style.left = back_img.style.left;
 texture_dark_img.style.top = back_img.style.top;
@@ -72,7 +74,8 @@ texture_dark_img.style.display = "none";
 
 var texture_white_img = document.createElement("img");
 texture_white_img.id ="texture_white_img";
-texture_white_img.src = "../img/temp/temp-texture-white.png";
+if(texture_white_flag == 1)
+    texture_white_img.src = "../img/temp/temp-texture-white.png";
 texture_white_img.style.position = "absolute";
 texture_white_img.style.left = back_img.style.left;
 texture_white_img.style.top = back_img.style.top;
@@ -137,7 +140,7 @@ $("#mockup-image").click(function() {
 
         c.style.display = "none";
         back_img.style.display="none";
-        console.log(back_img1);
+        // console.log(back_img1);
         back_img1.style.display="none";
         c1.style.display="inline-block";
 
@@ -145,12 +148,12 @@ $("#mockup-image").click(function() {
         var clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
         var clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
         var clip_right_y = Math.max(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
-        console.log(clip_left_x+","+clip_left_y+","+clip_right_x+","+clip_right_y);
+        // console.log(clip_left_x+","+clip_left_y+","+clip_right_x+","+clip_right_y);
         
         ctx1.clearRect(0,0, 400,400);
         ctx1.globalCompositeOperation = "normal";
         ctx1.drawImage(back_img,0,0,origin_width,origin_height,c1.width/2-150,c1.height/2-150,300,300);
-        console.log(back_img);
+        // console.log(back_img);
         ctx1.globalCompositeOperation = "source-atop";
         ctx1.drawImage(c,0,0);
         ctx1.globalCompositeOperation = 'destination-over';
@@ -264,10 +267,10 @@ mycode = function() {
     }
     per_width = art_width * per_scale;
     per_height = art_height * per_scale;
-    console.log(per_height);
-    console.log(per_width);
+    // console.log(per_height);
+    // console.log(per_width);
     startPosX = c.width / 2 - per_width/2-50;
-    console.log(c.width);
+    // console.log(c.width);
     startPosY = c.height / 2 - per_height/2-50;
     // display and control entitys
     wheelGroup = scrawl.makeGroup({
@@ -365,7 +368,7 @@ function uploadFile() {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         var text= xhr.responseText;
-        console.log(text);
+        // console.log(text);
         $(".loader").hide();
         $("#modal_id").click();
     }
@@ -401,7 +404,7 @@ function uploadFile() {
   fd.append("userid", user);
   fd.append("adminid", admin);
   fd.append("mockup_list",mockup_list);
-  console.log(test);
+//   console.log(test);
   fd.append("top_left_x", test.topLeft.local.x);
   fd.append("top_left_y", test.topLeft.local.y);
   fd.append("top_right_x", test.topRight.local.x);
@@ -430,11 +433,11 @@ function init_this(url) {
         // $(image).removeClass("cropper-hidden");
         var crop_tool_image;
         var crop_tool_scale
-        console.log(url);
+        // console.log(url);
         $("#crop_dimension").text("("+art_width+"px x "+art_height+"px)");
         $("#do_modal_crop").click();
         image.src = url;
-        console.log(image);
+        // console.log(image);
         image.onload = function() {
             setTimeout(function () {
               
@@ -466,7 +469,7 @@ function init_this(url) {
                             crop_height = crop_width / art_width * art_height;
                         }
                     }
-                    console.log(crop_width+","+crop_height);
+                    // console.log(crop_width+","+crop_height);
                     cropper.setCropBoxData({left:document.getElementsByClassName("cropper-wrap-box")[0].offsetWidth/2- crop_width/2, top:document.getElementsByClassName("cropper-wrap-box")[0].offsetHeight/2- crop_height/2, width: crop_width, height:crop_height});
                     
                     // var transform = crop_tool_image.style.transform;
@@ -509,7 +512,7 @@ function init_this(url) {
 
 function uploadDemoFile(file) {
     var _URL = window.URL || window.webkitURL;
-    console.log(c);
+    // console.log(c);
     // $("#mycanvas").hide();
     scrawl.work.doAnimation=false;
     
@@ -523,7 +526,7 @@ function uploadDemoFile(file) {
     $("#fabriccanvas").show();
     fabric_canvas = new fabric.Canvas('fabriccanvas');
     
-    console.log(document.getElementById("fabriccanvas"));
+    // console.log(document.getElementById("fabriccanvas"));
     document.getElementById("fabriccanvas").width = document.getElementById("fabriccanvas").width/window.devicePixelRatio; 
     document.getElementById("fabriccanvas").height = document.getElementById("fabriccanvas").height/window.devicePixelRatio;
     $(".canvas-container").css("margin","auto");
@@ -612,12 +615,12 @@ back_img.onload = function() {
     $("#fabriccanvas").hide();
     $("#mycanvas").click(function(e) {
         e.stopPropagation();
-        console.log("mycanvas");
+        // console.log("mycanvas");
     });
 
     $("#mycanvas1").click(function(e) {
         if(status == 0) {
-            console.log("mycanvas1");
+            // console.log("mycanvas1");
             e.stopPropagation();
             c.style.display = "inline-block";
             back_img1.style.display="inline-block";
@@ -634,7 +637,7 @@ back_img.onload = function() {
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);
     $("#crop_spinner").show();
     var temp_canvas = document.createElement('canvas');
-    console.log(back_img.naturalHeight);
+    // console.log(back_img.naturalHeight);
     // crop_tool_image = document.getElementsByClassName("cropper-canvas")[0];
     crop_tool_scale = 1;//document.getElementById("image").naturalWidth / back_img.naturalWidth;
     var crop_width, crop_height;
@@ -651,20 +654,20 @@ back_img.onload = function() {
             crop_height = crop_width / art_width * art_height;
         }
     }
-    console.log(crop_width+","+crop_height);
+    // console.log(crop_width+","+crop_height);
     // temp_canvas.width = data.width;
     // temp_canvas.height = data.height;
     
     scaletocanvas = Math.max(crop_height/document.getElementById("image").naturalHeight, crop_width/document.getElementById("image").naturalWidth);
     temp_canvas.width = back_img.naturalWidth * scaletocanvas;
     temp_canvas.height = back_img.naturalHeight* scaletocanvas;
-    console.log(scaletocanvas);
+    // console.log(scaletocanvas);
     var ctx=temp_canvas.getContext("2d");
     var template_img = document.getElementById("image");
     template_img.onload = function() { 
         
-        console.log(crop_width*scaletocanvas+","+crop_height*scaletocanvas);
-        console.log(art_width+","+art_height);
+        // console.log(crop_width*scaletocanvas+","+crop_height*scaletocanvas);
+        // console.log(art_width+","+art_height);
         ctx.drawImage(template_img,(template_img.naturalWidth-crop_width)/2, (template_img,template_img.naturalHeight-crop_height)/2, crop_width, crop_height,0,0,temp_canvas.width,temp_canvas.height);
         // document.body.append(temp_canvas);
         document.getElementById("swan").src = temp_canvas.toDataURL(); 
@@ -703,7 +706,7 @@ function getCropData1(e) {
     var ctx3=temp_canvas.getContext("2d");
     var template_img = document.getElementById("image");
 
-    console.log(data);
+    // console.log(data);
     ctx3.drawImage(template_img,data.x, data.y, data.width, data.height,0,0,temp_canvas.width,temp_canvas.height);
     
     canvas_pattern = document.createElement("canvas");
@@ -716,7 +719,7 @@ function getCropData1(e) {
         canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/c.height;
         var ctx_canvas = canvas_pattern.getContext("2d");
         var p = new Perspective(ctx_canvas, image);
-        console.log(c.width+","+c.height);
+        // console.log(c.width+","+c.height);
         p.draw([
                 [(test.topLeft.local.x-clip_left_x)*data.width/400, (test.topLeft.local.y-clip_left_y)*data.height/c.height],
                 [(test.topRight.local.x-clip_left_x)*data.width/400, (test.topRight.local.y-clip_left_y)*data.height/c.height],
@@ -768,7 +771,7 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
             // document.getElementById("c").style.webkitMaskImage = "";
             // document.getElementById("c").classList.remove("mask-class");
             
-            console.log(img.width);           
+            // console.log(img.width);           
             // if(total_data[$("#product_list option:selected").text()].opacity)
             //     pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
             // else
@@ -777,7 +780,7 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
             //     pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
             // else
             var ratio = art_width / art_height;
-            console.log(ratio);
+            // console.log(ratio);
             var clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
             var clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
             var clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);

@@ -17,9 +17,9 @@
     $downloads2 = $userRow['downloads_2'];
 ?>
 <script>
-    if(location.protocol != "https:") {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    }
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
 </script>
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
@@ -401,7 +401,7 @@ For more detail, please review our Returns Policy.</p>
                 <a class="nav-link" style="color: #6bacc1;" href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
             </li>
             <li class="nav-item px-3">
-                <a class="nav-link" style="color: #6bacc1;"  href=""><i class="icon-refresh " aria-hidden="true"></i> Refresh</a>
+                <a class="nav-link" style="color: #6bacc1;"  href=""><i class="icon-refresh " aria-hidden="true"></i></a>
             </li>
        <!--     <li class="nav-item px-3">
                 <a  class="nav-link" href="#"><i class="icon-cloud-download" aria-hidden="true"></i> Print File</a>
@@ -432,7 +432,7 @@ For more detail, please review our Returns Policy.</p>
 
         <ui-view  style="margin-top: 55px;">      
         <div class="animated fadeIn">
-            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f3f4f5;">
+            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f8f8f8;">
                 <div>
                     <div class="col-md-4">
                         <div class="row">

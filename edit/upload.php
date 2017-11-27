@@ -42,11 +42,14 @@ $productname = trim($_POST['product_name']);
     // }
     // if(isset($_FILES['texture-dark_file'])) {
     //     if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/product1/".$_POST['texture-dark_name'].'.png')) {
+    $texture_dark = 0;
     if(file_exists("../img/temp/temp-texture-dark.png")) {
         if(copy('../img/temp/temp-texture-dark.png','../img/product1/'.$_POST['product_name'].'-texture-dark.png')){
             // echo $_FILES['texture-dark_file']['name']. " OK";
+            $texture_dark = 1;
         } else {
             // echo $_FILES['texture-dark_file']['name']. " No Texture-dark File";
+            
             $errormsg = 'No Texture Dark File';
             $error = true;
         }
@@ -54,11 +57,14 @@ $productname = trim($_POST['product_name']);
     // }
     // if(isset($_FILES['texture-white_file'])) {
     //     if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/product1/".$_POST['texture-white_name'].'.png')) {
+    $texture_white = 0;
     if(file_exists("../img/temp/temp-texture-white.png")) {
         if(copy('../img/temp/temp-texture-white.png','../img/product1/'.$_POST['product_name'].'-texture-white.png')){
             // echo $_FILES['texture-white_file']['name']. " OK";
+            $texture_white = 1;
         } else {
             // echo $_FILES['texture-white_file']['name']. " No Texture-white File";
+            
             $errormsg = 'No Texture White File';
             $error = true;
         }
@@ -83,8 +89,8 @@ $productname = trim($_POST['product_name']);
     if( !$error ) {
 		$productname = $_POST['product_name'];
         $productcode = $_POST['product_code'];
-        $productcost = $_POST['product_cost'];
-        $productprice = $_POST['product_price'];
+        $productcost = $_POST['product_cost'] == '' ? 0 : $_POST['product_cost'];
+        $productprice = $_POST['product_price']== '' ? 0 : $_POST['product_price'];
         $width = $_POST['width'];
         $height = $_POST['height'];
         if($width == '')
@@ -115,7 +121,7 @@ $productname = trim($_POST['product_name']);
         $size_x = $_POST["size_x"];
         $size_y = $_POST["size_y"];
         $cheight = $_POST["cheight"];
-        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list,top_left_x,top_left_y,top_right_x,top_right_y,bottom_left_x,bottom_left_y,bottom_right_x,bottom_right_y,perspective, position_x, position_y, size_x, size_y, cheight, dpi,provider,print_location, print_mode, product_cost, product_price) VALUES('$productname','$productcode','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$top_left_x','$top_left_y','$top_right_x','$top_right_y','$bottom_left_x','$bottom_left_y','$bottom_right_x','$bottom_right_y','1','$position_x','$position_y','$size_x','$size_y','$cheight','$dpi','$provider','$print_location','$print_mode','$productcost','$productprice')";
+        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list,top_left_x,top_left_y,top_right_x,top_right_y,bottom_left_x,bottom_left_y,bottom_right_x,bottom_right_y,perspective, position_x, position_y, size_x, size_y, cheight, dpi,provider,print_location, print_mode, product_cost, product_price,texture_dark, texture_white) VALUES('$productname','$productcode','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list',$top_left_x,$top_left_y,$top_right_x,$top_right_y,$bottom_left_x,$bottom_left_y,$bottom_right_x,$bottom_right_y,'1',$position_x,$position_y,$size_x,$size_y,$cheight,$dpi,'$provider','$print_location','$print_mode',$productcost,$productprice, $texture_dark, $texture_white)";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         echo $query;
         $res = mysql_query($query);

@@ -30,20 +30,26 @@ if(isset($_FILES['product_file'])) {
             $error = true;
         }
     }
+    $texture_dark = 0;
     if(isset($_FILES['texture-dark_file'])) {
         if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/product1/".$_POST['texture-dark_name'].'.png')) {
             // echo $_FILES['texture-dark_file']['name']. " OK";
+            $texture_dark = 1;
         } else {
             // echo $_FILES['texture-dark_file']['name']. " No Texture-dark File";
+            
             $errormsg = 'No Texture Dark File';
             $error = true;
         }
     }
+     $texture_white = 0;
     if(isset($_FILES['texture-white_file'])) {
         if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/product1/".$_POST['texture-white_name'].'.png')) {
             // echo $_FILES['texture-white_file']['name']. " OK";
+            $texture_white = 1;
         } else {
             // echo $_FILES['texture-white_file']['name']. " No Texture-white File";
+           
             $errormsg = 'No Texture White File';
             $error = true;
         }
@@ -67,8 +73,8 @@ if(isset($_FILES['product_file'])) {
     if( !$error ) {
 		$productname = $_POST['product_name'];
         $productcode = $_POST['product_code'];
-        $productcost = $_POST['product_cost'];
-        $productprice = $_POST['product_price'];
+        $productcost = $_POST['product_cost']== '' ? 0 : $_POST['product_cost'];
+        $productprice = $_POST['product_price']== '' ? 0 : $_POST['product_price'];
         $width = $_POST['width'];
         $height = $_POST['height'];
         $dpi = $_POST['dpi'];
@@ -86,7 +92,7 @@ if(isset($_FILES['product_file'])) {
         $user = $_POST['userid'];
         $admin = $_POST['adminid'];
         $mockup_list = $_POST['mockup_list'];
-        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,dpi,x,y,user_id,blend_mode,opacity,admin,mockup_list,provider,print_location, print_mode, product_cost, product_price) VALUES('$productname','$productcode','$width','$height','$dpi','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$provider','$print_location','$print_mode','$productcost','$productprice')";
+        $query = "INSERT INTO products(mockup_name,mockup_code,width,height,dpi,x,y,user_id,blend_mode,opacity,admin,mockup_list,provider,print_location, print_mode, product_cost, product_price, texture_dark,texture_white) VALUES('$productname','$productcode','$width','$height','$dpi','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$provider','$print_location','$print_mode',$productcost,$productprice,$texture_dark,$texture_white)";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         echo $query;
         $res = mysql_query($query);

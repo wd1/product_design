@@ -42,7 +42,7 @@ function init_selectbox() {
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
-            console.log(text);
+            // console.log(text);
             text=text.split("ADMINSEPERATE");
             $("#multiple-select").append($('<option>', {
                 value: "",
@@ -51,7 +51,7 @@ function init_selectbox() {
                 style:"font-size:16px;font-weight:bold;color:#607d8b;"
             }));
             var lines = text[0].split("<br>");
-            console.log(lines);
+            // console.log(lines);
             for(var j=0; j<lines.length-1; j++) {
                 var arrs = lines[j].split(" width:");
                 var name = arrs[0].split("name:")[1];
@@ -82,7 +82,7 @@ function init_selectbox() {
                     style:"font-size:16px;font-weight:bold;color:#607d8b;"
                 }));
                 lines = text[1].split("<br>");
-                console.log(lines);
+                // console.log(lines);
                 for(var j=0; j<lines.length-1; j++) {
                     var arrs = lines[j].split(" width:");
                     var name = arrs[0].split("name:")[1];
@@ -126,7 +126,7 @@ function uploadFile() {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         var text= xhr.responseText;
-        console.log(text);
+        // console.log(text);
         
         $(".btn").prop("disabled", false);
         $("#product_file").prop("disabled", false);
@@ -156,21 +156,22 @@ function uploadFile() {
   fd.append("product_code",$("#pr-code").val());
   fd.append("product_cost",$("#pr-cost").val());
   fd.append("product_price",$("#pr-price").val());
-  console.log(document.getElementById("pr-name"));
+//   console.log(document.getElementById("pr-name"));
   fd.append("mask_name",$("#mask-name").val());
   fd.append("shadow_name",$("#shadow-name").val());
   fd.append("texture-dark_name",$("#texture-dark-name").val());
   fd.append("texture-white_name",$("#texture-white-name").val());
-  fd.append("width",$("#art-width").val());
-  fd.append("height",$("#art-height").val());
-  fd.append("dpi",$("#art-dpi").val());
-  fd.append("x",$("#art-x").val());
-  fd.append("y",$("#art-y").val());
+  
+  fd.append("width",$("#art-width").val()=='' ? '0' : $("#art-width").val());
+  fd.append("height",$("#art-height").val()=='' ? '0' : $("#art-height").val());
+  fd.append("dpi",$("#art-dpi").val()=='' ? '0' : $("#art-dpi").val());
+  fd.append("x",$("#art-x").val()=='' ? '0' : $("#art-x").val());
+  fd.append("y",$("#art-y").val()=='' ? '0' : $("#art-y").val());
   fd.append("blend_mode",$("#blend_mode").val().toLowerCase());
   fd.append("provider",$("#provider").val());
   fd.append("print_location",$("#print_location").val());
   fd.append("print_mode",$("#print_mode").val());
-  console.log($("#provider").val());
+//   console.log($("#provider").val());
   fd.append("opacity",$("#opacity").val());
   fd.append("userid", userid);
   fd.append("adminid", adminid);
@@ -190,7 +191,7 @@ function viewproduct() {
 function viewlistproduct(flag) {
     if(flag == false) {
     // console.log($("#multiple-select").find(":selected").text());
-        console.log('../../?product='+$("#multiple-select").find(":selected").text());
+        // console.log('../../?product='+$("#multiple-select").find(":selected").text());
         var index=$("#multiple-select").find(":selected").text();
         var win = window.open('../../home.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
         // var win = window.open('../../admin/dashboard/index.php?product='+$("#multiple-select").find(":selected").text()+"&w="+total_data[index].width+"&h="+total_data[index].height+"&x="+total_data[index].x+"&y="+total_data[index].y+"&bm="+total_data[index].blend_mode+"&o="+total_data[index].opacity, '_blank');
@@ -214,7 +215,7 @@ function deleteproductfromlist() {
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
-            console.log(text);
+            // console.log(text);
             $(".btn").prop("disabled", false);
             $("#product_file").prop("disabled", false);
             $("#upload_btn").prop("disabled", false);
@@ -333,7 +334,7 @@ function needwarp() {
     pr_name.type = "text";
     pr_name.name = temp.name;
     pr_name.value = temp.value;
-    console.log(pr_name);
+    // console.log(pr_name);
     form.appendChild(pr_name);
 
     temp = document.getElementById("pr-code");
@@ -341,7 +342,7 @@ function needwarp() {
     pr_code.type = "text";
     pr_code.name = temp.name;
     pr_code.value = temp.value;
-    console.log(pr_code);
+    // console.log(pr_code);
     form.appendChild(pr_code);
 
     temp = document.getElementById("pr-cost");
@@ -374,23 +375,23 @@ function needwarp() {
     var art_width = document.createElement('input');
     art_width.type = "text";
     art_width.name = temp.name;
-    art_width.value = temp.value;
+    art_width.value = (temp.value=='' ? '0' : temp.value);
     form.appendChild(art_width);
-    console.log(art_width);
+    // console.log(art_width);
     // form.appendChild(document.getElementById("art-width"));
 
     temp = document.getElementById("art-height");
     var art_height = document.createElement('input');
     art_height.type = "text";
     art_height.name = temp.name;
-    art_height.value = temp.value;
+    art_height.value = (temp.value=='' ? '0' : temp.value);
     form.appendChild(art_height);
 
     temp = document.getElementById("art-dpi");
     var art_dpi = document.createElement('input');
     art_dpi.type = "text";
     art_dpi.name = temp.name;
-    art_dpi.value = temp.value;
+    art_dpi.value = (temp.value=='' ? '0' : temp.value);
     form.appendChild(art_dpi);
     // form.appendChild(document.getElementById("art-height"));
 
@@ -398,7 +399,7 @@ function needwarp() {
     var art_x = document.createElement('input');
     art_x.type = "text";
     art_x.name = temp.name;
-    art_x.value = temp.value;
+    art_x.value = (temp.value=='' ? '0' : temp.value);
     form.appendChild(art_x);
     // form.appendChild(document.getElementById("art-x"));
 
@@ -406,7 +407,7 @@ function needwarp() {
     var art_y = document.createElement('input');
     art_y.type = "text";
     art_y.name = temp.name;
-    art_y.value = temp.value;
+    art_y.value = (temp.value=='' ? '0' : temp.value);
     form.appendChild(art_y);
 
     // form.appendChild(document.getElementById("art-y"));
@@ -468,7 +469,7 @@ function needwarp() {
     form.appendChild(mockup_list_input);
     // form.appendChild("mockup_list",$("#checkbox1").is(":checked"));
     $("body").append(form);
-    console.log(form);
+    // console.log(form);
     form.submit();
 }
 // $("#question_mark").on('click', function() {

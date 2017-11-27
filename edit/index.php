@@ -16,6 +16,9 @@
     }
     $res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
 	$userRow=mysql_fetch_array($res);
+
+    $texture_dark_flag = 0;
+    $texture_white_flag = 0;
     // $userRow['userName'] = "AAA";
     // $_COOKIE['userName'] = $userRow['userName'];
     if(isset($_FILES['product_file'])) {
@@ -52,6 +55,7 @@
         if(file_exists("../img/temp/temp-texture-dark.png")) unlink("../img/temp/temp-texture-dark.png");
         if(isset($_FILES['texture-dark_file'])) {
             if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/temp/temp-texture-dark.png")) {
+                $texture_dark_flag = 1;
                 // echo $_FILES['texture-dark_file']['name']. " OK";
             } else {
                 // echo $_FILES['texture-dark_file']['name']. " No Texture-dark File";
@@ -62,6 +66,7 @@
         if(file_exists("../img/temp/temp-texture-white.png")) unlink("../img/temp/temp-texture-white.png");
         if(isset($_FILES['texture-white_file'])) {
             if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/temp/temp-texture-white.png")) {
+                $texture_white_flag = 1;
                 // echo $_FILES['texture-white_file']['name']. " OK";
             } else {
                 // echo $_FILES['texture-white_file']['name']. " No Texture-white File";
@@ -174,7 +179,8 @@ var user = "<?php echo $user ?>";
 var opacity = "<?php echo $opacity ?>";
 var admin = "<?php echo $admin ?>";
 var mockup_list = "<?php echo $mockup_list ?>";
-
+var texture_dark_flag = "<?php echo $texture_dark_flag ?>";
+var texture_white_flag = "<?php echo $texture_white_flag ?>";
 </script>
     
     <!-- Modal -->
@@ -466,7 +472,7 @@ var mockup_list = "<?php echo $mockup_list ?>";
 
         <ui-view  style="margin-top: 55px;">      
         <div class="animated fadeIn">
-            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;">
+            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f5f5f5;">
                 <div>
                     <div class="col-md-4">
                         <div class="row">

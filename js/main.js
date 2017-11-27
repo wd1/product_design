@@ -29,7 +29,8 @@ var mockup_image_before_width,mockup_image_before_height;
 var mockup_image_before_left, mockup_image_before_top;
 var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
 var wheelGroup, test, stopE, getWheel, dropWheel,myEntity;
-var data;
+var data1;
+var cropper;
 var alert_text;
 var canvas_pattern =  document.createElement("canvas");
 init_selectbox();
@@ -53,6 +54,9 @@ $("body").on("contextmenu",function(e){
     return false;
 });
 
+$("#export-button").prop("disabled", true);
+$("#export-art-button").prop("disabled", true);
+$("#upload-button").prop("disabled", true);
 // $("body").bind('cut copy paste', function (e) {
 //     e.preventDefault();
 // });
@@ -202,6 +206,7 @@ $("#caret").click(function(ev) {
 });
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
+    $("#upload-button").prop("disabled", false);
     if(downloads1>=0)
         $("#export-button").prop("disabled", false);
     if(downloads2>=0)
@@ -271,10 +276,12 @@ function init_selectbox() {
                 var position_y = arrs[18].split("position_y:")[1];
                 var size_x = arrs[19].split("size_x:")[1];
                 var size_y = arrs[20].split("size_y:")[1];
-                var cheight = arrs[21].split("cheight:")[1]
-                var dpi = arrs[22].split("dpi:")[1]
+                var cheight = arrs[21].split("cheight:")[1];
+                var dpi = arrs[22].split("dpi:")[1];
+                var texture_dark_flag = arrs[23].split("texture_dark:")[1];
+                var texture_white_flag = arrs[24].split("texture_white:")[1];
                 // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi};
+                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag};
                 // if(name == param_product)
                 //     exist_flag = true;
                 $("#product_list").append($('<option>', {
@@ -331,8 +338,10 @@ function init_selectbox() {
                     var size_y = arrs[20].split("size_y:")[1];
                     var cheight = arrs[21].split("cheight:")[1];
                     var dpi = arrs[22].split("dpi:")[1];
+                    var texture_dark_flag = arrs[23].split("texture_dark:")[1];
+                    var texture_white_flag = arrs[24].split("texture_white:")[1];
                     // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi};
+                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag};
                     // if(name == param_product)
                     //     exist_flag = true;
                     $("#product_list").append($('<option>', {
@@ -342,6 +351,7 @@ function init_selectbox() {
                     
                 }
             }
+            // console.log(total_data);
             $("#product_list").attr('size',15);
             $("#product_list").css('width',document.getElementById("product_list").parentNode.offsetWidth);
             // alert_text = new fabric.Text('Select Mockup',{left:parseFloat(c.style.width)/2-120, top:parseFloat(c.style.height)/2-50,fill:"black", selectable:false});
@@ -391,6 +401,9 @@ $('#product_list').change(function() {
     
 });
 function product_load(fff = false, ggg=false) {
+    $("#export-button").prop("disabled", false);
+    $("#export-art-button").prop("disabled", false);
+    $("#upload-button").prop("disabled", false);
     $("#product_list").prop("disabled", true);
     art_width = total_data[$("#product_list option:selected").text()].width;
     art_height = total_data[$("#product_list option:selected").text()].height;
@@ -466,92 +479,98 @@ function product_load(fff = false, ggg=false) {
             canvas1.add(square);
             canvas1.add(square1);  
             // canvas1.renderAll();
+            if(total_data[$("#product_list option:selected").text()].texture_dark_flag == 1) {
+                fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-dark.png", function(img1) {
+                    // console.log(img1);
+                    
 
-            fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-dark.png", function(img1) {
-                // console.log(img1);
-                
-
-                    texture_dark_img = img1.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
-                    texture_dark_img.globalCompositeOperation = 'screen';
-                    canvas1.add(texture_dark_img); 
+                        texture_dark_img = img1.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
+                        texture_dark_img.globalCompositeOperation = 'screen';
+                        canvas1.add(texture_dark_img); 
 
 
-                fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-white.png", function(img2) {
+                    fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-white.png", function(img2) {
 
-                        texture_white_img = img2.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
-                        texture_white_img.globalCompositeOperation = 'multiply';
-                        canvas1.add(texture_white_img);
+                            texture_white_img = img2.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
+                            texture_white_img.globalCompositeOperation = 'multiply';
+                            canvas1.add(texture_white_img);
 
-                    if(url_flag == true) {
-                        var url = 'upload1.php';
-                        var xhr = new XMLHttpRequest();
-                        var fd = new FormData();
-                        xhr.open("POST", url, true);
-                        xhr.onreadystatechange = function() {
-                            if(xhr.readyState == 4 && xhr.status == 200) {
-                                // console.log(xhr.responseText);
-                                
-                                fabric.Image.fromURL(xhr.responseText, function(img) {
-                                    canvas1.remove(pattern_img);
-                                    document.getElementById("c").style.maskImage = "";
-                                    document.getElementById("c").style.webkitMaskImage = "";
-                                    document.getElementById("c").classList.remove("mask-class");
-                                    pattern_img_width = img.width;
-                                    pattern_img_height = img.height;
-                                    var offset_x = -20;//parseInt(getURLParameter("x"));
-                                    var offset_y = -50;//parseInt(getURLParameter("y"));
-          
-                                    var scale1 = parseInt(getURLParameter("w"))/img.width;
-                                    var scale2 = parseInt(getURLParameter("h"))/img.height;
-                              
-                                    if(getURLParameter("o")) {
-                                        total_data[$("#product_list option:selected").text()].opacity = getURLParameter("o");
-                                        pattern_img = img.set({ left: mockup_img.left + offset_x, top: mockup_img.top + offset_y, angle: 0, scaleX: scale1, scaleY: scale2, opacity: parseInt(getURLParameter("o"))/100});
-                                    } else {
-                                        pattern_img = img.set({ left: mockup_img.left + offset_x, top: mockup_img.top + offset_y, angle: 0, scaleX: scale1, scaleY: scale2, opacity: 0.7});
-                                    }
-                                    if(getURLParameter("bm")) {
-                                        total_data[$("#product_list option:selected").text()].blend_mode = getURLParameter("bm");
-                                        pattern_img.globalCompositeOperation = getURLParameter("bm");
-                                    } else {
-                                        pattern_img.globalCompositeOperation = 'multiply';
-                                    }
-                                    pattern_img['cornerStyle'] = 'circle';
-                                    pattern_img['hasRotatingPoint'] = false;
-                                    pattern_img['cornerSize'] = 7;
-                                    pattern_img['cornerColor'] = '#f96736';
-                                    pattern_img['borderColor'] = '#f96736';
-                                    canvas1.add(pattern_img);
-                                    canvas1.renderAll();
-                                    $(".loader1").hide();
-                                    $("#product_list").prop("disabled", false);
-                                    set_flag = true;
-                                    getProductImage();
-                                });
-                            }
-                        }
-                        fd.append("file_url", getURLParameter("url"));
-                        xhr.send(fd);
-
-                    } else {
-                        canvas1.renderAll();
-                        $(".loader1").hide();
-                        $("#product_list").prop("disabled", false);
-                        if(ggg==true)
-                            make_pattern_img();
-                        if(fff == true) {
-                            getProductImage();
-                        }
-                    } 
-                    // canvas1.setActiveObject(texture_white_img);
+                            checkurlandprocess(fff,ggg);
+                        // canvas1.setActiveObject(texture_white_img);
+                    });
                 });
-            });
+            } else {
+                checkurlandprocess(fff,ggg);
+            }
             
             // 
             
         });
     });
     
+}
+function checkurlandprocess(fff,ggg){
+    if(url_flag == true) {
+        var url = 'upload1.php';
+        var xhr = new XMLHttpRequest();
+        var fd = new FormData();
+        xhr.open("POST", url, true);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                // console.log(xhr.responseText);
+                
+                fabric.Image.fromURL(xhr.responseText, function(img) {
+                    canvas1.remove(pattern_img);
+                    document.getElementById("c").style.maskImage = "";
+                    document.getElementById("c").style.webkitMaskImage = "";
+                    document.getElementById("c").classList.remove("mask-class");
+                    pattern_img_width = img.width;
+                    pattern_img_height = img.height;
+                    var offset_x = -20;//parseInt(getURLParameter("x"));
+                    var offset_y = -50;//parseInt(getURLParameter("y"));
+
+                    var scale1 = parseInt(getURLParameter("w"))/img.width;
+                    var scale2 = parseInt(getURLParameter("h"))/img.height;
+                
+                    if(getURLParameter("o")) {
+                        total_data[$("#product_list option:selected").text()].opacity = getURLParameter("o");
+                        pattern_img = img.set({ left: mockup_img.left + offset_x, top: mockup_img.top + offset_y, angle: 0, scaleX: scale1, scaleY: scale2, opacity: parseInt(getURLParameter("o"))/100});
+                    } else {
+                        pattern_img = img.set({ left: mockup_img.left + offset_x, top: mockup_img.top + offset_y, angle: 0, scaleX: scale1, scaleY: scale2, opacity: 0.7});
+                    }
+                    if(getURLParameter("bm")) {
+                        total_data[$("#product_list option:selected").text()].blend_mode = getURLParameter("bm");
+                        pattern_img.globalCompositeOperation = getURLParameter("bm");
+                    } else {
+                        pattern_img.globalCompositeOperation = 'multiply';
+                    }
+                    pattern_img['cornerStyle'] = 'circle';
+                    pattern_img['hasRotatingPoint'] = false;
+                    pattern_img['cornerSize'] = 7;
+                    pattern_img['cornerColor'] = '#f96736';
+                    pattern_img['borderColor'] = '#f96736';
+                    canvas1.add(pattern_img);
+                    canvas1.renderAll();
+                    $(".loader1").hide();
+                    $("#product_list").prop("disabled", false);
+                    set_flag = true;
+                    getProductImage();
+                });
+            }
+        }
+        fd.append("file_url", getURLParameter("url"));
+        xhr.send(fd);
+
+    } else {
+        canvas1.renderAll();
+        $(".loader1").hide();
+        $("#product_list").prop("disabled", false);
+        if(ggg==true)
+            make_pattern_img();
+        if(fff == true) {
+            getProductImage();
+        }
+    } 
 }
 function getProductImage() {
     canvas1.remove(square1);
@@ -703,7 +722,7 @@ $('#export-art-button').on('click', function () {
                 xhr.open("POST", url, true);
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == 4 && xhr.status == 200) {
-                        // console.log(xhr.responseText);
+                        console.log(xhr.responseText);
                         $(".loader1").hide();
                         var url = xhr.responseText;
                         var download = document.createElement('a');
@@ -770,13 +789,13 @@ $('#export-art-button').on('click', function () {
                 }
             }
             // fd.append("design_file", blob);
-            console.log("send_x:"+data.x+",send_y:"+data.y+",send_width:"+data.width+",send_height"+data.height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
+            console.log("send_x:"+data1.x+",send_y:"+data1.y+",send_width:"+data1.width+",send_height"+data1.height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
             console.log((document.getElementById("image").src).split("img/")[1]);
             fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
-            fd.append("send_x", data.x);
-            fd.append("send_y", data.y);
-            fd.append("send_width", data.width);
-            fd.append("send_height", data.height);
+            fd.append("send_x", data1.x);
+            fd.append("send_y", data1.y);
+            fd.append("send_width", data1.width);
+            fd.append("send_height", data1.height);
             fd.append("src",(document.getElementById("image").src).split("img/")[1]);
             fd.append("art_width", total_data[$("#product_list option:selected").text()].width);
             fd.append("art_height", total_data[$("#product_list option:selected").text()].height);
@@ -955,9 +974,10 @@ $("#export-button").on('click', function() {
             }
             
 
-            var texture_dark = texture_dark_img.getElement();
-            if(texture_dark != null) 
+            // 
+            if(total_data[$("#product_list option:selected").text()].texture_dark_flag == 1) 
             {
+                var texture_dark = texture_dark_img.getElement();
                 if(total_data[$("#product_list option:selected").text()].blend_mode == 'normal')
                     imagecontext.globalCompositeOperation = 'source-atop';
                 else
@@ -967,8 +987,9 @@ $("#export-button").on('click', function() {
                 imagecontext.drawImage(texture_dark, 0, 0 ,original_width,original_height);
             }
 
-            var texture_white = texture_white_img.getElement();
-            if(texture_white != null) {
+            // 
+            if(total_data[$("#product_list option:selected").text()].texture_white_flag == 1) {
+                var texture_white = texture_white_img.getElement();
                 imagecontext.globalCompositeOperation = 'multiply';
                 imagecontext.drawImage(texture_white, 0, 0 ,original_width,original_height);
             }
@@ -1042,7 +1063,7 @@ $("#export-button").on('click', function() {
         var image = document.getElementById('image');
         image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
         image = document.getElementById('image');
-        var cropper;
+        
 
 
         var crop_width, crop_height;
@@ -1107,8 +1128,8 @@ $("#export-button").on('click', function() {
                     // }
                 },
                 crop: function (e) {
-                    data = e.detail;
-                    console.log(data);
+                    data1 = e.detail;
+                    console.log(data1);
                     // var cropper = this.cropper;
                     // var imageData = cropper.getImageData();
                     // var previewAspectRatio = data.width / data.height;
@@ -1272,6 +1293,7 @@ function crop_mouseup(){
     }
 }
 function getCropData() {
+    console.log(cropper);
     // e.innerHTML = "Uploading & Saving…";
     $("#crop_label").prop('value',"Uploading & Saving...");
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
@@ -1288,8 +1310,8 @@ function getCropData() {
     var ctx3=temp_canvas.getContext("2d");
     var template_img = document.getElementById("image");
 
-    console.log(data);
-    ctx3.drawImage(template_img,data.x, data.y, data.width, data.height,0,0,temp_canvas.width,temp_canvas.height);
+    
+    ctx3.drawImage(template_img,data1.x, data1.y, data1.width, data1.height,0,0,temp_canvas.width,temp_canvas.height);
     
     canvas_pattern.id = "SSSS";
     // document.body.append(temp_canvas);
@@ -1316,19 +1338,19 @@ function getCropData() {
 }
 var image_crop = new Image();
 image_crop.onload = function() {
-    canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
+    canvas_pattern.width = (clip_right_x - clip_left_x)*data1.width/400;
     if(total_data[$("#product_list option:selected").text()].cheight =="") 
-        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/400;
+        canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/400;
     else
-        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
+        canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
     var ctx_canvas = canvas_pattern.getContext("2d");
     var p = new Perspective(ctx_canvas, image_crop);
     // console.log((total_data[$("#product_list option:selected").text()]));
     p.draw([
-            [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-            [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
-            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]
     ]);
     $("#crop_label").prop('value',"Crop (Click Once)");
     // document.body.append(canvas_pattern);
