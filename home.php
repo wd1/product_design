@@ -25,7 +25,7 @@
 <html lang="en" ng-app="app">
 
 <head>
-   
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
     <title>Nymbl Instant Mockups</title>

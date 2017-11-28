@@ -87,7 +87,7 @@
         <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
         <title>Nymbl Instant Mockups</title>
-
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
         <!-- Main styles for this application -->
         <link href="css/style.css" rel="stylesheet">
         <link href="css/cropper.css" rel="stylesheet">

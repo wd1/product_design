@@ -16,7 +16,7 @@
 
 <html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Nymbl.io Designer">
         <meta name="author" content="Łukasz Holeczek">
@@ -76,7 +76,7 @@
 		<div class="modal-dialog modal-primary modal-sm" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Perspective Edit</h4>
+					<h4 class="modal-title">Perspective Edit?</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -334,7 +334,7 @@
                         <div id="product_list" class="card" style="margin-bottom:0.5rem;margin-top: 0.5rem;">
                                 <div class="card-header col-md-12 form-control-label" for="multiple-select" style="font-weight: bold;">Product Catalog</div>
                                 <div class="">
-                                    <select id="multiple-select" name="multiple-select" class="form-control" size="5" style="padding-top: 20px;">
+                                    <select id="multiple-select" name="multiple-select" class="form-control" size="5" style="padding-top: 20px;border: none;">
                                     </select> 
                                 </div>
                             </div>

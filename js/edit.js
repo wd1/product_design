@@ -754,7 +754,7 @@ function getCropData1(e) {
                 [(test.bottomLeft.local.x-clip_left_x)*data.width/400, (test.bottomLeft.local.y-clip_left_y)*data.height/c.height]
         ]);
         cheight = c.height;
-        $("#crop_label").prop('value',"Crop (Click Once)");
+        // $("#crop_label").prop('value',"Crop (Click Once)");
         // document.body.append(canvas_pattern);
         init_crop_canvas(canvas_pattern);
         $("#crop_spinner").hide();

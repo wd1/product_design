@@ -1,4 +1,5 @@
 <?php
+    header("Location: ../");
 	ob_start();
 	session_start();
 	require_once '../dbconnect.php';
@@ -63,7 +64,7 @@
 
 <html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="CoreUI - Free Bootstrap 4 Admin Template">
         <meta name="author" content="Łukasz Holeczek">
