@@ -432,7 +432,7 @@ For more detail, please review our Returns Policy.</p>
 
         <ui-view  style="margin-top: 55px;">      
         <div class="animated fadeIn">
-            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f8f8f8;">
+            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background:#f8f8f8;">
                 <div>
                     <div class="col-md-4">
                         <div class="row">

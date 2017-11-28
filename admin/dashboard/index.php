@@ -40,7 +40,7 @@
         </script>-->
     </head>
 
-    <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done" style="background:#f5f5f5;">
+    <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done" style="background:#f8f8f8;">
 
     <button type="button" id="do_modal_instruction" class="btn btn-primary" style="display:none;" data-target="#modal_instruction" data-toggle="modal">
       Launch the Cropper
@@ -525,6 +525,7 @@
                                                     </label>
                                                 </div> -->
                                                 <select class="form-control" id="print_location" style="padding-top: 5px;">
+                                                    <option value="" disabled selected>Select</option>
                                                     <option value="Front">Front</option>
                                                     <option value="Back">Back</option>
                                                     <option value="Front & Back">Front & Back</option>

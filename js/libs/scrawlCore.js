@@ -4357,7 +4357,7 @@ Display function sorting routine - cells are sorted according to their compileOr
 	my.Pad.prototype.sortCellsCompile = function() {
 		if (this.resortCompile) {
 			this.resortCompile = false;
-console.log("cellcompileorder");
+// console.log("cellcompileorder");
 			this.cellsCompileOrder = my.bucketSort('cell', 'compileOrder', this.cellsCompileOrder);
 		}
 	};
@@ -4370,7 +4370,7 @@ Display function sorting routine - cells are sorted according to their showOrder
 	my.Pad.prototype.sortCellsShow = function() {
 		if (this.resortShow) {
 			this.resortShow = false;
-            console.log("cellshoworder");
+            // console.log("cellshoworder");
 			this.cellsShowOrder = my.bucketSort('cell', 'showOrder', this.cellsShowOrder);
 		}
 	};
@@ -5687,7 +5687,7 @@ groupSort
 	my.Cell.prototype.groupSort = function() {
 		if (this.sortGroups) {
 			this.sortGroups = false;
-            console.log("groupeorder");
+            // console.log("groupeorder");
 			this.groups = my.bucketSort('group', 'order', this.groups);
 		}
 	};
@@ -6585,7 +6585,7 @@ Order values are treated as integers. The sort routine is a form of bucket sort,
 	my.Group.prototype.sortEntitys = function(force) {
 		if (force || (this.entitySort && this.resort)) {
 			this.resort = false;
-            console.log("entityorder");
+            // console.log("entityorder");
 			this.entitys = my.bucketSort('entity', 'order', this.entitys);
 		}
 	};
@@ -8229,7 +8229,7 @@ Animation sorting routine - animation objects are sorted according to their anim
 	my.sortAnimations = function() {
 		if (my.work.resortAnimations) {
 			my.work.resortAnimations = false;
-            console.log("animationeorder");
+            // console.log("animationeorder");
 			my.work.animate = my.bucketSort('animation', 'order', my.work.animate);
 		}
 	};

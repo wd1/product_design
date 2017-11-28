@@ -29,6 +29,7 @@ var mockup_image_before_width,mockup_image_before_height;
 var mockup_image_before_left, mockup_image_before_top;
 var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
 var wheelGroup, test, stopE, getWheel, dropWheel,myEntity;
+var this_pattern_url ="";
 var data1;
 var cropper;
 var alert_text;
@@ -206,11 +207,10 @@ $("#caret").click(function(ev) {
 });
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
+    this_pattern_url = "";
     $("#upload-button").prop("disabled", false);
-    if(downloads1>=0)
-        $("#export-button").prop("disabled", false);
-    if(downloads2>=0)
-        $("#export-art-button").prop("disabled", false);
+    $("#export-art-button").prop("disabled", true);
+    $("#upload-button").prop("disabled", true);
     $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
     url_flag = false;
     // canvas1.remove(alert_text);
@@ -401,8 +401,6 @@ $('#product_list').change(function() {
     
 });
 function product_load(fff = false, ggg=false) {
-    $("#export-button").prop("disabled", false);
-    $("#export-art-button").prop("disabled", false);
     $("#upload-button").prop("disabled", false);
     $("#product_list").prop("disabled", true);
     art_width = total_data[$("#product_list option:selected").text()].width;
@@ -479,6 +477,7 @@ function product_load(fff = false, ggg=false) {
             canvas1.add(square);
             canvas1.add(square1);  
             // canvas1.renderAll();
+
             if(total_data[$("#product_list option:selected").text()].texture_dark_flag == 1) {
                 fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-dark.png", function(img1) {
                     // console.log(img1);
@@ -487,19 +486,33 @@ function product_load(fff = false, ggg=false) {
                         texture_dark_img = img1.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
                         texture_dark_img.globalCompositeOperation = 'screen';
                         canvas1.add(texture_dark_img); 
+                
+                    if(total_data[$("#product_list option:selected").text()].texture_white_flag == 1) {
+                        fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-white.png", function(img2) {
 
+                                texture_white_img = img2.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
+                                texture_white_img.globalCompositeOperation = 'multiply';
+                                canvas1.add(texture_white_img);
 
-                    fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-white.png", function(img2) {
-
-                            texture_white_img = img2.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
-                            texture_white_img.globalCompositeOperation = 'multiply';
-                            canvas1.add(texture_white_img);
-
-                            checkurlandprocess(fff,ggg);
-                        // canvas1.setActiveObject(texture_white_img);
-                    });
+                                checkurlandprocess(fff,ggg);
+                            // canvas1.setActiveObject(texture_white_img);
+                        });
+                    } else {
+                        checkurlandprocess(fff,ggg);
+                    }
                 });
-            } else {
+            } if(total_data[$("#product_list option:selected").text()].texture_white_flag == 1) {
+                fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-texture-white.png", function(img2) {
+
+                        texture_white_img = img2.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false });
+                        texture_white_img.globalCompositeOperation = 'multiply';
+                        canvas1.add(texture_white_img);
+
+                        checkurlandprocess(fff,ggg);
+                    // canvas1.setActiveObject(texture_white_img);
+                });
+            }
+            else {
                 checkurlandprocess(fff,ggg);
             }
             
@@ -745,13 +758,14 @@ $('#export-art-button').on('click', function () {
                 }
                 // fd.append("design_file", blob);
                 console.log("send_x:"+send_x+",send_y:"+send_y+",send_width:"+send_width+",send_height"+send_height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
-                console.log((pattern1.src).split("img/")[1]);
+                // console.log(this_pattern_url);
+                // console.log((this_pattern_url).split("img/")[1]);
                 fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
                 fd.append("send_x", send_x);
                 fd.append("send_y", send_y);
                 fd.append("send_width", send_width);
                 fd.append("send_height", send_height);
-                fd.append("src",(pattern1.src).split("img/")[1]);
+                fd.append("src",(this_pattern_url).split("img/")[1]);
                 fd.append("art_width", 0);
                 fd.append("art_height", 0);
                 xhr.send(fd);
@@ -790,13 +804,13 @@ $('#export-art-button').on('click', function () {
             }
             // fd.append("design_file", blob);
             console.log("send_x:"+data1.x+",send_y:"+data1.y+",send_width:"+data1.width+",send_height"+data1.height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
-            console.log((document.getElementById("image").src).split("img/")[1]);
+            // console.log((document.getElementById("image").src).split("img/")[1]);
             fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
             fd.append("send_x", data1.x);
             fd.append("send_y", data1.y);
             fd.append("send_width", data1.width);
             fd.append("send_height", data1.height);
-            fd.append("src",(document.getElementById("image").src).split("img/")[1]);
+            fd.append("src",(this_pattern_url).split("img/")[1]);
             fd.append("art_width", total_data[$("#product_list option:selected").text()].width);
             fd.append("art_height", total_data[$("#product_list option:selected").text()].height);
             xhr.send(fd);
@@ -816,7 +830,7 @@ $("#moal_close").on('click', function () {
 $('body').on('click', function (e) {
     $("#product_list").hide();
 })
-function uploadFile(file) {
+function uploadFile(file, file0) {
   var url = 'upload.php';
   var _URL = window.URL || window.webkitURL;
   var xhr = new XMLHttpRequest();
@@ -826,40 +840,50 @@ function uploadFile(file) {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         // console.log(xhr.responseText);
-        
+        this_pattern_url = xhr.responseText;
+        console.log(downloads1);
         $("#product_list").prop("disabled", false);
-        fabric.Image.fromURL(xhr.responseText, function(img) {
-            canvas1.remove(pattern_img);
-            document.getElementById("c").style.maskImage = "";
-            document.getElementById("c").style.webkitMaskImage = "";
-            document.getElementById("c").classList.remove("mask-class");
-           
-            if(total_data[$("#product_list option:selected").text()].perspective == "1") {
-                init_this(xhr.responseText);
-            } else {
-                pattern_img_width = img.width;
-                pattern_img_height = img.height;
-     
-                if(total_data[$("#product_list option:selected").text()].opacity)
-                    pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
-                else
-                    pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: 0.7});
-                if(total_data[$("#product_list option:selected").text()].blend_mode)
-                    pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
-                else
-                    pattern_img.globalCompositeOperation = 'multiply';
-                pattern_img['cornerStyle'] = 'circle';
-                pattern_img['hasRotatingPoint'] = false;
-                pattern_img['transparentCorners'] = false;
-                pattern_img['cornerSize'] = 7;
-                pattern_img['cornerColor'] = '#f96736';
-                pattern_img['borderColor'] = '#f96736';
-                canvas1.add(pattern_img);
-               
-                set_flag = true;
-                $(".loader1").hide();
-            }
-        });
+        if(downloads1>=0)
+            $("#export-button").prop("disabled", false);
+        if(downloads2>=0)
+            $("#export-art-button").prop("disabled", false);
+        var reader = new FileReader();
+        reader.onload = function(f) {
+            var this_url = f.target.result;
+            fabric.Image.fromURL(this_url, function(img) {
+                canvas1.remove(pattern_img);
+                document.getElementById("c").style.maskImage = "";
+                document.getElementById("c").style.webkitMaskImage = "";
+                document.getElementById("c").classList.remove("mask-class");
+            
+                if(total_data[$("#product_list option:selected").text()].perspective == "1") {
+                    init_this(this_url);
+                } else {
+                    pattern_img_width = img.width;
+                    pattern_img_height = img.height;
+        
+                    if(total_data[$("#product_list option:selected").text()].opacity)
+                        pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
+                    else
+                        pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: 0.7});
+                    if(total_data[$("#product_list option:selected").text()].blend_mode)
+                        pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
+                    else
+                        pattern_img.globalCompositeOperation = 'multiply';
+                    pattern_img['cornerStyle'] = 'circle';
+                    pattern_img['hasRotatingPoint'] = false;
+                    pattern_img['transparentCorners'] = false;
+                    pattern_img['cornerSize'] = 7;
+                    pattern_img['cornerColor'] = '#f96736';
+                    pattern_img['borderColor'] = '#f96736';
+                    canvas1.add(pattern_img);
+                
+                    set_flag = true;
+                    $(".loader1").hide();
+                }
+            });
+        }
+        reader.readAsDataURL(file0);
     }
   }
   fd.append("design_file", file);
@@ -867,21 +891,21 @@ function uploadFile(file) {
   xhr.send(fd);
 }
 
-var readURL = function(input) {
+var readURL = function(input,file0) {
     $(".loader1").show();
     $("#product_list").prop("disabled", true);
     if (input.files && input.files[0]) {
         var file, img;
         if ((file = input.files[0])) {
             extension_type = file.type;
-            uploadFile(file);
+            uploadFile(file, file0);
         
         }
     }
 }
 
-$(".file-upload").on('change', function(){ 
-    readURL(this);
+$(".file-upload").on('change', function(e){ 
+    readURL(this,e.target.files[0]);
 });
 
 $("#upload-button").on('click', function() {

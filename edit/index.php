@@ -109,7 +109,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
-    <link rel="shortcut icon" href="https://nymbl.io/wp-content/uploads/2016/03/nymbl-favicon.png">
+    <link rel="shortcut icon" href="../img/nymbl-favicon.png">
 
     <title>Image Warp | Nymbl Creator Tool</title>
 
@@ -211,7 +211,7 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="modal_crop" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal fade" id="modal_crop" role="dialog" aria-labelledby="modalLabel" onmousedown="modal_mousedown()" onmouseup="modal_mouseup()" aria-labelledby="modalLabel" tabindex="-1">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -225,7 +225,7 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="" onClick="getCropData1(this)">Crop (Click Once)</button>
+            <input id="crop_label" type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="" value="Crop (Click Once)" onmousedown="crop_mousedown()" onmouseup="crop_mouseup()" onClick="getCropData1(this)">
           </div>
         </div>
       </div>
@@ -250,30 +250,6 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
         </div>
     </div>
 
-    <button type="button" id="do_modal_crop" class="btn btn-primary" style="display:none;" data-target="#modal_crop" data-toggle="modal">
-      Launch the cropper
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal_crop" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalLabel">Adjust Image Crop</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <div class="loader1" id="crop_spinner"></div>
-            <div class="img-container" style="">
-              <img id="image" src="../img/SampleUpload.jpg" alt="Picture" style="width:600px;">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" style="background-color: lightgrey;" data-dismiss="modal" onClick="getCropData(this)">Crop (Click Once)</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <button id="onload_modal" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#onload_modal_content" style="display:none;">Open Modal</button>
 
@@ -472,7 +448,7 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
 
         <ui-view  style="margin-top: 55px;">      
         <div class="animated fadeIn">
-            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f5f5f5;">
+            <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f8f8f8;">
                 <div>
                     <div class="col-md-4">
                         <div class="row">
