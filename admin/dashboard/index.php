@@ -13,10 +13,14 @@
 	$res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
 	$userRow=mysql_fetch_array($res);
 ?>
-
+<script>
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+</script>
 <html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
         <meta charset="utf-8">
-        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+        <meta http-equiv="cache-control" content="no-cache">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Nymbl.io Designer">
         <meta name="author" content="Łukasz Holeczek">
@@ -344,7 +348,7 @@
                             
                         
                     </div>
-                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="">  
+                    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="margin-left:auto;margin-right:auto;">  
                         <!-- image-preview-filename input [CUT FROM HERE]-->
                     
                         <div class="card" id="dashboard_panel" style="margin-bottom:3.5rem;">

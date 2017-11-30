@@ -10,7 +10,8 @@
                 $protocol = 'https';
             }
         }
-		header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
+		// header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
+        header("Location: home.php", true, 301);
 		exit;
 	}
 	
@@ -65,7 +66,8 @@
                     }
                 }
                 $str = "Location: $protocol://".$_SERVER['HTTP_HOST']."/designer/home.php";
-                header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
+                // header("Location: https://".$_SERVER['HTTP_HOST']."/designer/home.php", true, 301);
+                header("Location: home.php", true, 301);
                 exit;
 			} else {
 				$errMSG = "Incorrect Credentials, Try again...";

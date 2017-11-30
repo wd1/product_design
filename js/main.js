@@ -30,7 +30,7 @@ var mockup_image_before_left, mockup_image_before_top;
 var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
 var wheelGroup, test, stopE, getWheel, dropWheel,myEntity;
 var this_pattern_url ="";
-var data1;
+var data1, resize_flag=0;
 var cropper;
 var alert_text;
 var canvas_pattern =  document.createElement("canvas");
@@ -108,7 +108,10 @@ function oninsruction() {
     });
 }
 $(window).resize(function() {
+  resize_flag=0;
+  console.log("resize");
   waitForFinalEvent(function(){
+        
         document.getElementById("product_list").style.width = document.getElementById("product_list").parentNode.parentNode.offsetWidth+"px";
         var offset_xxx1 = (mockup_image_before_width - document.getElementById('mockup-image').offsetWidth)/2;
         mockup_image_before_width = document.getElementById('mockup-image').offsetWidth;
@@ -208,6 +211,8 @@ $("#caret").click(function(ev) {
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
     this_pattern_url = "";
+    
+    
     $("#upload-button").prop("disabled", false);
     $("#export-art-button").prop("disabled", true);
     $("#upload-button").prop("disabled", true);
@@ -395,13 +400,22 @@ function init_selectbox() {
     fd.append("adminid", adminid);
     xhr.send(fd);
 }
-
+// console.log(token);
+if(downloads1 <= 0 || downloads2<=0){
+    if(token ==""){
+        $("#creator_tool_link").css('pointer-events', 'none');
+        $("#download_error_modal_btn").click();
+    }
+}
 
 $('#product_list').change(function() {
     
 });
 function product_load(fff = false, ggg=false) {
-    $("#upload-button").prop("disabled", false);
+    if(downloads1 >0 && downloads2>0)
+        $("#upload-button").prop("disabled", false);
+    else
+        $("#creator_tool_link").css('pointer-events', 'none');
     $("#product_list").prop("disabled", true);
     art_width = total_data[$("#product_list option:selected").text()].width;
     art_height = total_data[$("#product_list option:selected").text()].height;
@@ -676,8 +690,8 @@ canvas1.on('object:scaling', function(){
 var imageFoo = document.createElement('img');
 var newImg = document.createElement('img');
 $('#export-art-button').on('click', function () {
-    downloads2--;
-    if(downloads2 > 0) {
+    
+    if(downloads2 > 0 || token !="" ) {
         // console.log((pattern_img.getElement().src).split("img/")[1]);
         // console.log((document.getElementById("image").src).split("img/")[1]);
         $("#export-art-button").prop("disabled", true);
@@ -816,11 +830,12 @@ $('#export-art-button').on('click', function () {
             xhr.send(fd);
             
         }
-        if(downloads2 == 1) 
+        if(downloads2 == 1 && token =="") 
             $("#download_modal_btn").click();
     } else {
-        
+        $("#download_error_modal_btn").click();    
     }
+    downloads2--;
     download_update();
 });
 $("#moal_close").on('click', function () {
@@ -916,8 +931,8 @@ var newImg1 = document.createElement('img');
 $("#export-button").on('click', function() {
     // var canvas1 = document.getElementById('c'),
     // dataUrl = canvas1.toDataURL(),
-    if(downloads1 > 0) {
-        downloads1--;
+    if(downloads1 > 0 || toekn !="" ) {
+        
         $(".loader1").show();
         $("#export-button").prop("disabled", true);
         var canvas1 = document.createElement('canvas');
@@ -1038,8 +1053,11 @@ $("#export-button").on('click', function() {
             
             }
         }     
-        if(downloads1 == 1) 
+        if(downloads1 == 1 && token=="") 
+        {
             $("#download_modal_btn").click();
+        }
+        downloads1--;
     } else {
         downloads1--;
         $("#download_error_modal_btn").click();
@@ -1084,9 +1102,9 @@ $("#export-button").on('click', function() {
 // init_this();
     function init_this(url) {
         $(".loader1").hide();
-        var image = document.getElementById('image');
+        var image = document.getElementById("image");
         image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
-        image = document.getElementById('image');
+        image = document.getElementById("image");
         
 
 
@@ -1095,7 +1113,7 @@ $("#export-button").on('click', function() {
         // $(image).removeClass("cropper-hidden");
         var crop_tool_image;
         var crop_tool_scale
-        
+        resize_flag=1;
         
         // console.log(url);
         $("#crop_dimension").text("("+total_data[$("#product_list option:selected").text()].width+"px x "+total_data[$("#product_list option:selected").text()].height+"px)");
@@ -1104,7 +1122,7 @@ $("#export-button").on('click', function() {
         // console.log(image);
         image.onload = function() {
             setTimeout(function () {
-              
+            
                 cropper = new Cropper(image, {
                 dragMode: 'move',
                 autoCropArea: 0,
@@ -1151,8 +1169,11 @@ $("#export-button").on('click', function() {
                     //     console.log(translate_y);
                     // }
                 },
-                crop: function (e) {
-                    data1 = e.detail;
+                crop: function (e) {    
+                    if(resize_flag == 1){
+                        data1 = e.detail;
+                        
+                    }
                     console.log(data1);
                     // var cropper = this.cropper;
                     // var imageData = cropper.getImageData();
@@ -1172,6 +1193,7 @@ $("#export-button").on('click', function() {
                     }
                 });
             },300);
+            
         }
 
     }

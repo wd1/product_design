@@ -368,7 +368,7 @@ function uploadFile() {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         var text= xhr.responseText;
-        // console.log(text);
+        console.log(text);
         $(".loader").hide();
         $("#modal_id").click();
     }
@@ -721,6 +721,7 @@ function getCropData1(e) {
     $("#crop_spinner").css("left", $("#crop_spinner")[0].parentNode.offsetWidth/2-40);
     $("#crop_spinner").css("top", $("#crop_spinner")[0].parentNode.offsetHeight/2-40);
     $("#crop_spinner").show();
+    $("#crop_label").prop('value',"Uploading & Saving...");
     // process_crop_data(e);
     clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
     clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
@@ -739,31 +740,32 @@ function getCropData1(e) {
     canvas_pattern = document.createElement("canvas");
     canvas_pattern.id = "SSSS";
     // document.body.append(temp_canvas);
-    var image = new Image();
-    image.src = temp_canvas.toDataURL();
-    image.onload = function() {
-        canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
-        canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/c.height;
-        var ctx_canvas = canvas_pattern.getContext("2d");
-        var p = new Perspective(ctx_canvas, image);
-        // console.log(c.width+","+c.height);
-        p.draw([
-                [(test.topLeft.local.x-clip_left_x)*data.width/400, (test.topLeft.local.y-clip_left_y)*data.height/c.height],
-                [(test.topRight.local.x-clip_left_x)*data.width/400, (test.topRight.local.y-clip_left_y)*data.height/c.height],
-                [(test.bottomRight.local.x-clip_left_x)*data.width/400, (test.bottomRight.local.y-clip_left_y)*data.height/c.height],
-                [(test.bottomLeft.local.x-clip_left_x)*data.width/400, (test.bottomLeft.local.y-clip_left_y)*data.height/c.height]
-        ]);
-        cheight = c.height;
-        // $("#crop_label").prop('value',"Crop (Click Once)");
-        // document.body.append(canvas_pattern);
-        init_crop_canvas(canvas_pattern);
-        $("#crop_spinner").hide();
-        $("#modal_crop").modal("hide");
-    }
+    
+    image_crop.src = temp_canvas.toDataURL();
+    
 
     
 }
-
+var image_crop = new Image();
+image_crop.onload = function() {
+    canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
+    canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/c.height;
+    var ctx_canvas = canvas_pattern.getContext("2d");
+    var p = new Perspective(ctx_canvas, image);
+    // console.log(c.width+","+c.height);
+    p.draw([
+            [(test.topLeft.local.x-clip_left_x)*data.width/400, (test.topLeft.local.y-clip_left_y)*data.height/c.height],
+            [(test.topRight.local.x-clip_left_x)*data.width/400, (test.topRight.local.y-clip_left_y)*data.height/c.height],
+            [(test.bottomRight.local.x-clip_left_x)*data.width/400, (test.bottomRight.local.y-clip_left_y)*data.height/c.height],
+            [(test.bottomLeft.local.x-clip_left_x)*data.width/400, (test.bottomLeft.local.y-clip_left_y)*data.height/c.height]
+    ]);
+    cheight = c.height;
+    // $("#crop_label").prop('value',"Crop (Click Once)");
+    // document.body.append(canvas_pattern);
+    init_crop_canvas(canvas_pattern);
+    $("#crop_spinner").hide();
+    $("#modal_crop").modal("hide");
+}
 function init_crop_canvas() {
    make_pattern_img();
 

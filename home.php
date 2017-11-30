@@ -5,7 +5,7 @@
 	
 	// if session is not set this will redirect to login page
 	if( !isset($_SESSION['user']) ) {
-		header("Location: https://nymbl.io/designer/index.php");
+		header("Location: index.php");
 		exit;
 	}
 	// select loggedin users detail
@@ -13,6 +13,8 @@
     
 	$userRow=mysql_fetch_array($res);
     $_COOKIE['userName'] = $userRow['userName'];
+    $_COOKIE['userid'] = $_SESSION['user'];
+    $token = $userRow['token'];
     $downloads1 = $userRow['downloads_1'];
     $downloads2 = $userRow['downloads_2'];
 ?>
@@ -86,7 +88,7 @@
 				<div class="modal-footer">
 					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">Signup Later</button>
-                    <a href="billing.php" type="button" class="btn btn-primary">Signup Now</a>
+                    <a href="billing.php" type="" class="btn btn-primary">Signup Now</a>
                     
 				</div>
 			</div>
@@ -333,6 +335,7 @@ For more detail, please review our Returns Policy.</p>
             else
                 echo "";
         ?>' ;
+        var token = '<?php echo  $token;?>';
         var downloads1 = '<?php echo  $downloads1;?>';
 
         var downloads2 ='<?php echo $downloads2;?>';
@@ -388,7 +391,7 @@ For more detail, please review our Returns Policy.</p>
     <header id="theader" class="app-header navbar">
         <button class="navbar-toggler d-lg-none mr-auto" type="button" style="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">☰</button>
         <div class="dropdown-menu dropdown-menu-left">
-            <a class="dropdown-item" style="color: #6bacc1;"  href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
+            <a class="dropdown-item" style="color: #6bacc1;"  href="admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
         </div>
         <a class="navbar-brand" href="#"></a>
         
@@ -398,7 +401,7 @@ For more detail, please review our Returns Policy.</p>
                         Export Art Image
                     </button>-->
             <li class="nav-item px-3">
-                <a class="nav-link" style="color: #6bacc1;" href="https://nymbl.io/designer/admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
+                <a id="creator_tool_link" class="nav-link" style="color: #6bacc1;" href="admin/dashboard/"><i class="icon-magic-wand" aria-hidden="true"></i> Creator Tool</a>
             </li>
             <li class="nav-item px-3">
                 <a class="nav-link" style="color: #6bacc1;"  href=""><i class="icon-refresh " aria-hidden="true"></i></a>
@@ -434,7 +437,7 @@ For more detail, please review our Returns Policy.</p>
         <div class="animated fadeIn">
             <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background:#f8f8f8;">
                 <div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="row">
                             <div class="stylish" style="width:100%; color:#607d8b;">
                                 <span>
@@ -451,7 +454,7 @@ For more detail, please review our Returns Policy.</p>
                             </div> -->
                         </div>
                     </div>
-                    <div class="card col-md-4" style="margin-top:10px;padding-left:20px;padding-right:25px; padding-bottom:10px;">
+                    <div class="card col-lg-4" style="margin-top:10px;padding-left:20px;padding-right:25px; padding-bottom:10px;">
                         <div class="row card-body" style="margin-left: -10px;">
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
                                 <button id="upload-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;"><i class="icon-cloud-upload"></i>&nbsp; Upload</button>

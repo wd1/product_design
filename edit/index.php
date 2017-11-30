@@ -451,14 +451,14 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
         <div class="animated fadeIn">
             <div id="loader_parent" class="card-footer" ng-controller="trafficDemoCtrl" style="padding:10px 20px;background: #f8f8f8;">
                 <div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="row">
                             <div class="" style="width: 100%;">
                                 <input class="form-control" id="name" placeholder="Enter your name" type="text" value="<?php echo $productname?>">
                             </div>
                         </div>
                     </div>
-                    <div class="card col-md-4" style="margin-top:10px;padding-left:20px;padding-right:25px; padding-bottom:10px;">
+                    <div class="card col-lg-4" style="margin-top:10px;padding-left:20px;padding-right:25px; padding-bottom:10px;">
                         <div class="row card-body" style="margin-left: -10px;">
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
                                 <button id="perspective-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;"><i class="icon-cloud-upload"></i>&nbsp; Perspective</button>
@@ -467,7 +467,7 @@ var texture_white_flag = "<?php echo $texture_white_flag ?>";
                                 <button id="instruction-button" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#my_instruction" style="margin-top:10px;width:100%;font-size: 12px;" onClick=""><i class="icon-info"></i>&nbsp; Instructions</button>
                             </div>                          
                             <div class="col-sm-4" style="width:33.3333%;padding-left: 5px;padding-right: 5px;">
-                                <button id="save-button" type="button" class="btn btn-secondary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-arrow-right"></i><span>&nbsp; Next Step</span></button>
+                                <button id="save-button" type="button" class="btn btn-primary btn-sm" style="margin-top:10px;width:100%;font-size: 12px;" onClick="save_result()"><i class="icon-arrow-right"></i><span>&nbsp; Next Step</span></button>
                             </div>
                             <input class="file-upload" type="file" accept="image/*"/>
                         </div>

@@ -120,6 +120,11 @@
 		
 	}
 ?>
+<script>
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -207,7 +212,7 @@
 									<?php
 								}
 								?>
-								<p class="text-muted">Create your account</p>
+								<p class="text-muted">Join Nymbl Instant Mockups for Free. No CC Needed.</p>
 								<span class="text-danger"><?php echo $nameError; ?></span>
 								<div class="input-group mb-3">
 									<span class="input-group-addon"><i class="icon-user"></i>

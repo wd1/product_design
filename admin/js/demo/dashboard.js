@@ -1,3 +1,9 @@
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location +"#loaded";
+        window.location.reload();
+    }
+};
 var product_file_path;
 var seperate_index=0;
 var body = document.body, 
@@ -109,7 +115,7 @@ function init_selectbox() {
             $("#multiple-select").attr('size',$('#multiple-select option').length+2);
             document.getElementById("dashboard_panel").parentNode.style.height = document.getElementById("product_list").offsetHeight+"px";
             console.log(total_data);
-            
+            console.log(checknames('anglepillow'));
         }
     }
     
@@ -126,7 +132,7 @@ function uploadFile() {
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
         var text= xhr.responseText;
-        // console.log(text);
+        console.log(text);
         
         $(".btn").prop("disabled", false);
         $("#product_file").prop("disabled", false);
@@ -154,8 +160,19 @@ function uploadFile() {
 //   console.log($("#shadow_file")[0].files[0]);
   fd.append("product_name",$("#pr-name").val());
   fd.append("product_code",$("#pr-code").val());
-  fd.append("product_cost",$("#pr-cost").val());
-  fd.append("product_price",$("#pr-price").val());
+  if(adminid !="") {
+    fd.append("product_cost",$("#pr-cost").val());
+    fd.append("product_price",$("#pr-price").val());
+    fd.append("provider",$("#provider").val());
+    fd.append("print_location",$("#print_location").val());
+    fd.append("print_mode",$("#print_mode").val());
+  } else {
+    fd.append("product_cost",0);
+    fd.append("product_price",0);
+    fd.append("provider","");
+    fd.append("print_location","");
+    fd.append("print_mode","");
+  }
 //   console.log(document.getElementById("pr-name"));
   fd.append("mask_name",$("#mask-name").val());
   fd.append("shadow_name",$("#shadow-name").val());
@@ -168,9 +185,7 @@ function uploadFile() {
   fd.append("x",$("#art-x").val()=='' ? '0' : $("#art-x").val());
   fd.append("y",$("#art-y").val()=='' ? '0' : $("#art-y").val());
   fd.append("blend_mode",$("#blend_mode").val().toLowerCase());
-  fd.append("provider",$("#provider").val());
-  fd.append("print_location",$("#print_location").val());
-  fd.append("print_mode",$("#print_mode").val());
+  
 //   console.log($("#provider").val());
   fd.append("opacity",$("#opacity").val());
   fd.append("userid", userid);
@@ -290,9 +305,24 @@ function upload() {
     // alert('Please input the dimension height');
     // return;
   }
-  $("#uploadconfirm_btn").click();
+  if(checknames($("#pr-name").val())){
+      alert('Product name already exist. Please input the different name');
+      return;
+  } else {
+      $("#uploadconfirm_btn").click();
+  }
   
 }
+
+function checknames(name) {
+    if(total_data[name])
+    {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 function needupload() {
     $("#uploadmodal").modal("hide");
     $(".loader").show();
@@ -423,7 +453,12 @@ function needwarp() {
     var provider = document.createElement('input');
     provider.type = "text";
     provider.name = "provider";
-    provider.value = $("#provider").val();
+    if(adminid !="") {
+        provider.value = $("#provider").val()
+    } else {
+        provider.value = "";
+    }
+    
     form.appendChild(provider);
 
     temp = document.getElementById("print_location");
@@ -431,14 +466,23 @@ function needwarp() {
     print_location.type = "text";
     print_location.name = "print_location";
     // print_location.value = $("input[name=radios]:checked").val();
-    print_location.value =$("#print_location").val();
+    if(adminid !="") {
+        print_location.value =$("#print_location").val();
+    } else {
+        print_location.value ="";
+    }
     form.appendChild(print_location);
 
     temp = document.getElementById("print_mode");
     var print_mode = document.createElement('input');
     print_mode.type = "text";
     print_mode.name = "print_mode";
-    print_mode.value = $("#print_mode").val();
+    if(adminid !="") {
+        print_mode.value = $("#print_mode").val();
+    } else {
+        print_mode.value = "";
+    }
+    
     form.appendChild(print_mode);
     // form.appendChild(document.getElementById("blend_mode"));
 

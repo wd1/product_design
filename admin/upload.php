@@ -3,7 +3,7 @@ include_once '../dbconnect.php';
 $error = false;
 $errormsg='';
 if(isset($_FILES['product_file'])) {
-    echo $_FILES['product_file']['tmp_name'];
+    // echo $_FILES['product_file']['tmp_name'];
     if(move_uploaded_file($_FILES['product_file']['tmp_name'],"../img/product1/".$_POST['product_name'].'.png')) {
         // echo $_FILES['product_file']['name']. " OK";
     } else {
@@ -21,7 +21,7 @@ if(isset($_FILES['product_file'])) {
         }
     }
     if(isset($_FILES['shadow_file'])) {
-        echo $_POST['shadow_name']. " OK";
+        // echo $_POST['shadow_name']. " OK";
         if(move_uploaded_file($_FILES['shadow_file']['tmp_name'],"../img/product1/".$_POST['shadow_name'].'.png')) {
             // echo $_FILES['shadow_file']['name']. " OK";
         } else {

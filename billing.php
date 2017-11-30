@@ -2,8 +2,7 @@
 
  session_start();
  include_once 'dbconnect.php';
- 
- 
+ $sttt='';
  if(isset($_GET['token']['id']))
  { 
 	$token=$_GET['token']['id'];
@@ -24,7 +23,10 @@
 			));
 		 $customerid=$customer->id; 
   //echo "insert into users (token) values ('$token')";exit;
-  $res=mysql_query("insert into users (userName,userEmail,userPass,address,city,state,zip,token) values ('$name','$email','$password','$address_line1','$address_city','$address_state','$address_zip','$token')") or die(mysql_error());
+  // $res=mysql_query("insert into users (userName,userEmail,userPass,address,city,state,zip,token) values ('$name','$email','$password','$address_line1','$address_city','$address_state','$address_zip','$token')") or die(mysql_error());
+  $sttt= "UPDATE users SET downloads_1=100,downloads_2=100,address='$address_line1',city='$address_city', state='$address_state', zip='$address_zip', token='$token' WHERE userEmail='$email'";
+  
+  $res = mysql_query("UPDATE users SET downloads_1=100,downloads_2=100,address='$address_line1',city='$address_city', state='$address_state', zip='$address_zip', token='$token' WHERE userEmail='$email'");
   // header("refresh:3;url=/admin/dashboard/index.php");
   
     if($res)
@@ -87,9 +89,9 @@
  ?>
 <!DOCTYPE html>
 <script>
-    if(location.protocol != "https:") {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    }
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
 </script>
 <html>
 
@@ -98,7 +100,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	  <script src="js/libs/jquery.min.js" type="text/javascript"></script>
 		<script src="https://js.stripe.com/v3/"></script>
-      <script src="js/index.js?c=1233211"></script>
+    <script src="js/index.js?c=1233211"></script>
     <title>Billing | Nymbl Instant Mockup</title>
 
    
@@ -139,9 +141,7 @@
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
-
-	 
-	 
+  <?php echo $sttt; ?>
   <button id="viewTerms_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#largeModal" style="display:none;">
 		Launch large modal
 	</button>
