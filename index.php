@@ -56,6 +56,7 @@
 			
 			if( $count == 1 && $row['userPass']==$password ) {
 				$_SESSION['user'] = $row['userId'];
+                $_SESSION['userEmail'] = $email;
                 $_COOKIE['user'] = $row['userId'];
                 $_SESSION['adminid'] = $row['userType'];
 				// header("Location: //nymbl.io/designer/home.php");

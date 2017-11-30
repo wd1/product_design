@@ -14,9 +14,9 @@
 	$userRow=mysql_fetch_array($res);
 ?>
 <script>
-    if(location.protocol != "https:") {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    }
+    // if(location.protocol != "https:") {
+    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    // }
 </script>
 <html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
         <meta charset="utf-8">

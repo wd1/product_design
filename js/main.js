@@ -414,8 +414,14 @@ $('#product_list').change(function() {
 function product_load(fff = false, ggg=false) {
     if(downloads1 >0 && downloads2>0)
         $("#upload-button").prop("disabled", false);
-    else
-        $("#creator_tool_link").css('pointer-events', 'none');
+    else {
+        if(token =="") {
+            $("#creator_tool_link").css('pointer-events', 'none');
+            $("#download_error_modal_btn").click();
+        } else {
+            $("#upload-button").prop("disabled", false);
+        }
+    }
     $("#product_list").prop("disabled", true);
     art_width = total_data[$("#product_list option:selected").text()].width;
     art_height = total_data[$("#product_list option:selected").text()].height;
@@ -862,6 +868,10 @@ function uploadFile(file, file0) {
             $("#export-button").prop("disabled", false);
         if(downloads2>=0)
             $("#export-art-button").prop("disabled", false);
+        if(token != "") {
+            $("#export-button").prop("disabled", false);
+            $("#export-art-button").prop("disabled", false);
+        }
         var reader = new FileReader();
         reader.onload = function(f) {
             var this_url = f.target.result;
@@ -931,7 +941,7 @@ var newImg1 = document.createElement('img');
 $("#export-button").on('click', function() {
     // var canvas1 = document.getElementById('c'),
     // dataUrl = canvas1.toDataURL(),
-    if(downloads1 > 0 || toekn !="" ) {
+    if(downloads1 > 0 || token !="" ) {
         
         $(".loader1").show();
         $("#export-button").prop("disabled", true);

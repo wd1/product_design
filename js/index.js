@@ -95,8 +95,8 @@ function registerElements(elements, exampleName) {
 			  dataType:"json",
 			  data: result,
 			  success: function(resp){  console.log(resp.done);
-			  
-			  example.querySelector('.token').innerText = 'You will now be directed…';
+			  console.log(resp.sql);
+			  example.querySelector('.token').innerText = 'You will now be redirected…';
 			  
 			  example.classList.add('submitted');
 			   // Your application has indicated there's an error

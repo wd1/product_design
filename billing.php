@@ -13,7 +13,7 @@
 	$address_zip=$_GET['token']['card']['address_zip'];
 	//print_r($_GET['token']);exit;
 	$name=$_SESSION['userName'];
-	 $email= $_SESSION['UserEmail'];
+  $email= $_SESSION['userEmail'];
 	 $password=$_SESSION['userPass'];
 	  include_once('stripe-php-3.14.2/init.php');
 	  \Stripe\Stripe::setApiKey("sk_test_4PkVw92BxmBISwG6Busn3Nru");
@@ -45,7 +45,7 @@
         $_SESSION['userName']='';
         $_SESSION['UserEmail']='';
         $_SESSION['userPass']='';
-				header("Location: home.php");
+				// header("Location: home.php");
  			}
 		
 		$subject = "Welcome to Nymbl Instant Mockups";
@@ -79,19 +79,19 @@
 		// send email
  		// mail($email, $subject, $message_email, $headers);
  		
- 	  echo json_encode(array('done' =>1));  exit;
+ 	  echo json_encode(array('done' =>1,'sql' => $sttt));  exit;
    }
    else{
-    echo json_encode(array('done' =>0));  exit;
+    echo json_encode(array('done' =>0,'sql' => $sttt));  exit;
    }
    
  }
  ?>
 <!DOCTYPE html>
 <script>
-    // if(location.protocol != "https:") {
-    //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    // }
+    if(location.protocol != "https:") {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
 </script>
 <html>
 

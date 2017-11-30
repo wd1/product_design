@@ -13,7 +13,6 @@
     
 	$userRow=mysql_fetch_array($res);
     $_COOKIE['userName'] = $userRow['userName'];
-    $_COOKIE['userid'] = $_SESSION['user'];
     $token = $userRow['token'];
     $downloads1 = $userRow['downloads_1'];
     $downloads2 = $userRow['downloads_2'];
