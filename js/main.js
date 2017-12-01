@@ -412,6 +412,7 @@ $('#product_list').change(function() {
     
 });
 function product_load(fff = false, ggg=false) {
+    canvas1.clear();
     if(downloads1 >0 && downloads2>0)
         $("#upload-button").prop("disabled", false);
     else {
@@ -924,8 +925,9 @@ var readURL = function(input,file0) {
         if ((file = input.files[0])) {
             extension_type = file.type;
             uploadFile(file, file0);
-        
         }
+    } else {
+        $(".loader1").hide();
     }
 }
 

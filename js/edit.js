@@ -40,7 +40,7 @@ $("body").on("contextmenu",function(e){
     return false;
 });
 
-var product_file = "../img/temp/temp.png";
+var product_file = "../img/temp/"+product_name+".png";
 
 var back_img = document.createElement("img");
 back_img.id ="back_img";
@@ -54,7 +54,7 @@ back_img.style.width = "300px"; //(window.innerHeight -document.getElementById("
 
 var shadow_img = document.createElement("img");
 shadow_img.id ="shadow_img";
-shadow_img.src = "../img/temp/temp-shadow.png";
+shadow_img.src = "../img/temp/"+product_name+"-shadow.png";
 shadow_img.style.position = "absolute";
 shadow_img.style.left = back_img.style.left;
 shadow_img.style.top = back_img.style.top;
@@ -65,7 +65,7 @@ var texture_dark_img = document.createElement("img");
 texture_dark_img.id ="texture_dark_img";
 console.log(texture_dark_flag);
 if(texture_dark_flag == 1)
-    texture_dark_img.src = "../img/temp/temp-texture-dark.png";
+    texture_dark_img.src = "../img/temp/"+product_name+"-texture-dark.png";
 texture_dark_img.style.position = "absolute";
 texture_dark_img.style.left = back_img.style.left;
 texture_dark_img.style.top = back_img.style.top;
@@ -75,7 +75,7 @@ texture_dark_img.style.display = "none";
 var texture_white_img = document.createElement("img");
 texture_white_img.id ="texture_white_img";
 if(texture_white_flag == 1)
-    texture_white_img.src = "../img/temp/temp-texture-white.png";
+    texture_white_img.src = "../img/temp/"+product_name+"-texture-white.png";
 texture_white_img.style.position = "absolute";
 texture_white_img.style.left = back_img.style.left;
 texture_white_img.style.top = back_img.style.top;
@@ -530,7 +530,7 @@ function uploadDemoFile(file) {
     document.getElementById("fabriccanvas").width = document.getElementById("fabriccanvas").width/window.devicePixelRatio; 
     document.getElementById("fabriccanvas").height = document.getElementById("fabriccanvas").height/window.devicePixelRatio;
     $(".canvas-container").css("margin","auto");
-    fabric.Image.fromURL('../img/temp/temp.png', function(img) {
+    fabric.Image.fromURL('../img/temp/'+product_name+'.png', function(img) {
         // mockup_img = img.set({ left: 0, top:0, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: true });
         mockup_img = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
         console.log(window.devicePixelRatio);

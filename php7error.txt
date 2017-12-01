@@ -1,0 +1,183 @@
+PHP Warning:  PHP Startup: Unable to load dynamic library 'C:\xampp\php\ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+
+Warning: PHP Startup: Unable to load dynamic library 'C:\xampp\php\ext\php_imagick.dll' - The specified module could not be found.
+ in Unknown on line 0
+
+File: C:\xampp\htdocs\dist\admin\dashboard\index.php
+> Line 13: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM users WHERE userId=' . $_SESSION['user']);
+> Line 14: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+
+
+File: C:\xampp\htdocs\dist\admin\delete.php
+> Line 14: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 16: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+> Line 38: [Error] Removed function "mysql_query" called
+    mysql_query($query1);
+
+
+File: C:\xampp\htdocs\dist\admin\index.php
+> Line 48: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='{$email}' AND userType='admin'");
+> Line 49: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+> Line 50: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($res);
+
+
+File: C:\xampp\htdocs\dist\admin\upload.php
+> Line 65: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 67: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+> Line 98: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+
+
+File: C:\xampp\htdocs\dist\billing.php
+> Line 29: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users SET downloads_1=100,downloads_2=100,address='{$address_line1}',city='{$address_city}', state='{$address_state}', zip='{$address_zip}', token='{$token}' WHERE userEmail='{$email}'");
+> Line 35: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='{$email}'");
+> Line 36: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res_login);
+> Line 37: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($res_login);
+
+
+File: C:\xampp\htdocs\dist\class.phpmailer.php
+> Line 2695: [Error] Removed function "set_magic_quotes_runtime" called
+    set_magic_quotes_runtime(false);
+> Line 2707: [Error] Removed function "set_magic_quotes_runtime" called
+    set_magic_quotes_runtime($magic_quotes);
+
+
+File: C:\xampp\htdocs\dist\dbconnect.php
+> Line 16: [Error] Removed function "mysql_connect" called
+    mysql_connect(DBHOST, DBUSER, DBPASS);
+> Line 17: [Error] Removed function "mysql_select_db" called
+    mysql_select_db(DBNAME);
+> Line 20: [Error] Removed function "mysql_error" called
+    mysql_error();
+> Line 24: [Error] Removed function "mysql_error" called
+    mysql_error();
+
+
+File: C:\xampp\htdocs\dist\edit\index.php
+> Line 17: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM users WHERE userId=' . $_SESSION['user']);
+> Line 18: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+
+
+File: C:\xampp\htdocs\dist\edit\upload.php
+> Line 91: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 93: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+> Line 137: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+
+
+File: C:\xampp\htdocs\dist\forget-password-recovery-mail.php
+> Line 15: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users set token='{$token}' where userEmail='{$mail1}'");
+
+
+File: C:\xampp\htdocs\dist\forget.php
+> Line 24: [Error] Removed function "mysql_query" called
+    mysql_query($sql);
+> Line 25: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+> Line 28: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($result);
+
+
+File: C:\xampp\htdocs\dist\getfilelist.php
+> Line 21: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM products WHERE admin=\'admin\'');
+> Line 22: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res, MYSQL_ASSOC);
+> Line 26: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT * FROM products WHERE user_id='{$user}'");
+> Line 27: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res, MYSQL_ASSOC);
+> Line 33: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM products WHERE admin=\'admin\'');
+> Line 34: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res, MYSQL_ASSOC);
+
+
+File: C:\xampp\htdocs\dist\home.php
+> Line 12: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM users WHERE userId=' . $_SESSION['user']);
+> Line 14: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+
+
+File: C:\xampp\htdocs\dist\index.php
+> Line 53: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass, userType FROM users WHERE userEmail='{$email}'");
+> Line 54: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+> Line 55: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($res);
+
+
+File: C:\xampp\htdocs\dist\register.php
+> Line 55: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 56: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+> Line 88: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 95: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='{$email}'");
+> Line 96: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res_login);
+> Line 97: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($res_login);
+
+
+File: C:\xampp\htdocs\dist\register_new.php
+> Line 99: [Error] Removed function "mysql_query" called
+    mysql_query($query);
+> Line 101: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($result);
+
+
+File: C:\xampp\htdocs\dist\reset.php
+> Line 43: [Error] Removed function "mysql_query" called
+    mysql_query('SELECT * FROM users WHERE userId=' . $_SESSION['user']);
+> Line 44: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+> Line 53: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass FROM users WHERE userId='{$user}'");
+> Line 55: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($chg_pwd);
+> Line 62: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users set userPass='{$newpassword}' where userId='{$user}'");
+
+
+File: C:\xampp\htdocs\dist\re_set.php
+> Line 43: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users set userPass='{$newpassword}' where userId='{$userid}'");
+> Line 50: [Error] Removed function "mysql_query" called
+    mysql_query("SELECT userId, userName, userPass, token FROM users WHERE userId='{$userid}'");
+> Line 51: [Error] Removed function "mysql_fetch_array" called
+    mysql_fetch_array($res);
+> Line 52: [Error] Removed function "mysql_num_rows" called
+    mysql_num_rows($res);
+
+
+File: C:\xampp\htdocs\dist\upload.php
+> Line 79: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users SET downloads_1={$downloads1}, downloads_2={$downloads2} WHERE userId={$userid}");
+> Line 88: [Error] Removed function "mysql_query" called
+    mysql_query("UPDATE users SET showflag={$showflag} WHERE userId={$userid}");
+
+Checked 25 files in 3.855 seconds

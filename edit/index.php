@@ -23,17 +23,17 @@
     // $_COOKIE['userName'] = $userRow['userName'];
     if(isset($_FILES['product_file'])) {
         // echo $_FILES['product_file']['tmp_name'];
-        if(file_exists("../img/temp/temp.png")) unlink("../img/temp/temp.png");
-        if(move_uploaded_file($_FILES['product_file']['tmp_name'],"../img/temp/temp.png")) {
+        if(file_exists("../img/temp/".$_POST['pr-name'].".png")) unlink("../img/temp/".$_POST['pr-name'].".png");
+        if(move_uploaded_file($_FILES['product_file']['tmp_name'],"../img/temp/".$_POST['pr-name'].".png")) {
             // echo $_FILES['product_file']['name']. " OK";
         } else {
             // echo $_FILES['product_file']['name']. " No Product File";
             $errormsg = 'No Product File';
             $error = true;
         }
-        if(file_exists("../img/temp/temp-mask.png")) unlink("../img/temp/temp-mask.png");
+        if(file_exists("../img/temp/".$_POST['pr-name']."-mask.png")) unlink("../img/temp/".$_POST['pr-name']."-mask.png");
         if(isset($_FILES['mask_file'])) {
-            if(move_uploaded_file($_FILES['mask_file']['tmp_name'],"../img/temp/temp-mask.png")) {
+            if(move_uploaded_file($_FILES['mask_file']['tmp_name'],"../img/temp/".$_POST['pr-name']."-mask.png")) {
                 // echo $_FILES['mask_file']['name']. " OK";
             } else {
                 // echo $_FILES['mask_file']['name']. " No Mask File";
@@ -41,10 +41,10 @@
                 $error = true;
             }
         }
-        if(file_exists("../img/temp/temp-shadow.png")) unlink("../img/temp/temp-shadow.png");
+        if(file_exists("../img/temp/".$_POST['pr-name']."-shadow.png")) unlink("../img/temp/".$_POST['pr-name']."-shadow.png");
         if(isset($_FILES['shadow_file'])) {
             // echo $_POST['shadow_name']. " OK";
-            if(move_uploaded_file($_FILES['shadow_file']['tmp_name'],"../img/temp/temp-shadow.png")) {
+            if(move_uploaded_file($_FILES['shadow_file']['tmp_name'],"../img/temp/".$_POST['pr-name']."-shadow.png")) {
                 // echo $_FILES['shadow_file']['name']. " OK";
             } else {
                 // echo $_FILES['shadow_file']['name']. " No Shadow File";
@@ -52,9 +52,9 @@
                 $error = true;
             }
         }
-        if(file_exists("../img/temp/temp-texture-dark.png")) unlink("../img/temp/temp-texture-dark.png");
+        if(file_exists("../img/temp/".$_POST['pr-name']."-texture-dark.png")) unlink("../img/temp/".$_POST['pr-name']."-texture-dark.png");
         if(isset($_FILES['texture-dark_file'])) {
-            if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/temp/temp-texture-dark.png")) {
+            if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/temp/".$_POST['pr-name']."-texture-dark.png")) {
                 $texture_dark_flag = 1;
                 // echo $_FILES['texture-dark_file']['name']. " OK";
             } else {
@@ -63,9 +63,9 @@
                 $error = true;
             }
         }
-        if(file_exists("../img/temp/temp-texture-white.png")) unlink("../img/temp/temp-texture-white.png");
+        if(file_exists("../img/temp/".$_POST['pr-name']."-texture-white.png")) unlink("../img/temp/".$_POST['pr-name']."-texture-white.png");
         if(isset($_FILES['texture-white_file'])) {
-            if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/temp/temp-texture-white.png")) {
+            if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/temp/".$_POST['pr-name']."-texture-white.png")) {
                 $texture_white_flag = 1;
                 // echo $_FILES['texture-white_file']['name']. " OK";
             } else {

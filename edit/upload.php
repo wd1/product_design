@@ -6,9 +6,9 @@ $productname = trim($_POST['product_name']);
 // if(isset($_FILES['product_file'])) {
 //     echo $_FILES['product_file']['tmp_name'];
     // if(move_uploaded_file($_FILES['product_file']['tmp_name'],"../img/product1/".$_POST['product_name'].'.png')) {
-    if(file_exists("../img/temp/temp.png")) {
-        if(copy('../img/temp/temp.png','../img/product1/'.$_POST['product_name'].'.png')) {
-            unlink('../img/temp/temp.png');
+    if(file_exists("../img/temp/".$_POST['product_name'].".png")) {
+        if(copy('../img/temp/'.$_POST['product_name'].'.png','../img/product1/'.$_POST['product_name'].'.png')) {
+            unlink('../img/temp/'.$_POST['product_name'].'.png');
             // echo $_FILES['product_file']['name']. " OK";
         } else {
             // echo $_FILES['product_file']['name']. " No Product File";
@@ -19,9 +19,9 @@ $productname = trim($_POST['product_name']);
     echo $errormsg;
     // if(isset($_FILES['mask_file'])) {
         // if(move_uploaded_file($_FILES['mask_file']['tmp_name'],"../img/product1/".$_POST['mask_name'].'.png')) {
-    if(file_exists("../img/temp/temp-mask.png")) {
-        if(copy('../img/temp/temp-mask.png','../img/product1/'.$_POST['product_name'].'-mask.png')){
-            unlink("../img/temp/temp-mask.png");
+    if(file_exists("../img/temp/".$_POST['product_name']."-mask.png")) {
+        if(copy('../img/temp/'.$_POST['product_name'].'-mask.png','../img/product1/'.$_POST['product_name'].'-mask.png')){
+            unlink("../img/temp/".$_POST['product_name']."-mask.png");
             // echo $_FILES['mask_file']['name']. " OK";
         } else {
             // echo $_FILES['mask_file']['name']. " No Mask File";
@@ -34,9 +34,9 @@ $productname = trim($_POST['product_name']);
     // if(isset($_FILES['shadow_file'])) {
     //     echo $_POST['shadow_name']. " OK";
         // if(move_uploaded_file($_FILES['shadow_file']['tmp_name'],"../img/product1/".$_POST['shadow_name'].'.png')) {
-    if(file_exists("../img/temp/temp-shadow.png")) {
-        if(copy('../img/temp/temp-shadow.png','../img/product1/'.$_POST['product_name'].'-shadow.png')){
-            unlink('../img/temp/temp-shadow.png');
+    if(file_exists("../img/temp/".$_POST['product_name']."-shadow.png")) {
+        if(copy('../img/temp/'.$_POST['product_name'].'-shadow.png','../img/product1/'.$_POST['product_name'].'-shadow.png')){
+            unlink('../img/temp/'.$_POST['product_name'].'-shadow.png');
             // echo $_FILES['shadow_file']['name']. " OK";
         } else {
             // echo $_FILES['shadow_file']['name']. " No Shadow File";
@@ -49,9 +49,9 @@ $productname = trim($_POST['product_name']);
     // if(isset($_FILES['texture-dark_file'])) {
     //     if(move_uploaded_file($_FILES['texture-dark_file']['tmp_name'],"../img/product1/".$_POST['texture-dark_name'].'.png')) {
     $texture_dark = 0;
-    if(file_exists("../img/temp/temp-texture-dark.png")) {
-        if(copy('../img/temp/temp-texture-dark.png','../img/product1/'.$_POST['product_name'].'-texture-dark.png')){
-            unlink('../img/temp/temp-texture-dark.png');
+    if(file_exists("../img/temp/".$_POST['product_name']."-texture-dark.png")) {
+        if(copy('../img/temp/'.$_POST['product_name'].'-texture-dark.png','../img/product1/'.$_POST['product_name'].'-texture-dark.png')){
+            unlink('../img/temp/'.$_POST['product_name'].'-texture-dark.png');
             // echo $_FILES['texture-dark_file']['name']. " OK";
             $texture_dark = 1;
         } else {
@@ -66,9 +66,9 @@ $productname = trim($_POST['product_name']);
     // if(isset($_FILES['texture-white_file'])) {
     //     if(move_uploaded_file($_FILES['texture-white_file']['tmp_name'],"../img/product1/".$_POST['texture-white_name'].'.png')) {
     $texture_white = 0;
-    if(file_exists("../img/temp/temp-texture-white.png")) {
-        if(copy('../img/temp/temp-texture-white.png','../img/product1/'.$_POST['product_name'].'-texture-white.png')){
-            unlink('../img/temp/temp-texture-white.png');
+    if(file_exists("../img/temp/".$_POST['product_name']."-texture-white.png")) {
+        if(copy('../img/temp/'.$_POST['product_name'].'-texture-white.png','../img/product1/'.$_POST['product_name'].'-texture-white.png')){
+            unlink('../img/temp/'.$_POST['product_name'].'-texture-white.png');
             // echo $_FILES['texture-white_file']['name']. " OK";
             $texture_white = 1;
         } else {
