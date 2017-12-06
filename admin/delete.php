@@ -11,9 +11,9 @@ include_once '../dbconnect.php';
         $query="SELECT * FROM products WHERE mockup_name='$productname'";
     }
     // $query = "SELECT mockup_name FROM products WHERE mockup_name='$productname' AND user_id ='$user_id'";
-    $result = mysql_query($query);
+    $result = mysqli_query($conn,$query);
     
-    $count = mysql_num_rows($result);
+    $count = mysqli_num_rows($result);
     if($count!=0){
         if(file_exists("../img/product1/".$productname.".png")) {
             unlink("../img/product1/".$productname.".png");
@@ -35,7 +35,7 @@ include_once '../dbconnect.php';
         } else {
             $query1 = "DELETE FROM products WHERE mockup_name='$productname'";
         }
-        $result1 = mysql_query($query1);
+        $result1 = mysqli_query($conn,$query1);
         echo 'success';
     }
     

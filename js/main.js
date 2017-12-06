@@ -93,8 +93,16 @@ function download_update() {
   xhr.send(fd);
 }
 
-if((showflag != "1") || (getURLParameter('product')!=null)) {
-    $("#do_modal_instruction").click();
+console.log(showflag);
+console.log((getURLParameter('url')==null));
+if((showflag != "1") || (getURLParameter('url')!=null)) {
+    if(getURLParameter("url") =="" )
+    {
+        $("#do_modal_instruction").click();
+    } else if(getURLParameter("url")){
+        // $("#export-art-button").prop("disabled", false);
+        $("#export-button").prop("disabled", false);
+    }
 }
 
 function oninsruction() {
@@ -147,10 +155,10 @@ $(window).resize(function() {
                     if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
 
                         if(pattern_img){
-                            canvas1.remove(square1);
-                            canvas1.remove(square);
-                            canvas1.add(square1);
-                            canvas1.add(square);
+                            // canvas1.remove(square1);
+                            // canvas1.remove(square);
+                            // canvas1.add(square1);
+                            // canvas1.add(square);
                             // document.getElementById("c").style.maskImage = "";
                             // document.getElementById("c").style.webkitMaskImage = "";
                             // document.getElementById("c").classList.remove("mask-class");
@@ -211,11 +219,9 @@ $("#caret").click(function(ev) {
 $("#product_list").click(function(ev) {
     ev.stopPropagation();
     this_pattern_url = "";
-    
-    
     $("#upload-button").prop("disabled", false);
     $("#export-art-button").prop("disabled", true);
-    $("#upload-button").prop("disabled", true);
+    $("#export-button").prop("disabled", true);
     $("#product_list").hide().closest('div').find('input').val($("#product_list").find('option:selected').text());
     url_flag = false;
     // canvas1.remove(alert_text);
@@ -235,6 +241,7 @@ function init_selectbox() {
         if(xhr.readyState == 4 && xhr.status == 200) {
             var text= xhr.responseText;
             // console.log(text);
+            
             text = text.split("ADMINSEPERATE");
             // $("#product_list").append($('<option>', {
             //     value: "",
@@ -370,8 +377,10 @@ function init_selectbox() {
             // });
             // canvas1.add(alert_text);
             canvas1.renderAll();
-            if(getURLParameter("url"))
+            if(getURLParameter("url")){
+                // console.log(getURLParameter('url'));
                 url_flag = true;
+            }
             // if(exist_flag == false) {
             //     total_data[param_product]={width: getURLParameter("w"), height: getURLParameter("h"), x: getURLParameter("x"), y: getURLParameter("y"), blend_mode: getURLParameter("bm"), opaicty: getURLParameter("o"), url: getURLParameter("url")};
             //     $("#product_list").append($('<option>', {
@@ -405,6 +414,8 @@ if(downloads1 <= 0 || downloads2<=0){
     if(token ==""){
         $("#creator_tool_link").css('pointer-events', 'none');
         $("#download_error_modal_btn").click();
+        $("#export-art-button").prop("disabled", true);
+        $("#export-button").prop("disabled", true);
     }
 }
 
@@ -414,7 +425,9 @@ $('#product_list').change(function() {
 function product_load(fff = false, ggg=false) {
     canvas1.clear();
     if(downloads1 >0 && downloads2>0)
+    {
         $("#upload-button").prop("disabled", false);
+    }
     else {
         if(token =="") {
             $("#creator_tool_link").css('pointer-events', 'none');
@@ -465,6 +478,9 @@ function product_load(fff = false, ggg=false) {
             var rect_height = 1500-rect_y_offset*2;
             var xxx1 = 1500-rect_width;//1288, 
             var yyy1 = 1500-rect_height;//903;
+            console.log(xxx1, yyy1);
+            console.log(rect_x_offset);
+            console.log(mockup_img_width+","+image_size_scale);
             square  = new fabric.Rect({ 
                 width: mockup_img_width - xxx1*image_size_scale+20,//mockup_img_width+20, 
                 height: mockup_img_height - yyy1*image_size_scale+20/square_rate,//(mockup_img_width+20) /square_rate, 
@@ -476,7 +492,7 @@ function product_load(fff = false, ggg=false) {
                 strokeWidth: 1,
                 selectable: false
             });
-            
+            // console.log(square);
             square1  = new fabric.Rect({ 
                 width: mockup_img_width - xxx1*image_size_scale, 
                 height: (mockup_img_width - yyy1*image_size_scale), 
@@ -495,8 +511,8 @@ function product_load(fff = false, ggg=false) {
             black_y_offset = mockup_img.left - square.left;
             canvas1.add(shadow_img);
             canvas1.add(mockup_img);
-            canvas1.add(square);
-            canvas1.add(square1);  
+            // canvas1.add(square);
+            // canvas1.add(square1);  
             // canvas1.renderAll();
 
             if(total_data[$("#product_list option:selected").text()].texture_dark_flag == 1) {
@@ -551,7 +567,7 @@ function checkurlandprocess(fff,ggg){
         xhr.open("POST", url, true);
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && xhr.status == 200) {
-                // console.log(xhr.responseText);
+                console.log(xhr.responseText);
                 
                 fabric.Image.fromURL(xhr.responseText, function(img) {
                     canvas1.remove(pattern_img);
@@ -625,7 +641,7 @@ function getProductImage() {
     shadow_img.globalCompositeOperation = 'destination-over';
     
     canvas1.add(shadow_img);
-    if(texture_dark_img != null) {
+    if(total_data[$("#product_list option:selected").text()].texture_dark_flag == 1) {
         // console.log(texture_dark_img);
         canvas1.remove(texture_dark_img);
         if(total_data[$("#product_list option:selected").text()].blend_mode == 'normal'){
@@ -638,7 +654,7 @@ function getProductImage() {
         canvas1.add(texture_dark_img);
         // canvas1.bringToFront(texture_dark_img);
     }
-    if(texture_white_img != null) {
+    if(total_data[$("#product_list option:selected").text()].texture_white_flag == 1) {
         // console.log("SDFSDF111");
         canvas1.remove(texture_white_img);
         texture_white_img.globalCompositeOperation = 'multiply';
@@ -667,10 +683,10 @@ canvas1.on('mouse:down', function(e) {
             if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
                 
                 if(pattern_img){
-                    canvas1.remove(square1);
-                    canvas1.remove(square);
-                    canvas1.add(square1);
-                    canvas1.add(square);
+                    // canvas1.remove(square1);
+                    // canvas1.remove(square);
+                    // canvas1.add(square1);
+                    // canvas1.add(square);
                     // document.getElementById("c").style.maskImage = "";
                     // document.getElementById("c").style.webkitMaskImage = "";
                     // document.getElementById("c").classList.remove("mask-class");
@@ -731,12 +747,22 @@ $('#export-art-button').on('click', function () {
             } else {
                 // imagecanvas.width  = original_width;
                 // imagecanvas.height = original_height;
-                // imagecontext.drawImage(pattern1,(square.left-pattern_img.left) /pattern_img.scaleX , (square.top-pattern_img.top)/pattern_img.scaleY,square.width/pattern_img.scaleX, square.height/pattern_img.scaleY, 0,0,original_width, original_height);
+                // imagecontext.drawImage(pattern1,
+                // (square.left-pattern_img.left) /pattern_img.scaleX , 
+                // (square.top-pattern_img.top)/pattern_img.scaleY,
+                // square.width/pattern_img.scaleX, 
+                // square.height/pattern_img.scaleY,
+                //  0,0,
+                //  original_width, original_height);
                 send_x = (square.left-pattern_img.left) /pattern_img.scaleX;
                 send_y = (square.top-pattern_img.top)/pattern_img.scaleY;
                 send_width = square.width/pattern_img.scaleX;
                 send_height =  square.height/pattern_img.scaleY;
             }
+            send_x = 0;
+            send_y = 0;
+            send_width = pattern_img.width;
+            send_height = pattern_img.height;
             // console.log(send_x);
             // imagecanvas.toBlob(function(blob) {
                 // $(".loader1").hide();
@@ -757,6 +783,7 @@ $('#export-art-button').on('click', function () {
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == 4 && xhr.status == 200) {
                         console.log(xhr.responseText);
+                        console.log(this_pattern_url);
                         $(".loader1").hide();
                         var url = xhr.responseText;
                         var download = document.createElement('a');
@@ -779,8 +806,6 @@ $('#export-art-button').on('click', function () {
                 }
                 // fd.append("design_file", blob);
                 console.log("send_x:"+send_x+",send_y:"+send_y+",send_width:"+send_width+",send_height"+send_height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
-                // console.log(this_pattern_url);
-                // console.log((this_pattern_url).split("img/")[1]);
                 fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
                 fd.append("send_x", send_x);
                 fd.append("send_y", send_y);
@@ -805,6 +830,7 @@ $('#export-art-button').on('click', function () {
             xhr.onreadystatechange = function() {
                 if(xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.responseText);
+                    console.log(this_pattern_url);
                     $(".loader1").hide();
                     var url = xhr.responseText;
                     var download = document.createElement('a');
@@ -825,7 +851,7 @@ $('#export-art-button').on('click', function () {
             }
             // fd.append("design_file", blob);
             console.log("send_x:"+data1.x+",send_y:"+data1.y+",send_width:"+data1.width+",send_height"+data1.height+",art_width:"+total_data[$("#product_list option:selected").text()].width+",art_height:"+total_data[$("#product_list option:selected").text()].height);
-            // console.log((document.getElementById("image").src).split("img/")[1]);
+            
             fd.append("dpi", total_data[$("#product_list option:selected").text()].dpi);
             fd.append("send_x", data1.x);
             fd.append("send_y", data1.y);
@@ -861,7 +887,7 @@ function uploadFile(file, file0) {
   xhr.open("POST", url, true);
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
-        // console.log(xhr.responseText);
+        console.log(xhr.responseText);
         this_pattern_url = xhr.responseText;
         console.log(downloads1);
         $("#product_list").prop("disabled", false);
@@ -921,10 +947,17 @@ var readURL = function(input,file0) {
     $(".loader1").show();
     $("#product_list").prop("disabled", true);
     if (input.files && input.files[0]) {
-        var file, img;
-        if ((file = input.files[0])) {
-            extension_type = file.type;
-            uploadFile(file, file0);
+        console.log(input.files[0].size/1024/1024);
+        var file_size = input.files[0].size/1024/1024;
+        if(file_size < 15) {
+            var file, img;
+            if ((file = input.files[0])) {
+                extension_type = file.type;
+                uploadFile(file, file0);
+            }
+        } else {
+            $("#filesize_modal_btn").click();
+            $(".loader1").hide();
         }
     } else {
         $(".loader1").hide();
@@ -956,8 +989,8 @@ $("#export-button").on('click', function() {
         
         // Style your image here
 
-        var original_width = 1500;
-        var original_height = 1500/(mockup_img.width/mockup_img.height);
+        var original_width = mockup_img.width;
+        var original_height = (mockup_img.height);
         // imageFoo.style.width = canvas1.width + "px";
         // imageFoo.style.height = canvas1.height + "px";
         imageFoo1.style.width = original_width+"px";

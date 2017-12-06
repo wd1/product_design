@@ -21,11 +21,11 @@
 		// }
 
 		// $sql = "Select * from members " . $condition;
-		$result = mysql_query($sql);
-		$user = mysql_num_rows($result);
+		$result = mysqli_query($conn,$sql);
+		$user = mysqli_num_rows($result);
         $userinfo;
 		if($user>0) {
-            $userinfo = mysql_fetch_array($result);
+            $userinfo = mysqli_fetch_array($result);
             $userid = $userinfo['userId'];
 			require_once("forget-password-recovery-mail.php");
 		} else {

@@ -88,9 +88,9 @@ $productname = trim($_POST['product_name']);
 
     $productname = trim($_POST['product_name']);
     $query = "SELECT mockup_name FROM products WHERE mockup_name='$productname'";
-    $result = mysql_query($query);
+    $result = mysqli_query($conn,$query);
     
-    $count = mysql_num_rows($result);
+    $count = mysqli_num_rows($result);
     if($count!=0){
         $error = true;
         $errormsg = "Provided Product Name is already in use.";
@@ -134,7 +134,7 @@ $productname = trim($_POST['product_name']);
         $query = "INSERT INTO products(mockup_name,mockup_code,width,height,x,y,user_id,blend_mode,opacity,admin,mockup_list,top_left_x,top_left_y,top_right_x,top_right_y,bottom_left_x,bottom_left_y,bottom_right_x,bottom_right_y,perspective, position_x, position_y, size_x, size_y, cheight, dpi,provider,print_location, print_mode, product_cost, product_price,texture_dark, texture_white) VALUES('$productname','$productcode','$width','$height','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list',$top_left_x,$top_left_y,$top_right_x,$top_right_y,$bottom_left_x,$bottom_left_y,$bottom_right_x,$bottom_right_y,'1',$position_x,$position_y,$size_x,$size_y,$cheight,$dpi,'$provider','$print_location','$print_mode',$productcost,$productprice, $texture_dark, $texture_white)";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         echo $query;
-        $res = mysql_query($query);
+        $res = mysqli_query($conn,$query);
             
         if ($res) {
             $errTyp = "success";

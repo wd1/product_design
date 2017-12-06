@@ -13,13 +13,13 @@
 	// define('DBUSER', 'bloomcol_product_generator');
 	// define('DBPASS', 'OguBA@*2WlLx');
 	// define('DBNAME', 'bloomcol_nymbldb');
-	$conn = mysql_connect(DBHOST,DBUSER,DBPASS);
-	$dbcon = mysql_select_db(DBNAME);
+	$conn = mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
+	// $dbcon = mysqli_select_db(DBNAME);
 	
 	if ( !$conn ) {
-		die("Connection failed : " . mysql_error());
+		die("Connection failed : " . mysqli_error());
 	}
 	
-	if ( !$dbcon ) {
-		die("Database Connection failed : " . mysql_error());
-	}
+	// if ( !$dbcon ) {
+	// 	die("Database Connection failed : " . mysqli_error());
+	// }

@@ -50,9 +50,9 @@
 			
 			$password = hash('sha256', $pass); // password hashing using SHA256
 		
-			$res=mysql_query("SELECT userId, userName, userPass, userType FROM users WHERE userEmail='$email'");
-			$row=mysql_fetch_array($res);
-			$count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
+			$res=mysqli_query($conn,"SELECT userId, userName, userPass, userType FROM users WHERE userEmail='$email'");
+			$row=mysqli_fetch_array($res);
+			$count = mysqli_num_rows($res); // if uname/pass correct it returns must be 1 row
 			
 			if( $count == 1 && $row['userPass']==$password ) {
 				$_SESSION['user'] = $row['userId'];
@@ -105,8 +105,14 @@
         </script>-->
     </head>
 <script> 
-         var str = '<?php echo  $str;?>';
-        console.log(str);
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    var isEdge = !isIE && !!window.StyleMedia;
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    console.log(isSafari +"," + isChrome);
+    if(isSafari)
+        alert("We’re currently optimized for Chrome & Firefox. Please retry with either browser.");
     </script>
     <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
         <button id="viewPrivacy_btn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#largeModal1" style="display:none;">
@@ -247,7 +253,7 @@
     <ul class="nav navbar-nav ml-auto" style="margin-right: 20px;">
 
         <li class="nav-item dropdown">
-            <span class="float-right">Powered by <a href="http://nymbl.io">Nymbl</a>
+            <span class="float-right"><a href="mailto:instantmockups@nymbl.io?subject=Feedback">Feedback</a>
             </span>
         </li>
     </ul>

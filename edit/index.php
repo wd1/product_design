@@ -14,8 +14,8 @@
         header("Location: ../admin/dashboard/");
         exit;
     }
-    $res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
-	$userRow=mysql_fetch_array($res);
+    $res=mysqli_query($conn,"SELECT * FROM users WHERE userId=".$_SESSION['user']);
+	$userRow=mysqli_fetch_array($res);
 
     $texture_dark_flag = 0;
     $texture_white_flag = 0;

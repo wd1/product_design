@@ -9,9 +9,9 @@
 		exit;
 	}
 	// select loggedin users detail
-	$res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
+	$res=mysqli_query($conn,"SELECT * FROM users WHERE userId=".$_SESSION['user']);
     
-	$userRow=mysql_fetch_array($res);
+	$userRow=mysqli_fetch_array($res);
     $_COOKIE['userName'] = $userRow['userName'];
     $token = $userRow['token'];
     $downloads1 = $userRow['downloads_1'];
@@ -65,6 +65,33 @@
 	-->
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden   pace-done pace-done">
+    <button type="button" id="filesize_modal_btn" class="btn btn-primary" style="display:none;" data-target="#filesize_modal" data-toggle="modal">
+      
+    </button>
+
+    <!-- Modal -->
+    <div id="filesize_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg modal-primary" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">FileSize Limitation</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+                    Max file size for uploads is 15MB. Please adjust file and try again.
+                    </p>
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="">OK</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
     <button type="button" id="download_modal_btn" class="btn btn-primary" style="display:none;" data-target="#download_modal" data-toggle="modal">
       
     </button>
@@ -139,7 +166,8 @@
 					<p>1. Click ‘Upload’, select a hi-res JPG or PNG design.<br>
                         2. Crop / Position the uploaded design.<br>
                         3. Click outside mockup area.<br>
-                        4. Click ‘Mockup’ to download mockup. Click ‘Print File’ to download print file.
+                        4. Click ‘Mockup’ to download mockup. Click ‘Print File’ to download print file.<br>
+                        5. For additional help, visit our <a href="https://nymbl.io/designer/start/faq/" target="_blank">FAQ</a> page.
                     </p>
 				</div>
 				<div class="modal-footer">
@@ -165,7 +193,7 @@
           <div class="modal-body">
             <div class="loader1" id="crop_spinner" style="z-index: 1000;"></div>
             <div class="img-container" style="">
-              <img id="image" src="img/SampleUpload.jpg" alt="Picture" style="width:600px;">
+              <img id="image" src="" alt="Picture" style="width:600px;">
             </div>
           </div>
           <div class="modal-footer">
@@ -508,7 +536,7 @@ For more detail, please review our Returns Policy.</p>
             <ul class="nav navbar-nav ml-auto" style="margin-right: 20px;">
 
                 <li class="nav-item dropdown">
-                    <span class="float-right">Powered by <a href="http://nymbl.io">Nymbl</a>
+                    <span class="float-right"><a href="mailto:instantmockups@nymbl.io?subject=Feedback">Feedback</a>
                     </span>
                 </li>
             </ul>

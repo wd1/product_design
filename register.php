@@ -52,8 +52,8 @@
 		} else {
 			// check email exist or not
 			$query = "SELECT userEmail FROM users WHERE userEmail='$email'";
-			$result = mysql_query($query);
-			$count = mysql_num_rows($result);
+			$result = mysqli_query($conn,$query);
+			$count = mysqli_num_rows($result);
 			if($count!=0){
 				$error = true;
 				$emailError = "Provided Email is already in use.";
@@ -85,16 +85,16 @@
 			
 			
 			$query = "INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')";
-			$res = mysql_query($query);
+			$res = mysqli_query($conn,$query);
 				
 			if ($res) {
 				$errTyp = "success";
 				$errMSG = "Successfully Registered! Redirecting...";
                 
 				
-				$res_login=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
-				$row=mysql_fetch_array($res_login);
-				$count = mysql_num_rows($res_login); // if uname/pass correct it returns must be 1 row
+				$res_login=mysqli_query($conn,"SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+				$row=mysqli_fetch_array($res_login);
+				$count = mysqli_num_rows($res_login); // if uname/pass correct it returns must be 1 row
 	
 				if( $count == 1 ) {
 

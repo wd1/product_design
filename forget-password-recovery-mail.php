@@ -12,7 +12,7 @@ require_once('class.phpmailer.php');
 $mail = new PHPMailer();
 $token = hash('sha256',date("Y/m/d"));
 require_once 'dbconnect.php';
-$update_pwd=mysql_query("UPDATE users set token='$token' where userEmail='$mail1'");
+$update_pwd=mysqli_query($conn,"UPDATE users set token='$token' where userEmail='$mail1'");
 $emailBody = "<div>Hello " . $userinfo['userName'] . ",<br><br><p>Click this link to recover your password<br><a href='" . PROJECT_HOME . "php-forgot-password-recover-code/reset_password.php?name=" ."MEMBERNAME" . "'>" . PROJECT_HOME . "re_set.php?id=".$userid."&token=" . $token . "</a><br><br></p>Regards,<br> Nymbl.io Team.</div>";
 
 $mail->CharSet =  "utf-8";

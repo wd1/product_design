@@ -40,16 +40,16 @@
                 $userid = $_POST['userid'];
                 $new_pass=$_POST['new_pass'];
                 $newpassword = hash('sha256', $new_pass);
-                $update_pwd=mysql_query("UPDATE users set userPass='$newpassword' where userId='$userid'");
+                $update_pwd=mysqli_query($conn,"UPDATE users set userPass='$newpassword' where userId='$userid'");
                 $query = "UPDATE users set userPass='$newpassword' where userId='$userid'";
                 // die ($query);
                 header("refresh:3;url=index.php");
             } else {
                 $userid = $_GET['id'];
                 $token = $_GET['token'];
-                $res=mysql_query("SELECT userId, userName, userPass, token FROM users WHERE userId='$userid'");
-                $row=mysql_fetch_array($res);
-                $count = mysql_num_rows($res); // if uname/pass correct it returns must be 1 row
+                $res=mysqli_query($conn,"SELECT userId, userName, userPass, token FROM users WHERE userId='$userid'");
+                $row=mysqli_fetch_array($res);
+                $count = mysqli_num_rows($res); // if uname/pass correct it returns must be 1 row
                 if( $count == 1 && $row['token']==$token ) {
                     
                 } else {

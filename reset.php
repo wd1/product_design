@@ -40,8 +40,8 @@
 
 
             // select loggedin users detail
-            $res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
-            $userRow=mysql_fetch_array($res);
+            $res=mysqli_query($conn,"SELECT * FROM users WHERE userId=".$_SESSION['user']);
+            $userRow=mysqli_fetch_array($res);
 
     		if(isset($_POST['re_password']))
     		{
@@ -50,16 +50,16 @@
                 $re_pass=$_POST['re_pass'];
                 $user = $_POST['userid'];
                 $_SESSION['user'] = $user;
-                $chg_pwd=mysql_query("SELECT userId, userName, userPass FROM users WHERE userId='$user'");
+                $chg_pwd=mysqli_query($conn,"SELECT userId, userName, userPass FROM users WHERE userId='$user'");
                 
-                $chg_pwd1=mysql_fetch_array($chg_pwd);
+                $chg_pwd1=mysqli_fetch_array($chg_pwd);
                 $data_pwd=$chg_pwd1['userPass'];
                 $password = hash('sha256', $old_pass);
                 
                 if($data_pwd==$password){
                     if($new_pass==$re_pass){
                         $newpassword = hash('sha256', $new_pass);
-                        $update_pwd=mysql_query("UPDATE users set userPass='$newpassword' where userId='$user'");
+                        $update_pwd=mysqli_query($conn,"UPDATE users set userPass='$newpassword' where userId='$user'");
                         $query = "UPDATE users set userPass='$newpassword' where userId='$user'";
                         echo "<script>alert('Update Sucessfully'); window.location='index.php'</script>";
                         // echo "<script>alert(`".$query."`); </script>";

@@ -62,9 +62,9 @@ if(isset($_FILES['product_file'])) {
 
     $productname = trim($_POST['product_name']);
     $query = "SELECT mockup_name FROM products WHERE mockup_name='$productname'";
-    $result = mysql_query($query);
+    $result = mysqli_query($conn,$query);
     
-    $count = mysql_num_rows($result);
+    $count = mysqli_num_rows($result);
     if($count!=0){
         $error = true;
         $errormsg = "Provided Product Name is already in use.";
@@ -95,7 +95,7 @@ if(isset($_FILES['product_file'])) {
         $query = "INSERT INTO products(mockup_name,mockup_code,width,height,dpi,x,y,user_id,blend_mode,opacity,admin,mockup_list,provider,print_location, print_mode, product_cost, product_price, texture_dark,texture_white) VALUES('$productname','$productcode','$width','$height','$dpi','$x','$y','$user','$blend_mode','$opacity','$admin','$mockup_list','$provider','$print_location','$print_mode',$productcost,$productprice,$texture_dark,$texture_white)";
         // $query = "INSERT INTO products(mockup_name,width,height,x,y,user_id,blend_mode,opacity) VALUES('".$productname."','".$width."','".$height."','".$x."','".$y."','".'aaa'."','".$blend_mode."','".$opacity."')";
         echo $query;
-        $res = mysql_query($query);
+        $res = mysqli_query($conn,$query);
             
         if ($res) {
             $errTyp = "success";

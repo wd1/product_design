@@ -309,7 +309,13 @@ function upload() {
       alert('Product name already exist. Please input the different name');
       return;
   } else {
-      $("#uploadconfirm_btn").click();
+     // $("#uploadconfirm_btn").click();
+     if($("#apparel_check").is(":checked"))
+     {
+         needupload();
+     } else {
+        needwarp();
+     }
   }
   
 }
@@ -322,6 +328,7 @@ function checknames(name) {
         return 0;
     }
 }
+
 
 function needupload() {
     $("#uploadmodal").modal("hide");
@@ -698,8 +705,10 @@ $(function() {
     $("#apparel_check").change( function() {
         if($("#apparel_check").is(':checked')){
             $("#width_height").hide();
+            $("#blend_mode").val("Normal");
         } else {
             $("#width_height").show();
+            $("#blend_mode").val("Multiply");
         }
     });
     $(".image-preview-input input:file").change(function (){     
@@ -793,6 +802,7 @@ $(function() {
         reader.readAsDataURL(file);
     });  
     $("#pr-name").keyup(function (e) {
+        $("#pr-name").val($("#pr-name").val().replace(/[^\w\s]/gi, ''));
         $("#viewproduct_btn").prop("disabled", true);
         $("#mask-name").val($("#pr-name").val()+"-mask");
         $("#shadow-name").val($("#pr-name").val()+"-shadow");

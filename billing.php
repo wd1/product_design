@@ -26,15 +26,15 @@
   // $res=mysql_query("insert into users (userName,userEmail,userPass,address,city,state,zip,token) values ('$name','$email','$password','$address_line1','$address_city','$address_state','$address_zip','$token')") or die(mysql_error());
   $sttt= "UPDATE users SET downloads_1=100,downloads_2=100,address='$address_line1',city='$address_city', state='$address_state', zip='$address_zip', token='$token' WHERE userEmail='$email'";
   
-  $res = mysql_query("UPDATE users SET downloads_1=100,downloads_2=100,address='$address_line1',city='$address_city', state='$address_state', zip='$address_zip', token='$token' WHERE userEmail='$email'");
+  $res = mysqli_query($conn,"UPDATE users SET downloads_1=100,downloads_2=100,address='$address_line1',city='$address_city', state='$address_state', zip='$address_zip', token='$token' WHERE userEmail='$email'");
   // header("refresh:3;url=/admin/dashboard/index.php");
   
     if($res)
     {		
       $password = hash('sha256', $password); // password hashing using SHA256
-			$res_login=mysql_query("SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
- 			$row=mysql_fetch_array($res_login);
- 			$count = mysql_num_rows($res_login); // if uname/pass correct it returns must be 1 row
+			$res_login=mysqli_query($conn,"SELECT userId, userName, userPass FROM users WHERE userEmail='$email'");
+ 			$row=mysqli_fetch_array($res_login);
+ 			$count = mysqli_num_rows($res_login); // if uname/pass correct it returns must be 1 row
   
 			if( $count == 1 ) {
 
@@ -146,25 +146,25 @@
 		Launch large modal
 	</button>
 	<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-primary" role="document" style="width: 60%;">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Plan Overview & Signup</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Introductory Offer: $10/mo + ¢10/mockup download (print file included). Cancel at any time. 100% satisfaction guaranteed or your money back with no questions asked.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-              </div>
+      <div class="modal-dialog modal-primary" role="document" style="width: 60%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Plan Overview & Signup</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+              <p>Introductory Offer: $10/mo + ¢15/mockup download (print file included). Cancel at any time. 100% satisfaction guaranteed or your money back with no questions asked.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
           </div>
-        <!-- /.modal-dialog -->
-    </div>
+          <!-- /.modal-content -->
+        </div>
+      <!-- /.modal-dialog -->
+  </div>
 	<header id="theader" class="app-header navbar">
 
 		<button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button" style="">☰</button>

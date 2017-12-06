@@ -96,9 +96,9 @@
 
 			$query = "SELECT userEmail FROM users WHERE userEmail='$email'";
 
-			$result = mysql_query($query);
+			$result = mysqli_query($conn,$query);
 
-			$count = mysql_num_rows($result);
+			$count = mysqli_num_rows($result);
 
 			if($count!=0){
 

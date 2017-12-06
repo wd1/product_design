@@ -66,7 +66,7 @@ if(isset($_FILES['design_file'])) {
             echo "img/designs/".$_FILES['design_file']['name'];
             // echo "no dpi ok";
         } else {
-            echo $_FILES['design_file']['name']. " Failure";
+            echo "Failure";
         }
     }
     exit;
@@ -76,7 +76,7 @@ if(isset($_FILES['design_file'])) {
     $downloads2 = $_POST['downloads2'];
     $userid = $_POST['userid'];
     echo ("UPDATE users SET downloads_1=$downloads1, downloads_2=$downloads2 WHERE userId=$userid");
-    if (mysql_query("UPDATE users SET downloads_1=$downloads1, downloads_2=$downloads2 WHERE userId=$userid")) {
+    if (mysqli_query($conn,"UPDATE users SET downloads_1=$downloads1, downloads_2=$downloads2 WHERE userId=$userid")) {
         echo "Record updated successfully";
     } else {
         echo "Error updating record: ";
@@ -85,7 +85,7 @@ if(isset($_FILES['design_file'])) {
     require_once 'dbconnect.php';
     $showflag = $_POST['showflag'];
     $userid = $_POST['userid'];
-    if (mysql_query("UPDATE users SET showflag=$showflag WHERE userId=$userid")) {
+    if (mysqli_query($conn,"UPDATE users SET showflag=$showflag WHERE userId=$userid")) {
         echo "Record updated successfully";
     } else {
         echo "Error updating record: ";

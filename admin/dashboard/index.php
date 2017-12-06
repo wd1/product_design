@@ -10,8 +10,8 @@
 		exit;
 	}
 	// select loggedin users detail
-	$res=mysql_query("SELECT * FROM users WHERE userId=".$_SESSION['user']);
-	$userRow=mysql_fetch_array($res);
+	$res=mysqli_query($conn,"SELECT * FROM users WHERE userId=".$_SESSION['user']);
+	$userRow=mysqli_fetch_array($res);
 ?>
 <script>
     // if(location.protocol != "https:") {
@@ -452,15 +452,15 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="display:none;">
                                         <div class="row">
                                         <div class="col-md-6">
                                             <label for="art-x">X:</label>
-                                            <input id="art-x" name="art-x" class="form-control" placeholder="0" type="" value="">
+                                            <input id="art-x" name="art-x" class="form-control" placeholder="0" type="" value="0">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="art-y">Y:</label>
-                                            <input id="art-y" name="art-y" class="form-control" placeholder="0" type="" value="">
+                                            <input id="art-y" name="art-y" class="form-control" placeholder="0" type="" value="0">
                                         </div>
                                         </div>
                                         <span class="help-block">Please enter offset position of rectangle</span>
@@ -679,7 +679,7 @@
                     <a class="nav-link" style="padding:0px;" onClick="viewPrivacy()"><i class="" aria-hidden="true"></i> Privacy</a>
                 </li>
                 <li class="nav-item px-3"style="position: relative;min-width: 50px;margin: 0 !important;text-align: center;">
-                    <a class="nav-link" href='mailto:support@nymbl.io?subject=Nymbl Instant Mockup Help' style="padding:0px;color:#263238;"><i class="icon-support" aria-hidden="true"  style="vertical-align:middle;"></i><span style="vertical-align:middle;"> Help</span></a>
+                    <a class="nav-link" href='https://nymbl.io/designer/start/faq/' style="padding:0px;color:#263238;"><i class="icon-support" aria-hidden="true"  style="vertical-align:middle;"></i><span style="vertical-align:middle;"> Help</span></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav ml-auto" style="margin-right: 20px;">

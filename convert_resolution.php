@@ -43,9 +43,10 @@ $resolution = $_POST['dpi'];
 $inFile = __DIR__ . DIRECTORY_SEPARATOR ."img/". $_POST['src'];
 // echo $inFile;
 $ext = pathinfo($inFile, PATHINFO_EXTENSION);
-$outFile =__DIR__ . DIRECTORY_SEPARATOR . "img/designs/product-art-file.".$ext;
-if(file_exists("img/designs/product-art-file.".$ext)) {
-    unlink("img/designs/product-art-file.".$ext);
+$rand = time();
+$outFile =__DIR__ . DIRECTORY_SEPARATOR . "img/designs/product-art-file-".$rand.".".$ext;
+if(file_exists("img/designs/product-art-file-".$rand.".".$ext)) {
+    unlink("img/designs/product-art-file-".$rand.".".$ext);
 }
 $width = $_POST['art_width'];
 $height = $_POST['art_height'];
@@ -72,5 +73,5 @@ if(($width == 0) || ($height ==0) ) {
 }
 $image1->writeImage($outFile);
 // echo $width.",".$height.",".$_POST['send_width'].",".$_POST['send_height'].",".$_POST['send_x'].",".$_POST['send_y'];
-echo "img/designs/product-art-file.".$ext;
+echo "img/designs/product-art-file-".$rand.".".$ext;
 ?>
