@@ -309,10 +309,10 @@ function upload() {
       alert('Product name already exist. Please input the different name');
       return;
   } else {
-     // $("#uploadconfirm_btn").click();
+     // 
      if($("#apparel_check").is(":checked"))
      {
-         needupload();
+         $("#uploadconfirm_btn").click();
      } else {
         needwarp();
      }
@@ -518,6 +518,13 @@ function needwarp() {
     mockup_list_input.name = "mockup_list";
     mockup_list_input.value = $("#checkbox1").is(":checked");
     form.appendChild(mockup_list_input);
+
+    var dtg_input = document.createElement('input');
+    dtg_input.type = "text";
+    dtg_input.name = "dtg";
+    dtg_input.value = $("#apparel_check").is(":checked");
+    form.appendChild(dtg_input);
+
     // form.appendChild("mockup_list",$("#checkbox1").is(":checked"));
     $("body").append(form);
     // console.log(form);

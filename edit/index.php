@@ -96,6 +96,7 @@
         $user = $_POST['userid'];
         $admin = $_POST['adminid'];
         $mockup_list = $_POST['mockup_list'];
+        $dtg = $_POST['dtg'];
     }
 ?>
 <!DOCTYPE html>
@@ -180,6 +181,7 @@ var user = "<?php echo $user ?>";
 var opacity = "<?php echo $opacity ?>";
 var admin = "<?php echo $admin ?>";
 var mockup_list = "<?php echo $mockup_list ?>";
+var dtg = "<?php echo $dtg ?>";
 var texture_dark_flag = "<?php echo $texture_dark_flag ?>";
 var texture_white_flag = "<?php echo $texture_white_flag ?>";
 </script>

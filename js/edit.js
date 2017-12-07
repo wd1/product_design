@@ -16,6 +16,7 @@ var origin_width, origin_height;
 var back_img1;
 var fabriccanvas = document.createElement('canvas');
 var ctx=fabriccanvas.getContext("2d");
+var data;
 fabriccanvas.width =document.getElementById('mockup-image').offsetWidth;//document.getElementById('mockup-image').clientWidth;
 fabriccanvas.height = window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75;
 fabriccanvas.style.position = "absolute";
@@ -558,7 +559,17 @@ function uploadDemoFile(file) {
                 
     
         // });
-        init_this(_URL.createObjectURL(file));
+        if(!dtg)
+            init_this(_URL.createObjectURL(file));
+        else {
+            $(".loader1").show();
+            var image = document.getElementById('image');
+            image.parentNode.innerHTML = `<img id="image" src="" alt="Picture" style="width:600px;">`;
+            image = document.getElementById('image');
+            status = 1;
+            console.log(_URL.createObjectURL(file));
+            image_crop.src =_URL.createObjectURL(file);
+        }
     });
 }
 var readURL = function(input) {
@@ -714,7 +725,8 @@ function crop_mouseup(){
         $("#crop_label").prop('value',"Crop (Click Once)");
     }
 }
-
+canvas_pattern = document.createElement("canvas");
+canvas_pattern.id = "SSSS";
 function getCropData1(e) {
     // e.innerHTML = "Uploading & Saving...";
     status = 1;
@@ -737,17 +749,24 @@ function getCropData1(e) {
     // console.log(data);
     ctx3.drawImage(template_img,data.x, data.y, data.width, data.height,0,0,temp_canvas.width,temp_canvas.height);
     
-    canvas_pattern = document.createElement("canvas");
-    canvas_pattern.id = "SSSS";
+    
     // document.body.append(temp_canvas);
     
     image_crop.src = temp_canvas.toDataURL();
     
-
-    
 }
 var image_crop = new Image();
 image_crop.onload = function() {
+    clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
+    clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
+    clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
+    clip_right_y = Math.max(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
+    if(dtg)
+    {
+        data = {};
+        data.width = document.getElementById('image').naturalWidth;
+        data.height = document.getElementById('image').naturalHeight;
+    }
     canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
     canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/c.height;
     var ctx_canvas = canvas_pattern.getContext("2d");
@@ -790,11 +809,32 @@ function getProductImage() {
 
 }
 
-function make_pattern_img() {//parseFloat(total_data[$("#product_list option:selected").text()].top_right_x
+function make_pattern_img(path=null) {//parseFloat(total_data[$("#product_list option:selected").text()].top_right_x
         $("#save-button span").text(" Save");
         var temp_image = document.createElement('img');
-        temp_image.src = canvas_pattern.toDataURL();
-        fabric.Image.fromURL(canvas_pattern.toDataURL(), function(img) {
+        var path_url="";
+        var clip_left_x, clip_left_y, clip_right_x, clip_right_y;
+        // if(dtg)
+        // {
+        //     temp_image.src = path;
+        //     path_url=path;
+        //     clip_left_x = 0;
+        //     clip_left_y = 0;
+        //     clip_right_x = document.getElementById('image').naturalWidth;
+        //     clip_right_y = document.getElementById('image').naturalHeight;
+        // }
+        // else
+        {
+            temp_image.src = canvas_pattern.toDataURL();
+            path_url=canvas_pattern.toDataURL();
+            // console.log(path_url);
+            // document.body.appendChild(temp_image);
+            clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
+            clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
+            clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
+            clip_right_y = Math.max(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
+        }
+        fabric.Image.fromURL(path_url, function(img) {
             fabric_canvas.remove(pattern_img);
             // document.getElementById("c").style.maskImage = "";
             // document.getElementById("c").style.webkitMaskImage = "";
@@ -810,10 +850,7 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
             // else
             var ratio = art_width / art_height;
             // console.log(ratio);
-            var clip_left_x = Math.min(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
-            var clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
-            var clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
-            var clip_right_y = Math.max(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
+            $(".loader").hide();
             pattern_img = img.set({ left: mockup_img.left+50, top: mockup_img.top, angle: 0, scaleX: (clip_right_x-clip_left_x)/img.width, scaleY: (clip_right_y-clip_left_y)/img.height, opacity: 0.7});
             // pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: (clip_right_x-clip_left_x)/img.width, scaleY: (clip_right_y-clip_left_y)/img.height, opacity: 0.7});
             // pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: (clip_right_x-clip_left_x)/img.width, scaleY: (clip_right_x-clip_left_x)/ratio/img.height, opacity: 0.7});
@@ -827,6 +864,7 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
             fabric_canvas.add(pattern_img);
             fabric_canvas.setActiveObject(pattern_img);
             set_flag = true;
+            
             fabric_canvas.on('mouse:down', function(e) { 
                 // e.target should be the circle
                 if((e.target == null) && (pattern_img) && (set_flag)) {
