@@ -26,6 +26,14 @@
 <html lang="en" ng-app="app">
 
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75789736-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75789736-3');
+    </script>
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <link rel="shortcut icon" href="img/nymbl-favicon.png">
 
@@ -570,6 +578,7 @@ For more detail, please review our Returns Policy.</p>
 
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script> -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     
 </body>
 

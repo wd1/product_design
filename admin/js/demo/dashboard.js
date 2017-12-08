@@ -191,6 +191,7 @@ function uploadFile() {
   fd.append("userid", userid);
   fd.append("adminid", adminid);
   fd.append("mockup_list",$("#checkbox1").is(":checked"));
+  fd.append("dtg",$("#apparel_check").is(":checked"));
   
   xhr.send(fd);
 }

@@ -292,8 +292,9 @@ function init_selectbox() {
                 var dpi = arrs[22].split("dpi:")[1];
                 var texture_dark_flag = arrs[23].split("texture_dark:")[1];
                 var texture_white_flag = arrs[24].split("texture_white:")[1];
+                var dtg = arrs[25].split("dtg:")[1];
                 // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag};
+                total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag, dtg: dtg};
                 // if(name == param_product)
                 //     exist_flag = true;
                 $("#product_list").append($('<option>', {
@@ -451,7 +452,7 @@ function product_load(fff = false, ggg=false) {
     if(mockup_img){
         
         canvas1.remove(shadow_img);
-        canvas1.remove(mockup_img);
+        // canvas1.remove(mockup_img);
         canvas1.remove(square);
         canvas1.remove(square1);
         canvas1.remove(texture_dark_img);
@@ -908,30 +909,35 @@ function uploadFile(file, file0) {
                 document.getElementById("c").style.webkitMaskImage = "";
                 document.getElementById("c").classList.remove("mask-class");
             
-                if(total_data[$("#product_list option:selected").text()].perspective == "1") {
-                    init_this(this_url);
+                if(total_data[$("#product_list option:selected").text()].perspective != "1") {
+                    
+                        pattern_img_width = img.width;
+                        pattern_img_height = img.height;
+            
+                        if(total_data[$("#product_list option:selected").text()].opacity)
+                            pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
+                        else
+                            pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: 0.7});
+                        if(total_data[$("#product_list option:selected").text()].blend_mode)
+                            pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
+                        else
+                            pattern_img.globalCompositeOperation = 'multiply';
+                        pattern_img['cornerStyle'] = 'circle';
+                        pattern_img['hasRotatingPoint'] = false;
+                        pattern_img['transparentCorners'] = false;
+                        pattern_img['cornerSize'] = 7;
+                        pattern_img['cornerColor'] = '#f96736';
+                        pattern_img['borderColor'] = '#f96736';
+                        canvas1.add(pattern_img);
+                    
+                        set_flag = true;
+                        $(".loader1").hide();
                 } else {
-                    pattern_img_width = img.width;
-                    pattern_img_height = img.height;
-        
-                    if(total_data[$("#product_list option:selected").text()].opacity)
-                        pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: parseInt(total_data[$("#product_list option:selected").text()].opacity)/100});
-                    else
-                        pattern_img = img.set({ left: mockup_img.left + 20, top: mockup_img.top + 50, angle: 0, scaleX: 150/img.width, scaleY: 150/img.width, opacity: 0.7});
-                    if(total_data[$("#product_list option:selected").text()].blend_mode)
-                        pattern_img.globalCompositeOperation = total_data[$("#product_list option:selected").text()].blend_mode;
-                    else
-                        pattern_img.globalCompositeOperation = 'multiply';
-                    pattern_img['cornerStyle'] = 'circle';
-                    pattern_img['hasRotatingPoint'] = false;
-                    pattern_img['transparentCorners'] = false;
-                    pattern_img['cornerSize'] = 7;
-                    pattern_img['cornerColor'] = '#f96736';
-                    pattern_img['borderColor'] = '#f96736';
-                    canvas1.add(pattern_img);
-                
-                    set_flag = true;
-                    $(".loader1").hide();
+                    if(total_data[$("#product_list option:selected").text()].dtg !=1) {
+                        init_this(this_url);
+                     } else {
+                        image_crop.src = this_url;
+                     }
                 }
             });
         }
@@ -1261,6 +1267,7 @@ $("#export-button").on('click', function() {
     function make_pattern_img() {//parseFloat(total_data[$("#product_list option:selected").text()].top_right_x
         var temp_image = document.createElement('img');
         temp_image.src = canvas_pattern.toDataURL();
+        console.log(canvas_pattern.toDataURL());
         fabric.Image.fromURL(canvas_pattern.toDataURL(), function(img) {
             canvas1.remove(pattern_img);
             document.getElementById("c").style.maskImage = "";
@@ -1429,6 +1436,15 @@ function getCropData() {
 }
 var image_crop = new Image();
 image_crop.onload = function() {
+    if(total_data[$("#product_list option:selected").text()].dtg ==1 ){
+        clip_left_x = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
+        clip_left_y = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
+        clip_right_x = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
+        clip_right_y = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
+        data1 = {};
+        data1.width = image_crop.naturalWidth;
+        data1.height = image_crop.naturalHeight;
+    }
     canvas_pattern.width = (clip_right_x - clip_left_x)*data1.width/400;
     if(total_data[$("#product_list option:selected").text()].cheight =="") 
         canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/400;
@@ -1436,13 +1452,13 @@ image_crop.onload = function() {
         canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
     var ctx_canvas = canvas_pattern.getContext("2d");
     var p = new Perspective(ctx_canvas, image_crop);
-    // console.log((total_data[$("#product_list option:selected").text()]));
     p.draw([
             [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
             [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
             [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
             [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]
     ]);
+    
     $("#crop_label").prop('value',"Crop (Click Once)");
     // document.body.append(canvas_pattern);
     init_crop_canvas(canvas_pattern);
