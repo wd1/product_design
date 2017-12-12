@@ -18,7 +18,16 @@
     //     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
     // }
 </script>
-<html ng-app="app" class="ng-scope" lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+<html ng-app="app" class="ng-scope" lang="en">
+    <head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75789736-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-75789736-3');
+        </script>
         <meta charset="utf-8">
         <meta http-equiv="cache-control" content="no-cache">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -414,19 +423,7 @@
                                     </div>
                                     
                                     <div  class="form-group">
-                                        <div class="checkbox">
-                                            <label class="switch switch-xs switch-3d switch-primary" style="vertical-align: middle;">
-                                                
-                                                <input id="apparel_check" class="switch-input" name="apparel_check" value="apparel" type="checkbox">
-                                                <span class="switch-label"></span>
-                                                <span class="switch-handle"></span>
-                                            </label>
-                                            <label for="apparel_check" style="vertical-align: middle;">
-                                               Product is DTG printed apparel (not all-over print)?
-                                            </label>
-                                            
-                                            <a  id="question_mark" data-toggle="tooltip" title="Apparel Image pointer." class="icon-question" style="color:black;"></a>
-                                        </div>
+                                        
                                         
                                         <div id="width_height" style="margin-top:10px;" >
                                             <label for="" style="vertical-align:middle;">
@@ -451,6 +448,7 @@
                                             
                                             
                                         </div>
+                                        
                                     </div>
                                     <div class="form-group" style="display:none;">
                                         <div class="row">
@@ -467,6 +465,19 @@
                                         <a  id="question_mark" data-toggle="tooltip" title="The X and Y is for the Art File." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     </div>
                                     <div class="form-group">
+                                        <div class="checkbox">
+                                            <label class="switch switch-xs switch-3d switch-primary" style="vertical-align: middle;">
+                                                
+                                                <input id="apparel_check" class="switch-input" name="apparel_check" value="apparel" type="checkbox">
+                                                <span class="switch-label"></span>
+                                                <span class="switch-handle"></span>
+                                            </label>
+                                            <label for="apparel_check" style="vertical-align: middle;">
+                                               Product is DTG printed apparel (not all-over print)?
+                                            </label>
+                                            
+                                            <a  id="question_mark" data-toggle="tooltip" title="Apparel Image pointer." class="icon-question" style="color:black;"></a>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="ccmonth">Art Blend Mode & Opacity:</label>
@@ -604,7 +615,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mask-name">Shadow / Extras Image (Required):</label>
+                                    <label for="mask-name">Shadow / Background Image (Required):</label>
                                     <a id="question_mark" data-toggle="tooltip" title="This image is the shadow image for rendering." class="icon-question" style="color:black;vertical-align: middle;"></a>
                                     <div class="input-group image-preview2" style="margin-bottom: 10px;">
                                         <input type="text" class="form-control image-preview-filename2" disabled="disabled">

@@ -14,8 +14,10 @@ var per_width,per_height;
 var per_scale;
 var origin_width, origin_height;
 var back_img1;
+var mockup_img_width = 300, mockup_img_height = 300;
 var fabriccanvas = document.createElement('canvas');
 var ctx=fabriccanvas.getContext("2d");
+console.log(document.getElementById('mockup-image').offsetWidth);
 fabriccanvas.width =document.getElementById('mockup-image').offsetWidth;//document.getElementById('mockup-image').clientWidth;
 fabriccanvas.height = window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75;
 fabriccanvas.style.position = "absolute";
@@ -39,19 +41,27 @@ $(".loader1").css("zIndex", 1000);
 $("body").on("contextmenu",function(e){
     return false;
 });
-
+// if(dtg) {
+//     status = 1;
+//     $("#save-button span").text(" Save");
+// }
+var shadow_img_fabric, texture_dark_img_fabric, texture_white_img_fabric;
 var product_file = "../img/temp/"+product_name+".png";
 
 var back_img = document.createElement("img");
 back_img.id ="back_img";
-back_img.src = product_file;
+
 back_img.style.position = "absolute";
 back_img.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
 back_img.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
 back_img.style.display = "none";
 back_img.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 
+var back_img_canvas = document.createElement('canvas');
+var ctx2=back_img_canvas.getContext("2d");
+back_img.src = product_file;
 
+console.log(back_img.src);
 var shadow_img = document.createElement("img");
 shadow_img.id ="shadow_img";
 shadow_img.src = "../img/temp/"+product_name+"-shadow.png";
@@ -98,18 +108,8 @@ c.style.position = "absolute";
 c.style.opacity = 0.5;
 // ctx.globalCompositeOperation = 'multiply';
 c.id = 'mycanvas';
-c.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
+c.style.left = (document.getElementById('mockup-image').offsetLeft+fabriccanvas.width/2-200)+"px";
 c.style.top = document.getElementById('mockup-image').offsetTop+"px";
-
-var back_img_canvas = document.createElement('canvas');
-var ctx2=back_img_canvas.getContext("2d");
-back_img_canvas.width = 300;//document.getElementById('mockup-image').clientWidth;
-back_img_canvas.height = 300;
-back_img_canvas.style.position = "absolute";
-// ctx.globalCompositeOperation = 'multiply';
-// back_img_canvas.id = 'back_img';
-back_img_canvas.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
-back_img_canvas.style.top = document.getElementById('mockup-image').offsetTop+"px";
 
 
 
@@ -152,12 +152,13 @@ $("#mockup-image").click(function() {
         
         ctx1.clearRect(0,0, 400,400);
         ctx1.globalCompositeOperation = "normal";
-        ctx1.drawImage(back_img,0,0,origin_width,origin_height,c1.width/2-150,c1.height/2-150,300,300);
+        
+        ctx1.drawImage(back_img,0,0,origin_width,origin_height,c1.width/2-back_img_canvas.width/2,c1.height/2-back_img_canvas.height/2,back_img_canvas.width,back_img_canvas.height);
         // console.log(back_img);
         ctx1.globalCompositeOperation = "source-atop";
         ctx1.drawImage(c,0,0);
-        ctx1.globalCompositeOperation = 'destination-over';
-        ctx1.drawImage(shadow_img, 0, 0 ,origin_width,origin_height,c1.width/2-150,c1.height/2-150, 300,300);
+        ctx1.globalCompositeOperation = 'destination-over';console.log(back_img_canvas.height);
+        ctx1.drawImage(shadow_img, 0, 0 ,origin_width,origin_height,c1.width/2-back_img_canvas.width/2,c1.height/2-back_img_canvas.height/2, back_img_canvas.width,back_img_canvas.height);
 
         if(blend_mode == 'normal')
             ctx1.globalCompositeOperation = 'source-atop';
@@ -166,10 +167,10 @@ $("#mockup-image").click(function() {
         // ctx1.globalCompositeOperation = 'source-atop';
         console.log(texture_dark_img.naturalWidth !=0);
         if(texture_dark_img.naturalWidth !=0)
-            ctx1.drawImage(texture_dark_img,0, 0 ,origin_width,origin_height,c1.width/2-150,c1.height/2-150, 300,300);
+            ctx1.drawImage(texture_dark_img,0, 0 ,origin_width,origin_height,c1.width/2-back_img_canvas.width/2,c1.height/2-back_img_canvas.height/2, back_img_canvas.width,back_img_canvas.height);
         ctx1.globalCompositeOperation = 'multiply';
         if(texture_white_img.naturalWidth !=0)
-            ctx1.drawImage(texture_white_img,0, 0 ,origin_width,origin_height,c1.width/2-150,c1.height/2-150, 300,300);
+            ctx1.drawImage(texture_white_img,0, 0 ,origin_width,origin_height,c1.width/2-back_img_canvas.width/2,c1.height/2-back_img_canvas.height/2, back_img_canvas.width,back_img_canvas.height);
     } else {
 
     }
@@ -250,7 +251,6 @@ $(window).resize(function() {
        
     }, 300, "some unique string");
 });*/
-
 mycode = function() {
     'use strict';
     
@@ -260,13 +260,24 @@ mycode = function() {
     scrawl.getImagesByClass('demo114');
     var ratio = art_width / art_height;
     
-    if(ratio > 1) {
-        per_scale = 300 / art_width;
-    } else {
-        per_scale = 300 / art_height;
-    }
-    per_width = art_width * per_scale;
-    per_height = art_height * per_scale;
+    // if(!dtg) {
+        if(ratio > 1) {
+            per_scale = 300 / art_width;
+        } else {
+            per_scale = 300 / art_height;
+        }
+        per_width = art_width * per_scale;
+        per_height = art_height * per_scale;
+    // } else {
+    //     if(back_img.naturalWidth/back_img.naturalHeight > 1) {
+    //         per_scale = 300 / back_img.naturalWidth;
+    //     } else {
+    //         per_scale = 300 / back_img.naturalHeight;
+    //     }
+    //     per_width = back_img.naturalWidth * per_scale;
+    //     per_height = back_img.naturalHeight * per_scale;
+    // }
+    
     // console.log(per_height);
     // console.log(per_width);
     startPosX = c.width / 2 - per_width/2-50;
@@ -413,11 +424,21 @@ function uploadFile() {
   fd.append("bottom_left_y", test.bottomLeft.local.y);
   fd.append("bottom_right_x", test.bottomRight.local.x);
   fd.append("bottom_right_y", test.bottomRight.local.y);
-  fd.append("position_x", pattern_img.left - mockup_img.left);
-  fd.append("position_y", pattern_img.top - mockup_img.top);
-  fd.append("size_x", pattern_img.scaleX * pattern_img.width);
-  fd.append("size_y", pattern_img.scaleY * pattern_img.height);
-  fd.append("cheight", cheight);
+//   if(dtg){
+//     fd.append("position_x", 0);
+//     fd.append("position_y", 0);
+//     fd.append("size_x", 0);
+//     fd.append("size_y", 0);
+//     fd.append("cheight", "NULL");
+//   }else 
+  {
+    fd.append("position_x", pattern_img.left - mockup_img.left);
+    fd.append("position_y", pattern_img.top - mockup_img.top);
+    fd.append("size_x", pattern_img.scaleX * pattern_img.width);
+    fd.append("size_y", pattern_img.scaleY * pattern_img.height);
+    fd.append("cheight", cheight);
+  }
+  console.log(cheight);
   fd.append("dtg", dtg);
   xhr.send(fd);
 }
@@ -435,7 +456,10 @@ function init_this(url) {
         var crop_tool_image;
         var crop_tool_scale
         // console.log(url);
-        $("#crop_dimension").text("("+art_width+"px x "+art_height+"px)");
+        // if(!dtg)
+            $("#crop_dimension").text("("+art_width+"px x "+art_height+"px)");
+        // else
+        //     $("#crop_dimension").text("(DTG)");
         $("#do_modal_crop").click();
         image.src = url;
         // console.log(image);
@@ -523,7 +547,7 @@ function uploadDemoFile(file) {
     document.getElementById("back_img").style.display = "none";
     $(".loader1").hide();
     $("#product_list").prop("disabled", false);
-    var mockup_img_width = 300, mockup_img_height = 300;
+    
     $("#fabriccanvas").show();
     fabric_canvas = new fabric.Canvas('fabriccanvas');
     
@@ -534,8 +558,26 @@ function uploadDemoFile(file) {
     fabric.Image.fromURL('../img/temp/'+product_name+'.png', function(img) {
         // mockup_img = img.set({ left: 0, top:0, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: true });
         mockup_img = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
+        console.log({left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2});
         console.log(window.devicePixelRatio);
         fabric_canvas.add(mockup_img);
+        fabric.Image.fromURL('../img/temp/'+product_name+"-shadow.png", function(img) {
+            shadow_img_fabric = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
+            // console.log(shadow_img_fabric);
+            // fabric_canvas.add(shadow_img_fabric);
+        });
+        if(texture_dark_flag == 1) {
+            fabric.Image.fromURL('../img/temp/'+product_name+"-texture-dark.png", function(img) {
+                texture_dark_img_fabric = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
+                // fabric_canvas.add(texture_dark_img_fabric);
+            });
+        }
+        if(texture_white_flag == 1) {
+            fabric.Image.fromURL('../img/temp/'+product_name+"-texture-white.png", function(img) {
+                texture_white_img_fabric = img.set({ left: fabric_canvas.width/2-mockup_img_width/2, top: fabric_canvas.height/2-mockup_img_height/2, angle: 0, scaleX:mockup_img_width/img.width, scaleY:mockup_img_height/img.height, selectable: false });
+                // fabric_canvas.add(texture_white_img_fabric);
+            });
+        }
         // fabric.Image.fromURL(_URL.createObjectURL(file), function(img) {
         //     fabric_canvas.remove(pattern_img);
 
@@ -559,13 +601,13 @@ function uploadDemoFile(file) {
                 
     
         // });
-        if(!dtg) {
+        // if(!dtg) {
             init_this(_URL.createObjectURL(file));
-        } else {
-            image_crop.src = _URL.createObjectURL(file);
-            status = 1;
-            $(".loader1").show();
-        }
+        // } else {
+        //     image_crop.src = _URL.createObjectURL(file);
+        //     status = 1;
+        //     $(".loader1").show();
+        // }
     });
 }
 var readURL = function(input) {
@@ -604,16 +646,32 @@ function save_result() {
     // });
 // $("#do_modal_crop").click();
 back_img.onload = function() {
-    ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,300,300);
+    // if(dtg)
+    // {
+    //     art_width = back_img.naturalWidth;
+    //     art_height = back_img.naturalHeight;
+    // }
+    back_img_canvas.width = 300;//document.getElementById('mockup-image').clientWidth;
+    console.log(back_img.naturalWidth);
+    back_img_canvas.height = 300/back_img.naturalWidth*back_img.naturalHeight;
+    back_img_canvas.style.position = "absolute";
+    // ctx.globalCompositeOperation = 'multiply';
+    // back_img_canvas.id = 'back_img';
+    back_img_canvas.style.left = (document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200)+"px";
+    back_img_canvas.style.top = document.getElementById('mockup-image').offsetTop+"px";
 
+    ctx2.drawImage(back_img, 0,0, back_img.naturalWidth, back_img.naturalHeight, 0,0,back_img_canvas.width,back_img_canvas.height);
+    mockup_img_width = back_img_canvas.width;
+    mockup_img_height = back_img_canvas.height;
     back_img1 = document.createElement("img");
     back_img1.id ="back_img1";
     back_img1.src = back_img_canvas.toDataURL();
     back_img1.style.position = "absolute";
-    back_img1.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+document.getElementById('mockup-image').offsetWidth/2-200))+50)+"px";
-    back_img1.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - 150) +"px";
+    back_img1.style.left = (parseInt((document.getElementById('mockup-image').offsetLeft+fabriccanvas.width/2-200))+50)+"px";
+    back_img1.style.top = (document.getElementById('mockup-image').offsetTop+ (window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) / 2 - mockup_img_height/2) +"px";
     back_img1.style.width = "300px"; //(window.innerHeight -document.getElementById("theader").offsetHeight-document.getElementById("bfooter").offsetHeight-50-55-75) +"px";
 
+    
     document.getElementById('mockup-image').append(back_img);
     document.getElementById('mockup-image').append(back_img1);
     document.getElementById('mockup-image').append(c);
@@ -759,12 +817,12 @@ image_crop.onload = function() {
     clip_left_y = Math.min(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
     clip_right_x = Math.max(test.topLeft.local.x,test.bottomLeft.local.x,test.bottomRight.local.x,test.topRight.local.x);
     clip_right_y = Math.max(test.topLeft.local.y,test.bottomLeft.local.y,test.bottomRight.local.y,test.topRight.local.y);
-    if(dtg)
-    {
-        data = {};
-        data.width = document.getElementById('image').naturalWidth;
-        data.height = document.getElementById('image').naturalHeight;
-    }
+    // if(dtg)
+    // {
+    //     data = {};
+    //     data.width = document.getElementById('image').naturalWidth;
+    //     data.height = document.getElementById('image').naturalHeight;
+    // }
     canvas_pattern.width = (clip_right_x - clip_left_x)*data.width/400;
     canvas_pattern.height = (clip_right_y - clip_left_y)*data.height/c.height;
     var ctx_canvas = canvas_pattern.getContext("2d");
@@ -779,6 +837,7 @@ image_crop.onload = function() {
     cheight = c.height;
     // $("#crop_label").prop('value',"Crop (Click Once)");
     // document.body.append(canvas_pattern);
+    // console.log(cheight);
     init_crop_canvas(canvas_pattern);
     $("#crop_spinner").hide();
     $("#modal_crop").modal("hide");
@@ -797,9 +856,30 @@ function getProductImage() {
         fabric_canvas.add(pattern_img);
         pattern_img.selectable = false;
 
-
     }
+    shadow_img_fabric.globalCompositeOperation = 'destination-over';
     
+    fabric_canvas.add(shadow_img_fabric);
+    if(texture_dark_flag == 1) {
+        // console.log(texture_dark_img);
+        fabric_canvas.remove(texture_dark_img_fabric);
+        if(blend_mode == 'normal'){
+            texture_dark_img_fabric.globalCompositeOperation = 'normal';
+        
+        } else {
+            texture_dark_img_fabric.globalCompositeOperation = 'screen';
+        }
+   
+        fabric_canvas.add(texture_dark_img_fabric);
+        // canvas1.bringToFront(texture_dark_img);
+    }
+    if(texture_white_flag == 1) {
+        // console.log("SDFSDF111");
+        fabric_canvas.remove(texture_white_img_fabric);
+        texture_white_img_fabric.globalCompositeOperation = 'multiply';
+        fabric_canvas.add(texture_white_img_fabric);
+        // canvas1.bringToFront(texture_white_img);
+    }
   
     fabric_canvas.renderAll();
     
@@ -853,7 +933,9 @@ function make_pattern_img() {//parseFloat(total_data[$("#product_list option:sel
                 var xx= e.e.layerX;
                 var yy = e.e.layerY;
                 if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
-
+                    fabric_canvas.remove(shadow_img_fabric);
+                    fabric_canvas.remove(texture_dark_img_fabric);
+                    fabric_canvas.remove(texture_white_img_fabric);
                     if(pattern_img){
                         // canvas1.remove(square1);
                         // canvas1.remove(square);

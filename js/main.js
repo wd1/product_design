@@ -353,8 +353,9 @@ function init_selectbox() {
                     var dpi = arrs[22].split("dpi:")[1];
                     var texture_dark_flag = arrs[23].split("texture_dark:")[1];
                     var texture_white_flag = arrs[24].split("texture_white:")[1];
+                    var dtg = arrs[25].split("dtg:")[1];
                     // console.log(position_x+","+position_y+","+size_x+","+size_y);
-                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag};
+                    total_data[name]={width: wid_val, height: he_val, x: rect_x_offset1, y: rect_y_offset1, blend_mode: blend_mode, opacity: opacity, top_left_x: top_left_x, top_left_y: top_left_y, top_right_x: top_right_x, top_right_y: top_right_y, bottom_left_x: bottom_left_x, bottom_left_y: bottom_left_y, bottom_right_x: bottom_right_x, bottom_right_y: bottom_right_y, perspective: perspective, position_x: position_x, position_y: position_y, size_x: size_x, size_y: size_y, cheight: cheight, dpi: dpi, texture_dark_flag: texture_dark_flag, texture_white_flag: texture_white_flag, dtg: dtg};
                     // if(name == param_product)
                     //     exist_flag = true;
                     $("#product_list").append($('<option>', {
@@ -466,22 +467,23 @@ function product_load(fff = false, ggg=false) {
         canvas1.remove(texture_dark_img);
         canvas1.remove(texture_white_img);
     }
+    var shadow_temp_img;
     fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+"-shadow.png", function(img) {
-        image_size_scale = basic_image_width / img.width;
-        mockup_img_width = img.width * image_size_scale;
-        mockup_img_height = img.height * image_size_scale;
-        shadow_img = img.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false })
+        
+        shadow_temp_img = img;
+        
         fabric.Image.fromURL('img/product1/'+$("#product_list option:selected").text()+".png", function(img) {
+            image_size_scale = basic_image_width / img.width;
+            mockup_img_width = img.width * image_size_scale;
+            mockup_img_height = img.height * image_size_scale;
+            shadow_img = shadow_temp_img.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false })    
             initial_rate = mockup_img_width / mockup_img_height;
             red_x_offset = 10;
             red_y_offset = canvas1.height/2-(mockup_img_width+20) /square_rate/2-(canvas1.height/2-mockup_img_width / square_rate/2);
-            var rect_width = 1500-rect_x_offset*2;
-            var rect_height = 1500-rect_y_offset*2;
-            var xxx1 = 1500-rect_width;//1288, 
-            var yyy1 = 1500-rect_height;//903;
-            console.log(xxx1, yyy1);
-            console.log(rect_x_offset);
-            console.log(mockup_img_width+","+image_size_scale);
+            var rect_width = img.width-rect_x_offset*2;
+            var rect_height = img.height-rect_y_offset*2;
+            var xxx1 = img.width-rect_width;//1288, 
+            var yyy1 = img.height-rect_height;//903;
             square  = new fabric.Rect({ 
                 width: mockup_img_width - xxx1*image_size_scale+20,//mockup_img_width+20, 
                 height: mockup_img_height - yyy1*image_size_scale+20/square_rate,//(mockup_img_width+20) /square_rate, 
@@ -504,14 +506,17 @@ function product_load(fff = false, ggg=false) {
                 strokeWidth: 1,
                 selectable: false
             });
+            console.log(img.width);
             mockup_img = img.set({ left: canvas1.width/2-mockup_img_width/2, top: canvas1.height/2-mockup_img_height/2, angle: 0, scaleX:image_size_scale, scaleY:image_size_scale, style:'opacity: 1;', selectable: false })
             mockup_image_before_left = mockup_img.left;
             mockup_image_before_top = mockup_img.top;
             // console.log(image_size_scale);
             // mockup_img.setShadow({color:'grey', blur:70, offsetX:45, offsetY:45, opacity:1});
             black_y_offset = mockup_img.left - square.left;
-            canvas1.add(shadow_img);
+            
             canvas1.add(mockup_img);
+            canvas1.add(shadow_img);
+            console.log(shadow_img);
             // canvas1.add(square);
             // canvas1.add(square1);  
             // canvas1.renderAll();
@@ -672,6 +677,7 @@ function getProductImage() {
 
 canvas1.on('mouse:down', function(e) { 
     // e.target should be the circle
+    
     if((e.target == null) && (pattern_img) && (set_flag)) {
         getProductImage();
     }
@@ -680,7 +686,7 @@ canvas1.on('mouse:down', function(e) {
     var yy = e.e.layerY;
     // console.log($("#product_name_label").val());
     if($("#product_name_label").val() != "Select Mockup") {
-        if(total_data[$("#product_list option:selected").text()].perspective != 1) {
+        if(total_data[$("#product_list option:selected").text()].perspective != 1 ){//} || total_data[$("#product_list option:selected").text()].dtg == 1) {
             if(xx > mockup_img.left && xx < mockup_img.left + mockup_img.width*mockup_img.scaleX && yy > mockup_img.top && yy < mockup_img.top + mockup_img.height*mockup_img.scaleY){
                 
                 if(pattern_img){
@@ -719,7 +725,7 @@ $('#export-art-button').on('click', function () {
         // console.log((pattern_img.getElement().src).split("img/")[1]);
         // console.log((document.getElementById("image").src).split("img/")[1]);
         $("#export-art-button").prop("disabled", true);
-        if(total_data[$("#product_list option:selected").text()].perspective !=1 ) {
+        if(total_data[$("#product_list option:selected").text()].perspective !=1 ){//|| total_data[$("#product_list option:selected").text()].dtg == 1) {
             
 
             $(".loader1").show();
@@ -737,33 +743,41 @@ $('#export-art-button').on('click', function () {
             var pattern1 = pattern_img.getElement();
 
             var send_x,send_y, send_width, send_height;
-            if(original_height == 0 ) {
-                // imagecanvas.width  = pattern_img.width;
-                // imagecanvas.height = pattern_img.height;
-                // imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height,0,0,pattern_img.width, pattern_img.height);
+            if(total_data[$("#product_list option:selected").text()].perspective ==1)// &&total_data[$("#product_list option:selected").text()].dtg == 1 
+            {
                 send_x = 0;
                 send_y = 0;
-                send_width = pattern_img.width;
-                send_height = pattern_img.height;
+                send_width = data1.width;
+                send_height = data1.height;
             } else {
-                // imagecanvas.width  = original_width;
-                // imagecanvas.height = original_height;
-                // imagecontext.drawImage(pattern1,
-                // (square.left-pattern_img.left) /pattern_img.scaleX , 
-                // (square.top-pattern_img.top)/pattern_img.scaleY,
-                // square.width/pattern_img.scaleX, 
-                // square.height/pattern_img.scaleY,
-                //  0,0,
-                //  original_width, original_height);
-                send_x = (square.left-pattern_img.left) /pattern_img.scaleX;
-                send_y = (square.top-pattern_img.top)/pattern_img.scaleY;
-                send_width = square.width/pattern_img.scaleX;
-                send_height =  square.height/pattern_img.scaleY;
+                if(original_height == 0 ) {
+                    // imagecanvas.width  = pattern_img.width;
+                    // imagecanvas.height = pattern_img.height;
+                    // imagecontext.drawImage(pattern1, 0,0,pattern_img.width,pattern_img.height,0,0,pattern_img.width, pattern_img.height);
+                    send_x = 0;
+                    send_y = 0;
+                    send_width = pattern_img.width;
+                    send_height = pattern_img.height;
+                } else {
+                    // imagecanvas.width  = original_width;
+                    // imagecanvas.height = original_height;
+                    // imagecontext.drawImage(pattern1,
+                    // (square.left-pattern_img.left) /pattern_img.scaleX , 
+                    // (square.top-pattern_img.top)/pattern_img.scaleY,
+                    // square.width/pattern_img.scaleX, 
+                    // square.height/pattern_img.scaleY,
+                    //  0,0,
+                    //  original_width, original_height);
+                    send_x = (square.left-pattern_img.left) /pattern_img.scaleX;
+                    send_y = (square.top-pattern_img.top)/pattern_img.scaleY;
+                    send_width = square.width/pattern_img.scaleX;
+                    send_height =  square.height/pattern_img.scaleY;
+                }
             }
-            send_x = 0;
-            send_y = 0;
-            send_width = pattern_img.width;
-            send_height = pattern_img.height;
+            // send_x = 0;
+            // send_y = 0;
+            // send_width = pattern_img.width;
+            // send_height = pattern_img.height;
             // console.log(send_x);
             // imagecanvas.toBlob(function(blob) {
                 // $(".loader1").hide();
@@ -890,7 +904,7 @@ function uploadFile(file, file0) {
     if(xhr.readyState == 4 && xhr.status == 200) {
         console.log(xhr.responseText);
         this_pattern_url = xhr.responseText;
-        console.log(downloads1);
+        // console.log(downloads1);
         $("#product_list").prop("disabled", false);
         if(downloads1>=0)
             $("#export-button").prop("disabled", false);
@@ -933,11 +947,12 @@ function uploadFile(file, file0) {
                         set_flag = true;
                         $(".loader1").hide();
                 } else {
-                    if(total_data[$("#product_list option:selected").text()].dtg !=1) {
+                    // console.log(total_data[$("#product_list option:selected").text()].dtg);
+                    // if(total_data[$("#product_list option:selected").text()].dtg !=1) {
                         init_this(this_url);
-                     } else {
-                        image_crop.src = this_url;
-                     }
+                    //  } else {
+                    //     image_crop.src = this_url;
+                    //  }
                 }
             });
         }
@@ -1267,7 +1282,7 @@ $("#export-button").on('click', function() {
     function make_pattern_img() {//parseFloat(total_data[$("#product_list option:selected").text()].top_right_x
         var temp_image = document.createElement('img');
         temp_image.src = canvas_pattern.toDataURL();
-        console.log(canvas_pattern.toDataURL());
+        // console.log(canvas_pattern.toDataURL());
         fabric.Image.fromURL(canvas_pattern.toDataURL(), function(img) {
             canvas1.remove(pattern_img);
             document.getElementById("c").style.maskImage = "";
@@ -1278,19 +1293,19 @@ $("#export-button").on('click', function() {
             
             // console.log(img.width);
             var position_x,position_y, size_x, size_y;
-            if(total_data[$("#product_list option:selected").text()].position_x=="")
+            if(total_data[$("#product_list option:selected").text()].position_x=="" || total_data[$("#product_list option:selected").text()].position_x==0)
                 position_x = 20;
             else
                 position_x = total_data[$("#product_list option:selected").text()].position_x
-            if(total_data[$("#product_list option:selected").text()].position_y=="")
+            if(total_data[$("#product_list option:selected").text()].position_y=="" || total_data[$("#product_list option:selected").text()].position_y==0)
                 position_y = 50;
             else
                 position_y = total_data[$("#product_list option:selected").text()].position_y
-            if(total_data[$("#product_list option:selected").text()].size_x=="")
+            if(total_data[$("#product_list option:selected").text()].size_x=="" || total_data[$("#product_list option:selected").text()].size_x==0)
                 size_x = 150/img.width;
             else
                 size_x = total_data[$("#product_list option:selected").text()].size_x / img.width
-            if(total_data[$("#product_list option:selected").text()].size_y=="")
+            if(total_data[$("#product_list option:selected").text()].size_y=="" || total_data[$("#product_list option:selected").text()].size_y==0)
                 size_y = 150/img.height;
             else
                 size_y = total_data[$("#product_list option:selected").text()].size_y / img.height
@@ -1306,7 +1321,6 @@ $("#export-button").on('click', function() {
             else
                 pattern_img.globalCompositeOperation = 'multiply';
             // console.log(pattern_img);
-            pattern_img.selectable = false;
             pattern_img['cornerStyle'] = 'circle';
             pattern_img['hasRotatingPoint'] = false;
             pattern_img['transparentCorners'] = false;
@@ -1314,8 +1328,16 @@ $("#export-button").on('click', function() {
             pattern_img['cornerColor'] = '#f96736';
             pattern_img['borderColor'] = '#f96736';
             canvas1.add(pattern_img);
-            getProductImage();
-            set_flag = true;
+            // if(total_data[$("#product_list option:selected").text()].dtg != 1) {
+                pattern_img.selectable = false;
+                getProductImage();
+                set_flag = true;
+            // } else
+            // {
+            //     pattern_img.selectable = true;
+            //     set_flag = true;
+            // }
+            
             // canvas1.on('mouse:down', function(e) { 
             //     // e.target should be the circle
             //     if((e.target == null) && (pattern_img) && (set_flag)) {
@@ -1436,22 +1458,30 @@ function getCropData() {
 }
 var image_crop = new Image();
 image_crop.onload = function() {
-    if(total_data[$("#product_list option:selected").text()].dtg ==1 ){
-        clip_left_x = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
-        clip_left_y = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
-        clip_right_x = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
-        clip_right_y = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
-        data1 = {};
-        data1.width = image_crop.naturalWidth;
-        data1.height = image_crop.naturalHeight;
-    }
+    // if(total_data[$("#product_list option:selected").text()].dtg ==1 ){
+    //     clip_left_x = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
+    //     clip_left_y = Math.min(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
+    //     clip_right_x = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x),parseFloat(total_data[$("#product_list option:selected").text()].top_right_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x));
+    //     clip_right_y = Math.max(parseFloat(total_data[$("#product_list option:selected").text()].top_left_y),parseFloat(total_data[$("#product_list option:selected").text()].top_right_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y),parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y));
+    //     data1 = {};
+    //     data1.width = image_crop.naturalWidth;
+    //     data1.height = image_crop.naturalHeight;
+    // }
     canvas_pattern.width = (clip_right_x - clip_left_x)*data1.width/400;
-    if(total_data[$("#product_list option:selected").text()].cheight =="") 
+    console.log(total_data[$("#product_list option:selected").text()].cheight =="" || total_data[$("#product_list option:selected").text()].cheight ==0);
+    if(total_data[$("#product_list option:selected").text()].cheight =="" || total_data[$("#product_list option:selected").text()].cheight ==0) {
+        total_data[$("#product_list option:selected").text()].cheight = 400 
         canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/400;
+    }
     else
         canvas_pattern.height = (clip_right_y - clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight);
     var ctx_canvas = canvas_pattern.getContext("2d");
     var p = new Perspective(ctx_canvas, image_crop);
+    console.log([
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
+            [(parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].bottom_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)]]);
     p.draw([
             [(parseFloat(total_data[$("#product_list option:selected").text()].top_left_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_left_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
             [(parseFloat(total_data[$("#product_list option:selected").text()].top_right_x)-clip_left_x)*data1.width/400, (parseFloat(total_data[$("#product_list option:selected").text()].top_right_y)-clip_left_y)*data1.height/parseFloat(total_data[$("#product_list option:selected").text()].cheight)],
@@ -1460,7 +1490,6 @@ image_crop.onload = function() {
     ]);
     
     $("#crop_label").prop('value',"Crop (Click Once)");
-    // document.body.append(canvas_pattern);
     init_crop_canvas(canvas_pattern);
     $("#crop_spinner").hide();
     $("#modal_crop").modal("hide");

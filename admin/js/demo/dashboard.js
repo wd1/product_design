@@ -311,10 +311,11 @@ function upload() {
       return;
   } else {
      // 
-     if($("#apparel_check").is(":checked"))
+    //  if($("#apparel_check").is(":checked"))
+    //  {
+    //      $("#uploadconfirm_btn").click();
+    //  } else 
      {
-         $("#uploadconfirm_btn").click();
-     } else {
         needwarp();
      }
   }
@@ -414,6 +415,9 @@ function needwarp() {
     art_width.type = "text";
     art_width.name = temp.name;
     art_width.value = (temp.value=='' ? '0' : temp.value);
+    // if($("#apparel_check").is(":checked")){
+    //     art_width.value = "3000";
+    // }
     form.appendChild(art_width);
     // console.log(art_width);
     // form.appendChild(document.getElementById("art-width"));
@@ -423,6 +427,9 @@ function needwarp() {
     art_height.type = "text";
     art_height.name = temp.name;
     art_height.value = (temp.value=='' ? '0' : temp.value);
+    // if($("#apparel_check").is(":checked")){
+    //     art_height.value = "3000";
+    // }
     form.appendChild(art_height);
 
     temp = document.getElementById("art-dpi");
@@ -712,8 +719,9 @@ $(function() {
     // Create the preview image
     $("#apparel_check").change( function() {
         if($("#apparel_check").is(':checked')){
-            $("#width_height").hide();
+            // $("#width_height").hide();
             $("#blend_mode").val("Normal");
+            $("#opacity").val("85");
         } else {
             $("#width_height").show();
             $("#blend_mode").val("Multiply");

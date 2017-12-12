@@ -85,6 +85,14 @@
 </script>
 <html ng-app="app" class="ng-scope" lang="en">
 <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75789736-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-75789736-3');
+        </script>
 <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
         
         <link rel="shortcut icon" href="img/nymbl-favicon.png">
@@ -103,6 +111,7 @@
             ga('create', 'UA-9510961-27', 'auto');
             ga('send', 'pageview');
         </script>-->
+        
     </head>
 <script> 
     var isFirefox = typeof InstallTrigger !== 'undefined';
